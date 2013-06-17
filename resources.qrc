@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/qml">
+        <file>qml/MainPage.qml</file>
+        <file>qml/main.qml</file>
+        <file>qml/DownloadPage.qml</file>
+        <file>qml/SongDelegate.qml</file>
+    </qresource>
+    <qresource prefix="/images">
+        <file>resources/images/search.png</file>
+        <file>resources/images/remove.png</file>
+        <file>resources/images/listen.png</file>
+        <file>resources/images/iktwo.png</file>
+        <file>resources/images/download.png</file>
+    </qresource>
+</RCC>
