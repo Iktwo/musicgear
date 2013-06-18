@@ -1,11 +1,8 @@
 import QtQuick 2.0
 import QtMultimedia 5.0
 import com.iktwo.components 1.0
-//import DownloaderComponent 1.0
 
 Rectangle {
-//    property Downloader downloader
-
     function formatMilliseconds(ms) {
         var hours = Math.floor((((ms / 1000) / 60) / 60) % 60).toString()
         var minutes = Math.floor(((ms / 1000) / 60) % 60).toString()
@@ -37,6 +34,17 @@ Rectangle {
         id: audio
 
         onSeekableChanged: console.log("Seekable", seekable) 
+    }
+
+    ListModel {
+        id: playlist
+
+        onRowsInserted: {
+            if (count > 0 && audio.playbackState == Audio.StoppedState) {
+                audio.source = playlist.get(0).url
+                audio.play()
+            }
+        }
     }
 
     TitleBar {
@@ -90,10 +98,11 @@ Rectangle {
         }
 
         model: songsModel
-//        model: downloader.songs
         clip: true
 
-        delegate: SongDelegate { }
+        delegate: SongDelegate {
+            onAddToPlaylist: playlist.append({"name" : model.name, "group" : model.group, "length" : model.length, "comment" : model.comment, "code" : model.code, "url": model.url})
+        }
     }
 
     Rectangle {
@@ -144,5 +153,12 @@ Rectangle {
                 }
             }
         }
+    }
+
+    Label {
+        anchors.centerIn: parent
+
+        text: "Searching.."
+        opacity: songsModel.searching ? 1 : 0
     }
 }

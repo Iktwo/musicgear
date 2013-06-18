@@ -2,6 +2,10 @@ import QtQuick 2.0
 import com.iktwo.components 1.0
 
 Item {
+    id: root
+
+    signal addToPlaylist()
+
     height: Math.max(column.height, row.height) + 20
     width: parent.width
 
@@ -50,15 +54,17 @@ Item {
             height: 80
             width: 80
 
-            color: "green"
+            color: m1.pressed ? Qt.darker("green") : "green"
             visible: model.url === "" ? false : true
 
             MouseArea {
+                id: m1
                 anchors.fill: parent
 
                 onClicked: {
-                    audio.source = model.url
-                    audio.play()
+                    root.addToPlaylist()
+//                    audio.source = model.url
+//                    audio.play()
                 }
             }
         }
@@ -67,10 +73,11 @@ Item {
             height: 80
             width: 80
 
-            color: "red"
+            color: m2.pressed ? Qt.darker("red") : "red"
             visible: model.url === "" ? false : true
 
             MouseArea {
+                id: m2
                 anchors.fill: parent
 
                 onClicked: {

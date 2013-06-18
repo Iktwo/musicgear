@@ -1,5 +1,4 @@
 import QtQuick 2.0
-//import DownloaderComponent 1.0
 
 Item {
     id: root
@@ -9,13 +8,5 @@ Item {
 
     MainPage {
         id: mainPage
-
-//        downloader: downloader
     }
-
-//    Downloader {
-//        id: downloader
-
-//        Component.onCompleted: search("calle 13")
-//    }
 }

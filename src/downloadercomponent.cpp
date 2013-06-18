@@ -6,7 +6,7 @@
 #include <QDebug>
 
 DownloaderComponent::DownloaderComponent(QObject *parent) :
-    QAbstractListModel(parent)
+    QAbstractListModel(parent), m_searching(false)
 {
     m_downloader = new Downloader();
 
@@ -14,6 +14,8 @@ DownloaderComponent::DownloaderComponent(QObject *parent) :
             SLOT(songFound(QString, QString, QString, QString, QString)));
 
     connect(m_downloader, SIGNAL(decodedUrl(QString,QString)), this, SLOT(decodedUrl(QString,QString)));
+
+    connect(m_downloader, SIGNAL(searchEnded()), this, SLOT(searchEnded()));
 }
 
 DownloaderComponent::~DownloaderComponent()
@@ -23,17 +25,17 @@ DownloaderComponent::~DownloaderComponent()
 
 void DownloaderComponent::download(const QString &url)
 {
-//    m_songs.clear();
-
+    // m_songs.clear();
     emit songsChanged();
     m_downloader->downloadSong(url);
 }
 
 void DownloaderComponent::search(const QString &term)
 {
-    foreach (QObject *item, m_songs) {
+    setSearching(true);
+
+    foreach (QObject *item, m_songs)
         delete item;
-    }
 
     beginRemoveRows(QModelIndex(), 0, rowCount());
     m_songs.clear();
@@ -48,7 +50,7 @@ void DownloaderComponent::songFound(const QString &title, const QString &group, 
                                     const QString &comment, const QString &code)
 {
     // m_downloader->download(QString(Downloader::ImageUrl + hash + extension));
-//    m_songs.append(QString(title));
+    // m_songs.append(QString(title));
     /// TODO: store in a map to be able to match it? maybe not..
     beginInsertRows(QModelIndex(), rowCount(), rowCount());
     m_songs.append(new Song(title, group, length, comment, code));
@@ -76,7 +78,8 @@ void DownloaderComponent::decodedUrl(const QString &code, const QString &url)
     }
 }
 
-QVariant DownloaderComponent::data(const QModelIndex & index, int role) const {
+QVariant DownloaderComponent::data(const QModelIndex & index, int role) const
+{
     if (index.row() < 0 || index.row() >= m_songs.count())
         return QVariant();
 
@@ -96,11 +99,14 @@ QVariant DownloaderComponent::data(const QModelIndex & index, int role) const {
     return QVariant();
 }
 
-int DownloaderComponent::rowCount(const QModelIndex & parent) const {
+int DownloaderComponent::rowCount(const QModelIndex & parent) const
+{
+    Q_UNUSED(parent);
     return m_songs.count();
 }
 
-QHash<int, QByteArray> DownloaderComponent::roleNames() const {
+QHash<int, QByteArray> DownloaderComponent::roleNames() const
+{
     QHash<int, QByteArray> roles;
     roles[NameRole] = "name";
     roles[GroupRole] = "group";
@@ -109,4 +115,23 @@ QHash<int, QByteArray> DownloaderComponent::roleNames() const {
     roles[CodeRole] = "code";
     roles[UrlRole] = "url";
     return roles;
+}
+
+void DownloaderComponent::searchEnded()
+{
+    setSearching(false);
+}
+
+bool DownloaderComponent::searching()
+{
+    return m_searching;
+}
+
+void DownloaderComponent::setSearching(bool searching)
+{
+    if (m_searching == searching)
+        return;
+
+    m_searching = searching;
+    emit searchingChanged();
 }

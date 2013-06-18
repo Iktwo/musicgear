@@ -10,6 +10,7 @@ class DownloaderComponent : public QAbstractListModel
 {
     Q_OBJECT
     Q_PROPERTY(QObjectList songs READ songs NOTIFY songsChanged)
+    Q_PROPERTY(bool searching READ searching NOTIFY searchingChanged)
 public:
     enum DownloaderRoles {
         NameRole = Qt::UserRole + 1,
@@ -31,9 +32,13 @@ public:
     int rowCount(const QModelIndex & parent = QModelIndex()) const;
 
     QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const;
+
+    bool searching();
+    void setSearching(bool searching);
     
 signals:
     void songsChanged();
+    void searchingChanged();
 
 protected:
     QHash<int, QByteArray> roleNames() const;
@@ -41,12 +46,14 @@ protected:
 private:
     Downloader *m_downloader;
     QObjectList m_songs;
+    bool m_searching;
 
 private slots:
     void songFound(const QString &title, const QString &group, const QString &length,
                    const QString &comment, const QString &code);
 
     void decodedUrl(const QString &code, const QString &url);
+    void searchEnded();
     
 };
 
