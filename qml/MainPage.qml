@@ -51,7 +51,6 @@ Rectangle {
         id: titleBar
 
         title: "MusicGear"
-        author: "By Iktwo"
 
         MouseArea {
             anchors.fill: parent
@@ -79,13 +78,12 @@ Rectangle {
             color: "black"
         }
 
-        Button {
-            anchors.right: textEdit.left
+        TitleBarImageButton {
+            anchors.right: parent.right
 
-            height: 80
-            width: 80
-
+            source: Styler.darkTheme ? "qrc:/images/search_dark" : "qrc:/images/search_light"
             onClicked: songsModel.search(textEdit.text)
+            // TODO: open page/dialog to search
         }
     }
 
