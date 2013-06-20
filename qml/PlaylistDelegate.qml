@@ -4,8 +4,8 @@ import com.iktwo.components 1.0
 Item {
     id: root
 
-    signal addToPlaylist()
-    signal download()
+    signal play()
+    signal remove()
 
     height: Math.max(column.height, row.height) + 20
     width: parent.width
@@ -62,7 +62,7 @@ Item {
                 id: m1
                 anchors.fill: parent
 
-                onClicked: root.addToPlaylist()
+                onClicked: root.play()
             }
         }
 
@@ -77,7 +77,7 @@ Item {
                 id: m2
                 anchors.fill: parent
 
-                onClicked: root.download()
+                onClicked: root.remove()
             }
         }
     }

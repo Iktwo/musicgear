@@ -11,6 +11,8 @@ class DownloaderComponent : public QAbstractListModel
     Q_OBJECT
     Q_PROPERTY(QObjectList songs READ songs NOTIFY songsChanged)
     Q_PROPERTY(bool searching READ searching NOTIFY searchingChanged)
+    Q_PROPERTY(bool serverError READ serverError NOTIFY serverErrorChanged)
+
 public:
     enum DownloaderRoles {
         NameRole = Qt::UserRole + 1,
@@ -24,7 +26,7 @@ public:
     explicit DownloaderComponent(QObject *parent = 0);
     ~DownloaderComponent();
 
-    Q_INVOKABLE void download(const QString &url);
+    Q_INVOKABLE void downloadSong(const QString &name, const QString &url);
     Q_INVOKABLE void search(const QString &term);
 
     QObjectList songs();
@@ -35,10 +37,14 @@ public:
 
     bool searching();
     void setSearching(bool searching);
+
+    bool serverError();
+    void setServerError(bool serverError);
     
 signals:
     void songsChanged();
     void searchingChanged();
+    void serverErrorChanged();
 
 protected:
     QHash<int, QByteArray> roleNames() const;
@@ -47,6 +53,7 @@ private:
     Downloader *m_downloader;
     QObjectList m_songs;
     bool m_searching;
+    bool m_serverError;
 
 private slots:
     void songFound(const QString &title, const QString &group, const QString &length,
@@ -54,6 +61,7 @@ private slots:
 
     void decodedUrl(const QString &code, const QString &url);
     void searchEnded();
+    void serverErrorOcurred();
     
 };
 

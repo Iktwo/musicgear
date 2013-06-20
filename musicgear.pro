@@ -15,7 +15,9 @@ OTHER_FILES += \
     qml/main.qml \
     qml/MainPage.qml \
     qml/SongDelegate.qml \
-    bar-descriptor.xml
+    bar-descriptor.xml \
+    qml/SearchDialog.qml \
+    qml/PlaylistDelegate.qml
 
 RESOURCES += \
     resources.qrc

@@ -4,6 +4,8 @@
         <file>qml/main.qml</file>
         <file>qml/DownloadPage.qml</file>
         <file>qml/SongDelegate.qml</file>
+        <file>qml/SearchDialog.qml</file>
+        <file>qml/PlaylistDelegate.qml</file>
     </qresource>
     <qresource prefix="/images">
         <file>resources/images/remove.png</file>
@@ -12,5 +14,7 @@
         <file>resources/images/download.png</file>
         <file alias="search_dark">resources/images/search_dark.png</file>
         <file alias="search_light">resources/images/search_light.png</file>
+        <file alias="back_dark">resources/images/back_dark.png</file>
+        <file alias="back_light">resources/images/back_light.png</file>
     </qresource>
 </RCC>

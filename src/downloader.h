@@ -17,7 +17,7 @@ public:
     static QString ImageUrl;
 
 public slots:
-    void downloadSong(const QString &name);
+    void downloadSong(const QString &name, const QString &url);
     void download(const QString &urlString);
     void search(const QString &term);
     void downloadFinished(QNetworkReply *reply);
@@ -28,11 +28,14 @@ signals:
 
     void decodedUrl(const QString &code, const QString &url);
     void searchEnded();
+    void songDownloaded(const QString &url);
+    void serverError();
 
 private:
     QNetworkAccessManager *m_netAccess;
     QMap<QString, QString> m_subdirs;
     QMap<QString, bool> m_getNsfw;
+    QVariantMap m_songsToDownload;
 
 private slots:
     QString decodeHtml(const QString &html);

@@ -6,7 +6,9 @@
 #include <QDebug>
 
 DownloaderComponent::DownloaderComponent(QObject *parent) :
-    QAbstractListModel(parent), m_searching(false)
+    QAbstractListModel(parent),
+    m_searching(false),
+    m_serverError(false)
 {
     m_downloader = new Downloader();
 
@@ -16,6 +18,7 @@ DownloaderComponent::DownloaderComponent(QObject *parent) :
     connect(m_downloader, SIGNAL(decodedUrl(QString,QString)), this, SLOT(decodedUrl(QString,QString)));
 
     connect(m_downloader, SIGNAL(searchEnded()), this, SLOT(searchEnded()));
+    connect(m_downloader, SIGNAL(serverError()), this, SLOT(serverErrorOcurred()));
 }
 
 DownloaderComponent::~DownloaderComponent()
@@ -23,15 +26,15 @@ DownloaderComponent::~DownloaderComponent()
     delete m_downloader;
 }
 
-void DownloaderComponent::download(const QString &url)
+void DownloaderComponent::downloadSong(const QString &name, const QString &url)
 {
-    // m_songs.clear();
-    emit songsChanged();
-    m_downloader->downloadSong(url);
+    setServerError(false);
+    m_downloader->downloadSong(name, url);
 }
 
 void DownloaderComponent::search(const QString &term)
 {
+    setServerError(false);
     setSearching(true);
 
     foreach (QObject *item, m_songs)
@@ -134,4 +137,23 @@ void DownloaderComponent::setSearching(bool searching)
 
     m_searching = searching;
     emit searchingChanged();
+}
+
+bool DownloaderComponent::serverError()
+{
+    return m_serverError;
+}
+
+void DownloaderComponent::serverErrorOcurred()
+{
+    setServerError(true);
+}
+
+void DownloaderComponent::setServerError(bool serverError)
+{
+    if (m_serverError == serverError)
+        return;
+
+    m_serverError = serverError;
+    emit serverErrorChanged();
 }

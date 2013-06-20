@@ -8,7 +8,6 @@
 
 #define SEARCH_URL "http://www.goear.com/search/"
 #define DOWNLOAD_URL "http://www.goear.com/tracker758.php?f="
-#define IMGUR_URL "http://imgur.com/r/"
 
 QString Downloader::ImageUrl("http://i.imgur.com/");
 
@@ -26,22 +25,10 @@ Downloader::~Downloader()
     delete m_netAccess;
 }
 
-void Downloader::downloadSong(const QString &name)
+void Downloader::downloadSong(const QString &name, const QString &url)
 {
-    qDebug() << "Name " << name;
-    // if pages == -1 download until there are two equal hashes
-    // else iterate trough *pages*
-    /*if (pages == 0)
-        return;
-
-    if (pages != -1)
-        for (int i = 0; i < pages; ++i) {
-            QString url(IMGUR_URL + name + "/page/" + QString::number(i) + ".xml");
-            m_getNsfw.insert(url, getNsfw);
-            download(QString(IMGUR_URL + name + "/page/" + QString::number(i) + ".xml"));
-        }
-    else
-        qDebug() << "TODO: get 'em all"; /// TODO: download until two sequential hashes are equal*/
+    m_songsToDownload.insert(url, name);
+    download(url);
 }
 
 void Downloader::download(const QString &urlString)
@@ -53,6 +40,7 @@ void Downloader::download(const QString &urlString)
 
 void Downloader::search(const QString &term)
 {
+    qDebug() << Q_FUNC_INFO << " " + term;
     download(SEARCH_URL + term);
 }
 
@@ -65,11 +53,14 @@ void Downloader::downloadFinished(QNetworkReply *reply)
         qDebug() << Q_FUNC_INFO << " error downloading "
                  << reply->url().toString() << ":" << reply->errorString();
 
+        if (reply->errorString().contains("Server Error"))
+            emit serverError();
+
         reply->deleteLater();
         return;
     }
 
-    // qDebug() << reply->url().toString() << " has been dowloaded";
+    qDebug() << reply->url().toString() << " has been dowloaded";
 
     QVariant redir = reply->attribute(QNetworkRequest::RedirectionTargetAttribute);
 
@@ -125,7 +116,7 @@ void Downloader::downloadFinished(QNetworkReply *reply)
             termEnds = songs.indexOf(closingTerm, termBegins);
 
             QString length = songs.mid(termBegins + searchTerm.length(), termEnds - termBegins
-                                      - searchTerm.length());
+                                       - searchTerm.length());
 
             searchTerm = "<p class=\"comment\">";
             closingTerm = "</p>";
@@ -133,7 +124,7 @@ void Downloader::downloadFinished(QNetworkReply *reply)
             termEnds = songs.indexOf(closingTerm, termBegins);
 
             QString comment = songs.mid(termBegins + searchTerm.length(), termEnds - termBegins
-                                      - searchTerm.length()).simplified();
+                                        - searchTerm.length()).simplified();
 
             emit songFound(title, group, length, comment, code);
             download(DOWNLOAD_URL + code);
@@ -148,6 +139,12 @@ void Downloader::downloadFinished(QNetworkReply *reply)
         link = link.mid(linkBegins, linkEnds - linkBegins);
 
         emit decodedUrl(reply->url().toString().replace(DOWNLOAD_URL, ""), link);
+    } else if (mimeType == "audio/mpeg") {
+        QString name(m_songsToDownload.value(reply->url().toString()).toString());
+        QFile file( name + reply->url().toString().mid(reply->url().toString().lastIndexOf(".")));
+        file.open(QIODevice::WriteOnly);
+        file.write(reply->readAll());
+        file.close();
     } else
         qDebug() << reply->url().toString()
                  << " type is:" << mimeType;
@@ -186,71 +183,3 @@ QString Downloader::decodeHtml(const QString &html)
 
     return decodedHtml;
 }
-
-///////////////////////////////////////////////////////
-///////////////////////////////////////////////////////
-/*void WMain::searchFinished(QNetworkReply *reply){
-if (reply->error() != QNetworkReply::NoError) {
-    qDebug() << "ERROR While searching";
-    qDebug() << reply->error();
-    reply->deleteLater();
-    return;
-}else{
-    QVariant redir = reply->attribute(QNetworkRequest::RedirectionTargetAttribute);
-    if (redir.isValid()) {
-        QUrl url = redir.toUrl();
-        qDebug() << "Redirecting:" << url;
-        if (url.isRelative()) {
-            url.setScheme(reply->url().scheme());
-            url.setEncodedHost(reply->url().encodedHost());
-        }
-        QNetworkRequest req(url);
-        netAccessManSearch->get(req);
-        reply->deleteLater();
-        return;
-    }
-    //qDebug() << "ContentType:" << reply->header(QNetworkRequest::ContentTypeHeader).toString();
-    downloadedItem = new QByteArray (reply->readAll());
-    if (reply->header(QNetworkRequest::ContentTypeHeader).toString().contains("text/html")){
-        QStringList songNameList;
-        QStringList songUrlList;
-        QString songs= downloadedItem->data();
-        int count=songs.count("listen/");
-        for (int var=0;var<count;var++){
-            int listenBegins=songs.indexOf("listen/");
-            int listenEnds=songs.indexOf("/",listenBegins+7);
-            int tittleEnds=songs.indexOf("\"",listenEnds+1);
-
-            QString song = songs.mid(listenEnds+1,tittleEnds-listenEnds-1);
-            song = song.replace("-"," ");
-            songNameList.append(song);
-            songUrlList.append(songs.mid(listenBegins+7,listenEnds-listenBegins-7));
-            songs=songs.mid(listenEnds)+1;
-        }
-        if (songNameList.count()==songUrlList.count()){
-            QList<QObject*> searchResultList;
-            for (int var = 0; var < songNameList.count(); ++var) {
-                searchResultList.append(new Song(songNameList.at(var),songUrlList.at(var)));
-            }
-            rootContext->setContextProperty("searchResultsModel", QVariant::fromValue(searchResultList));
-        }
-    }else if (reply->header(QNetworkRequest::ContentTypeHeader).toString().contains("text/xml")){
-        QString link=downloadedItem->data();
-
-        int linkBegins=link.indexOf("path=\"")+6;
-        int linkEnds=link.indexOf("\"",linkBegins);
-        link=link.mid(linkBegins,linkEnds-linkBegins);
-
-        //download(link,downloadNetAccessMan);
-
-//            music->clearQueue();
-//                music->enqueue(link);
-//                music->play();
-        link.toInt();
-    }
-
-    delete downloadedItem;
-}
-setSearchBusyIndicator(false);
-}
-*/

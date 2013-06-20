@@ -47,6 +47,10 @@ Rectangle {
         }
     }
 
+    SearchDialog {
+        id: searchDialog
+    }
+
     TitleBar {
         id: titleBar
 
@@ -57,33 +61,12 @@ Rectangle {
             onClicked: Styler.darkTheme = !Styler.darkTheme
         }
 
-        Rectangle {
-            anchors.fill: textEdit
-
-            color: "lightgray"
-        }
-
-        TextInput {
-            id: textEdit
-
-            anchors.horizontalCenter: parent.horizontalCenter
-
-            width: 220
-            height: 80
-            font.pointSize: 22
-
-            clip: true
-            selectByMouse: true
-
-            color: "black"
-        }
-
         TitleBarImageButton {
             anchors.right: parent.right
 
             source: Styler.darkTheme ? "qrc:/images/search_dark" : "qrc:/images/search_light"
-            onClicked: songsModel.search(textEdit.text)
-            // TODO: open page/dialog to search
+
+            onClicked: searchDialog.open()
         }
     }
 
@@ -95,11 +78,13 @@ Rectangle {
             bottom: parent.bottom
         }
 
-        model: songsModel
+        model: playlist
         clip: true
 
-        delegate: SongDelegate {
-            onAddToPlaylist: playlist.append({"name" : model.name, "group" : model.group, "length" : model.length, "comment" : model.comment, "code" : model.code, "url": model.url})
+        delegate: PlaylistDelegate {
+            onPlay: console.log("Play me!")
+
+            onRemove: console.log("Remove me :( !)")
         }
     }
 
@@ -111,7 +96,7 @@ Rectangle {
         }
 
         color: Styler.darkTheme ? Style.MENU_TITLE_BACKGROUND_COLOR_DARK : Style.MENU_TITLE_BACKGROUND_COLOR_LIGHT
-        height: 40
+        height: 80
 
         Rectangle {
             anchors {
@@ -151,12 +136,5 @@ Rectangle {
                 }
             }
         }
-    }
-
-    Label {
-        anchors.centerIn: parent
-
-        text: "Searching.."
-        opacity: songsModel.searching ? 1 : 0
     }
 }
