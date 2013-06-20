@@ -18,6 +18,7 @@
     <arg>-platform</arg>
     <arg>qnx</arg>
     <action system="true">run_native</action>
+    <action>access_shared</action>
     <!-- musicgear should point to the project binary, path can be relative -->
     <asset path="musicgear" type="Qnx/Elf" entry="true">musicgear</asset>
     <asset path="%QT_INSTALL_PLUGINS%">plugins</asset>

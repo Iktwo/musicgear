@@ -45,6 +45,8 @@ Item {
             }
 
             TitleBarTextInput {
+                id: textEdit
+
                 anchors {
                     horizontalCenter: parent.horizontalCenter
                     verticalCenter: parent.verticalCenter

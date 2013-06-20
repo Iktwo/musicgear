@@ -140,9 +140,22 @@ void Downloader::downloadFinished(QNetworkReply *reply)
 
         emit decodedUrl(reply->url().toString().replace(DOWNLOAD_URL, ""), link);
     } else if (mimeType == "audio/mpeg") {
+        qDebug() << "Writing file";
         QString name(m_songsToDownload.value(reply->url().toString()).toString());
-        QFile file( name + reply->url().toString().mid(reply->url().toString().lastIndexOf(".")));
-        file.open(QIODevice::WriteOnly);
+
+#ifdef Q_OS_BLACKBERRY
+        name = "shared/music/" + name;
+#endif
+        bool permission;
+        QFile file(name + reply->url().toString().mid(reply->url().toString().lastIndexOf(".")));
+        permission = file.open(QIODevice::WriteOnly);
+
+        /// TODO: do this
+        if (!permission)
+            qDebug() << "TODO: show a dialog to let user know that file can't be writteng to FS";
+
+        qDebug() << "permission for file " << file.fileName() << " " << permission;
+
         file.write(reply->readAll());
         file.close();
     } else
