@@ -8,17 +8,19 @@
 DownloaderComponent::DownloaderComponent(QObject *parent) :
     QAbstractListModel(parent),
     m_searching(false),
-    m_serverError(false)
+    m_serverError(false),
+    fetched(0)
 {
     m_downloader = new Downloader();
 
     connect(m_downloader, SIGNAL(songFound(QString, QString, QString, QString, QString)), this,
             SLOT(songFound(QString, QString, QString, QString, QString)));
 
-    connect(m_downloader, SIGNAL(decodedUrl(QString,QString)), this, SLOT(decodedUrl(QString,QString)));
-
     connect(m_downloader, SIGNAL(searchEnded()), this, SLOT(searchEnded()));
     connect(m_downloader, SIGNAL(serverError()), this, SLOT(serverErrorOcurred()));
+    connect(m_downloader, SIGNAL(decodedUrl(QString,QString)), this, SLOT(decodedUrl(QString,QString)));
+    connect(m_downloader, SIGNAL(searchHasMoreResults(QString)), this,
+            SLOT(lastSearchHasMoreResults(QString)));
 }
 
 DownloaderComponent::~DownloaderComponent()
@@ -156,4 +158,19 @@ void DownloaderComponent::setServerError(bool serverError)
 
     m_serverError = serverError;
     emit serverErrorChanged();
+}
+
+void DownloaderComponent::lastSearchHasMoreResults(const QString &url)
+{
+    m_lastSearchHasMoreResults = url;
+}
+
+void DownloaderComponent::fetchMore()
+{
+    //    if (fetched < 3)
+    if (!m_lastSearchHasMoreResults.isEmpty() && !m_searching) {
+        m_downloader->download(m_lastSearchHasMoreResults);
+        setSearching(true);
+    }
+    //    fetched++;
 }

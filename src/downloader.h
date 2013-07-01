@@ -30,6 +30,7 @@ signals:
     void searchEnded();
     void songDownloaded(const QString &url);
     void serverError();
+    void searchHasMoreResults(const QString &url);
 
 private:
     QNetworkAccessManager *m_netAccess;

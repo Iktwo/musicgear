@@ -6,15 +6,41 @@
         <file>qml/SongDelegate.qml</file>
         <file>qml/SearchDialog.qml</file>
         <file>qml/PlaylistDelegate.qml</file>
+        <file>qml/Button.qml</file>
+        <file>qml/Dialog.qml</file>
+        <file>qml/Divider.qml</file>
+        <file>qml/ImageButton.qml</file>
+        <file>qml/Label.qml</file>
+        <file>qml/Menu.qml</file>
+        <file>qml/MenuTextItem.qml</file>
+        <file>qml/style.js</file>
+        <file>qml/TitleBar.qml</file>
+        <file>qml/TitleBarImageButton.qml</file>
+        <file>qml/TitleBarTextInput.qml</file>
     </qresource>
     <qresource prefix="/images">
-        <file>resources/images/remove.png</file>
-        <file>resources/images/listen.png</file>
-        <file>resources/images/iktwo.png</file>
-        <file>resources/images/download.png</file>
+        <file alias="logo">resources/images/iktwo.png</file>
         <file alias="search_dark">resources/images/search_dark.png</file>
         <file alias="search_light">resources/images/search_light.png</file>
         <file alias="back_dark">resources/images/back_dark.png</file>
         <file alias="back_light">resources/images/back_light.png</file>
+        <file alias="play_dark">resources/images/play_dark.png</file>
+        <file alias="play_light">resources/images/play_light.png</file>
+        <file alias="play_dark_pressed">resources/images/play_dark_pressed.png</file>
+        <file alias="play_light_pressed">resources/images/play_light_pressed.png</file>
+        <file alias="clear_dark">resources/images/clear_dark.png</file>
+        <file alias="clear_light">resources/images/clear_light.png</file>
+        <file alias="download_dark">resources/images/download_dark.png</file>
+        <file alias="download_dark_pressed">resources/images/download_dark_pressed.png</file>
+        <file alias="download_light">resources/images/download_light.png</file>
+        <file alias="download_light_pressed">resources/images/download_light_pressed.png</file>
+        <file alias="remove_dark">resources/images/remove_dark.png</file>
+        <file alias="remove_dark_pressed">resources/images/remove_dark_pressed.png</file>
+        <file alias="remove_light">resources/images/remove_light.png</file>
+        <file alias="remove_pressed">resources/images/remove_light_pressed.png</file>
+        <file alias="add_playlist_dark">resources/images/add_playlist_dark.png</file>
+        <file alias="add_playlist_dark_pressed">resources/images/add_playlist_dark_pressed.png</file>
+        <file alias="add_playlist_light">resources/images/add_playlist_light.png</file>
+        <file alias="add_playlist_light_pressed">resources/images/add_playlist_light_pressed.png</file>
     </qresource>
 </RCC>

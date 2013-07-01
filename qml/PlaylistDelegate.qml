@@ -1,5 +1,6 @@
 import QtQuick 2.0
-import com.iktwo.components 1.0
+import "style.js" as Style
+import Styler 1.0
 
 Item {
     id: root
@@ -7,7 +8,7 @@ Item {
     signal play()
     signal remove()
 
-    height: Math.max(column.height, row.height) + 20
+    height: column.height + divider.height + 20
     width: parent.width
 
     Column {
@@ -20,14 +21,23 @@ Item {
         }
 
         Label {
-            font.pointSize: 18
+            font {
+                pointSize: 12
+                weight: Font.Light
+            }
+
             text: model.name + " - <i>" + model.group + "</i>"
         }
 
         Label {
-            font.pointSize: 16
-            text: model.length + " - <i>" + model.comment + "</i>"
             color: Styler.darkTheme ? Style.SECONDARY_TEXT_COLOR_DARK : Style.SECONDARY_TEXT_COLOR_LIGHT
+
+            font {
+                pointSize: 12
+                weight: Font.Light
+            }
+
+            text: model.length + " - <i>" + model.comment + "</i>"
         }
 
         Item { // Spacer
@@ -37,48 +47,43 @@ Item {
     }
 
     Divider {
-        anchors {
-            top: column.bottom
-        }
+        id: divider
+
+        anchors.top: column.bottom
     }
 
     Row {
         id: row
 
-        anchors.verticalCenter: parent.verticalCenter
-        anchors.right: parent.right; anchors.rightMargin: 15
-
-        height: 80
-        spacing: 15
-
-        Rectangle {
-            height: 80
-            width: 80
-
-            color: m1.pressed ? Qt.darker("green") : "green"
-            visible: model.url === "" ? false : true
-
-            MouseArea {
-                id: m1
-                anchors.fill: parent
-
-                onClicked: root.play()
-            }
+        anchors {
+            right: parent.right; rightMargin: 15
         }
 
-        Rectangle {
-            height: 80
-            width: 80
+        height: column.height
+        spacing: 15
 
-            color: m2.pressed ? Qt.darker("red") : "red"
+        ImageButton {
+            height: parent.height
+            width: 92
+
+            background: Styler.darkTheme ? "qrc:/images/play_dark" : "qrc:/images/play_light"
+            backgroundPressed: Styler.darkTheme ? "qrc:/images/play_dark_pressed" : "qrc:/images/play_light_pressed"
+
             visible: model.url === "" ? false : true
 
-            MouseArea {
-                id: m2
-                anchors.fill: parent
+            onClicked: root.play()
+        }
 
-                onClicked: root.remove()
-            }
+        ImageButton {
+            height: parent.height
+            width: 92
+
+            background: Styler.darkTheme ? "qrc:/images/remove_dark" : "qrc:/images/remove_light"
+            backgroundPressed: Styler.darkTheme ? "qrc:/images/remove_dark_pressed" : "qrc:/images/remove_light_pressed"
+
+            visible: model.url === "" ? false : true
+
+            onClicked: root.remove()
         }
     }
 }

@@ -28,6 +28,7 @@ public:
 
     Q_INVOKABLE void downloadSong(const QString &name, const QString &url);
     Q_INVOKABLE void search(const QString &term);
+    Q_INVOKABLE void fetchMore();
 
     QObjectList songs();
 
@@ -40,7 +41,8 @@ public:
 
     bool serverError();
     void setServerError(bool serverError);
-    
+
+
 signals:
     void songsChanged();
     void searchingChanged();
@@ -54,6 +56,8 @@ private:
     QObjectList m_songs;
     bool m_searching;
     bool m_serverError;
+    QString m_lastSearchHasMoreResults;
+    int fetched;
 
 private slots:
     void songFound(const QString &title, const QString &group, const QString &length,
@@ -62,6 +66,7 @@ private slots:
     void decodedUrl(const QString &code, const QString &url);
     void searchEnded();
     void serverErrorOcurred();
+    void lastSearchHasMoreResults(const QString &url);
     
 };
 

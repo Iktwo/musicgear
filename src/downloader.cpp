@@ -6,6 +6,7 @@
 #include <QDir>
 #include <QFile>
 
+#define TARGET_URL "http://www.goear.com/"
 #define SEARCH_URL "http://www.goear.com/search/"
 #define DOWNLOAD_URL "http://www.goear.com/tracker758.php?f="
 
@@ -86,17 +87,32 @@ void Downloader::downloadFinished(QNetworkReply *reply)
 
         int count = songs.count("listen/");
 
+        QString hasMore = "";
+        QString searchTerm = "<a class=\"next\" href=\"";
+        QString closingTerm = "\">";
+
+        int termBegins = songs.indexOf(searchTerm);
+        int termEnds = songs.indexOf(closingTerm, termBegins);
+
+        if (termBegins != -1) {
+            hasMore = songs.mid(termBegins + searchTerm.length(), termEnds - termBegins
+                                - searchTerm.length());
+        }
+
+        if (!hasMore.isEmpty())
+            emit searchHasMoreResults(TARGET_URL + hasMore);
+
         for (int i = 0; i < count; ++i) {
             songs = decodeHtml(songs);
 
-            QString searchTerm = "<span class=\"songtitleinfo\">";
-            QString closingTerm = "</span>";
+            searchTerm = "<span class=\"songtitleinfo\">";
+            closingTerm = "</span>";
 
             int listenBegins = songs.indexOf("listen/");
             int listenEnds = songs.indexOf("/", listenBegins + 7);
 
-            int termBegins = songs.indexOf(searchTerm, listenBegins);
-            int termEnds = songs.indexOf(closingTerm, termBegins);
+            termBegins = songs.indexOf(searchTerm, listenBegins);
+            termEnds = songs.indexOf(closingTerm, termBegins);
 
             QString code = songs.mid(listenBegins + 7, listenEnds - listenBegins - 7);
 
@@ -146,6 +162,15 @@ void Downloader::downloadFinished(QNetworkReply *reply)
 #ifdef Q_OS_BLACKBERRY
         name = "shared/music/" + name;
 #endif
+
+#ifdef Q_OS_ANDROID
+        QDir musicDir("/sdcard/Music");
+        if (!musicDir.exists())
+            musicDir.mkdir("/sdcard/Music");
+
+        name = "/sdcard/Music/" + name;
+#endif
+
         bool permission;
         QFile file(name + reply->url().toString().mid(reply->url().toString().lastIndexOf(".")));
         permission = file.open(QIODevice::WriteOnly);

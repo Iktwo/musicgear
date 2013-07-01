@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import QtMultimedia 5.0
-import com.iktwo.components 1.0
+import "style.js" as Style
+import Styler 1.0
 
 Rectangle {
     function formatMilliseconds(ms) {
@@ -33,14 +34,32 @@ Rectangle {
     Audio {
         id: audio
 
-        onSeekableChanged: console.log("Seekable", seekable) 
+        property int index: 0
+
+        onSeekableChanged: console.log("Seekable", seekable)
+
+        onPlaybackStateChanged: {
+            if (playbackState === Audio.StoppedState)
+                if (duration != 0)
+                    if ((position > duration) || (position == duration) || (1 - (position / duration) <= 0.03 ))
+                    {
+                        if (index + 1 < playlist.count)
+                            index = index + 1
+                        else
+                            index = 0
+
+                        source = playlist.get(index).url
+                        audio.play()
+                    }
+        }
     }
 
     ListModel {
         id: playlist
 
         onRowsInserted: {
-            if (count > 0 && audio.playbackState == Audio.StoppedState) {
+            // First song, play it!
+            if (count === 1 && audio.playbackState == Audio.StoppedState) {
                 audio.source = playlist.get(0).url
                 audio.play()
             }
@@ -75,20 +94,31 @@ Rectangle {
             top: titleBar.bottom
             left: parent.left
             right: parent.right
-            bottom: parent.bottom
+            bottom: toolBar.top
         }
 
         model: playlist
         clip: true
 
         delegate: PlaylistDelegate {
-            onPlay: console.log("Play me!")
+            onPlay: {
+                audio.source = model.url
+                audio.index = index
+                audio.play()
+            }
 
-            onRemove: console.log("Remove me :( !)")
+            onRemove: {
+                playlist.remove(index)
+
+                if (audio.index === index)
+                    audio.stop()
+            }
         }
     }
 
     Rectangle {
+        id: toolBar
+
         anchors {
             bottom: parent.bottom
             left: parent.left
@@ -137,4 +167,6 @@ Rectangle {
             }
         }
     }
+
+    Component.onCompleted: searchDialog.open()
 }

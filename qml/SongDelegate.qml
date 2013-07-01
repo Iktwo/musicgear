@@ -1,5 +1,6 @@
 import QtQuick 2.0
-import com.iktwo.components 1.0
+import Styler 1.0
+import "style.js" as Style
 
 Item {
     id: root
@@ -7,78 +8,95 @@ Item {
     signal addToPlaylist()
     signal download()
 
-    height: Math.max(column.height, row.height) + 20
+    height: column.height
     width: parent.width
 
     Column {
         id: column
 
         anchors {
-            verticalCenter: parent.verticalCenter
             left: parent.left; leftMargin: 10
             right: row.left; rightMargin: 10
         }
 
-        Label {
-            font.pointSize: 18
-            text: model.name + " - <i>" + model.group + "</i>"
-        }
-
-        Label {
-            font.pointSize: 16
-            text: model.length + " - <i>" + model.comment + "</i>"
-            color: Styler.darkTheme ? Style.SECONDARY_TEXT_COLOR_DARK : Style.SECONDARY_TEXT_COLOR_LIGHT
-        }
-
-        Item { // Spacer
-            height: 20
+        // Spacer
+        Item {
+            height: 30
             width: 1
         }
-    }
 
-    Divider {
-        anchors {
-            top: column.bottom
+        Label {
+            font {
+                pointSize: 12
+                weight: Font.Light
+            }
+
+            elide: Text.ElideRight
+            text: model.name + " - <i>" + model.group + "</i>"
+            width: parent.width
+            // TODO: add a dialog to show full name in case it's too long
+        }
+
+        // Spacer
+        Item {
+            height: 10
+            width: 1
+        }
+
+        Label {
+            font {
+                pointSize: 12
+                weight: Font.Light
+            }
+
+            elide: Text.ElideRight
+            color: Styler.darkTheme ? Style.SECONDARY_TEXT_COLOR_DARK : Style.SECONDARY_TEXT_COLOR_LIGHT
+            text: model.length + " - <i>" + model.comment + "</i>"
+            width: parent.width
+        }
+
+        // Spacer
+        Item {
+            height: 30
+            width: 1
         }
     }
 
     Row {
         id: row
 
-        anchors.verticalCenter: parent.verticalCenter
-        anchors.right: parent.right; anchors.rightMargin: 15
+        anchors {
+            top: column.top; topMargin: 10
+            bottom: column.bottom; bottomMargin: 10
+            right: parent.right; rightMargin: 15
+        }
 
-        height: 80
         spacing: 15
 
-        Rectangle {
-            height: 80
-            width: 80
+        ImageButton {
+            height: parent.height
+            width: 92
 
-            color: m1.pressed ? Qt.darker("green") : "green"
+            background: Styler.darkTheme ? "qrc:/images/add_playlist_dark" : "qrc:/images/add_playlist_light"
+            backgroundPressed: Styler.darkTheme ? "qrc:/images/add_playlist_dark_pressed" : "qrc:/images/add_playlist_light_pressed"
+
             visible: model.url === "" ? false : true
 
-            MouseArea {
-                id: m1
-                anchors.fill: parent
-
-                onClicked: root.addToPlaylist()
-            }
+            onClicked: root.addToPlaylist()
         }
 
-        Rectangle {
-            height: 80
-            width: 80
+        ImageButton {
+            height: parent.height
+            width: 92
 
-            color: m2.pressed ? Qt.darker("red") : "red"
+            background: Styler.darkTheme ? "qrc:/images/download_dark" : "qrc:/images/download_light"
+            backgroundPressed: Styler.darkTheme ? "qrc:/images/download_dark_pressed" : "qrc:/images/download_light_pressed"
+
             visible: model.url === "" ? false : true
 
-            MouseArea {
-                id: m2
-                anchors.fill: parent
-
-                onClicked: root.download()
-            }
+            onClicked: root.download()
         }
     }
+
+    Divider { anchors.top: column.bottom }
 }

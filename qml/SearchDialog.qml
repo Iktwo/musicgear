@@ -1,5 +1,6 @@
 import QtQuick 2.0
-import com.iktwo.components 1.0
+import Styler 1.0
+import "style.js" as Style
 
 Item {
     id: root
@@ -20,9 +21,7 @@ Item {
 
     z: 9999
 
-//    Behavior on scale { NumberAnimation { easing.type: "InOutQuad" } }
-
-//    Behavior on opacity { NumberAnimation {} }
+    enabled: root.state === "opened"
 
     MouseArea { // mouse eater
         anchors.fill: parent
@@ -51,6 +50,15 @@ Item {
                     horizontalCenter: parent.horizontalCenter
                     verticalCenter: parent.verticalCenter
                 }
+
+                placeholderText: "Artist, Song"
+
+                focus: true
+
+                onSubmit: {
+                    if (!downloaderComponent.searching)
+                        downloaderComponent.search(textEdit.text)
+                }
             }
 
             TitleBarImageButton {
@@ -58,7 +66,10 @@ Item {
 
                 source: Styler.darkTheme ? "qrc:/images/search_dark" : "qrc:/images/search_light"
 
-                onClicked: songsModel.search(textEdit.text)
+                onClicked: {
+                    if (!downloaderComponent.searching)
+                        downloaderComponent.search(textEdit.text)
+                }
             }
         }
 
@@ -70,13 +81,19 @@ Item {
                 bottom: parent.bottom
             }
 
-            model: songsModel
+            model: downloaderComponent
             clip: true
 
             delegate: SongDelegate {
                 onAddToPlaylist: playlist.append({"name" : model.name, "group" : model.group, "length" : model.length, "comment" : model.comment, "code" : model.code, "url": model.url})
 
-                onDownload: songsModel.downloadSong(model.name, model.url)
+                onDownload: downloaderComponent.downloadSong(model.name, model.url)
+            }
+
+            onContentYChanged: {
+                if (contentHeight != 0)
+                    if (((contentY + height) / contentHeight) > 0.85)
+                        downloaderComponent.fetchMore()
             }
         }
 
@@ -84,7 +101,7 @@ Item {
             anchors.centerIn: parent
 
             text: "Searching.."
-            opacity: songsModel.searching ? 1 : 0
+            opacity: downloaderComponent.searching ? 1 : 0
         }
     }
 
