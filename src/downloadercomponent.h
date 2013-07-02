@@ -48,8 +48,10 @@ signals:
     void searchingChanged();
     void serverErrorChanged();
 
+#if QT_VERSION >= 0x050000
 protected:
     QHash<int, QByteArray> roleNames() const;
+#endif
 
 private:
     Downloader *m_downloader;

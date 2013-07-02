@@ -1,5 +1,4 @@
-import QtQuick 2.0
-import Styler 1.0
+import QtQuick 1.1
 import "style.js" as Style
 
 Item {

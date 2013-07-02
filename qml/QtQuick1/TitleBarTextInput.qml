@@ -1,6 +1,5 @@
-import QtQuick 2.0
+import QtQuick 1.1
 import "style.js" as Style
-import Styler 1.0
 
 FocusScope {
     id: root

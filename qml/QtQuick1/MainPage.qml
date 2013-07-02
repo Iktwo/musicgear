@@ -1,7 +1,6 @@
-import QtQuick 2.0
-import QtMultimedia 5.0
+import QtQuick 1.1
+//import QtMultimedia 5.0
 import "style.js" as Style
-import Styler 1.0
 
 Rectangle {
     function formatMilliseconds(ms) {
@@ -31,7 +30,7 @@ Rectangle {
 
     color: Styler.darkTheme ? Style.MENU_BACKGROUND_COLOR_DARK : Style.MENU_BACKGROUND_COLOR_LIGHT
 
-    Audio {
+    /*Audio {
         id: audio
 
         property int index: 0
@@ -52,18 +51,18 @@ Rectangle {
                         audio.play()
                     }
         }
-    }
+    }*/
 
     ListModel {
         id: playlist
 
-        onRowsInserted: {
-            // First song, play it!
-            if (count === 1 && audio.playbackState == Audio.StoppedState) {
-                audio.source = playlist.get(0).url
-                audio.play()
-            }
-        }
+//        onRowsInserted: {
+//            // First song, play it!
+//            if (count === 1 && audio.playbackState == Audio.StoppedState) {
+//                audio.source = playlist.get(0).url
+//                audio.play()
+//            }
+//        }
     }
 
     SearchDialog {

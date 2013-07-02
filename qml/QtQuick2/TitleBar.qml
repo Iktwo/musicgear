@@ -5,8 +5,9 @@ import "style.js" as Style
 Item {
     id: root
 
-    property alias title: titleLabel.text
     property alias color: container.color
+    property alias title: titleLabel.text
+    property alias titleFont: titleLabel.font
 
     objectName: "titleBar"
 
@@ -27,7 +28,7 @@ Item {
                 verticalCenter: parent.verticalCenter
             }
 
-            font.pixelSize: 35
+            font.pointSize: 14
         }
     }
 }

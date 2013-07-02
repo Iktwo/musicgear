@@ -15,6 +15,14 @@ Item {
         state = "closed"
     }
 
+    function search() {
+        if (!downloaderComponent.searching)
+            if (textEdit.text.length > 0) {
+                downloaderComponent.search(textEdit.text)
+                resultsList.focus = true
+            }
+    }
+
     anchors.fill: parent
 
     state: "closed"
@@ -34,6 +42,8 @@ Item {
 
         TitleBar {
             id: titleBar
+
+            property bool hideme: false
 
             TitleBarImageButton {
                 anchors.left: parent.left
@@ -55,10 +65,7 @@ Item {
 
                 focus: true
 
-                onSubmit: {
-                    if (!downloaderComponent.searching)
-                        downloaderComponent.search(textEdit.text)
-                }
+                onSubmit: root.search()
             }
 
             TitleBarImageButton {
@@ -66,14 +73,15 @@ Item {
 
                 source: Styler.darkTheme ? "qrc:/images/search_dark" : "qrc:/images/search_light"
 
-                onClicked: {
-                    if (!downloaderComponent.searching)
-                        downloaderComponent.search(textEdit.text)
-                }
+                onClicked: root.search()
             }
+
+            Behavior on y { NumberAnimation { } }
         }
 
         ListView {
+            id: resultsList
+
             anchors {
                 top: titleBar.bottom
                 left: parent.left
@@ -85,7 +93,11 @@ Item {
             clip: true
 
             delegate: SongDelegate {
-                onAddToPlaylist: playlist.append({"name" : model.name, "group" : model.group, "length" : model.length, "comment" : model.comment, "code" : model.code, "url": model.url})
+                onAddToPlaylist: {
+                    console.log("Going to append")
+                    playlist.append({"name" : model.name, "group" : model.group, "length" : model.length, "comment" : model.comment, "code" : model.code, "url": model.url})
+                    console.log("Append")
+                }
 
                 onDownload: downloaderComponent.downloadSong(model.name, model.url)
             }
@@ -95,14 +107,51 @@ Item {
                     if (((contentY + height) / contentHeight) > 0.85)
                         downloaderComponent.fetchMore()
             }
+
+            onFlickStarted: {
+                if (contentHeight > height) {
+                    titleBar.y = -titleBar.height
+                    hideBarTimer.stop()
+                    titleBar.hideme = true
+                }
+            }
+
+            onFlickEnded: hideBarTimer.restart()
+
+            Timer {
+                id: hideBarTimer
+
+                interval: 1000
+
+                onTriggered: {
+                    if (titleBar.hideme) {
+                        titleBar.y = 0
+                        titleBar.hideme = false
+                    }
+                }
+            }
+
+            MouseArea {
+                anchors.fill: parent
+
+                onPressed: if (pressed)
+                               resultsList.focus = true
+            }
         }
 
-        Label {
-            anchors.centerIn: parent
+        Rectangle {
+            anchors.fill: parent
 
-            text: "Searching.."
+            color: "#88000000"
             opacity: downloaderComponent.searching ? 1 : 0
+
+            Label {
+                anchors.centerIn: parent
+
+                text: "Searching.."
+            }
         }
+
     }
 
     states: [

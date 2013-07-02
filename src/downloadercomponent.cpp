@@ -11,6 +11,17 @@ DownloaderComponent::DownloaderComponent(QObject *parent) :
     m_serverError(false),
     fetched(0)
 {
+#if QT_VERSION < 0x050000
+    QHash<int, QByteArray> roles;
+    roles[NameRole] = "name";
+    roles[GroupRole] = "group";
+    roles[LengthRole] = "length";
+    roles[CommentRole] = "comment";
+    roles[CodeRole] = "code";
+    roles[UrlRole] = "url";
+    setRoleNames(roles);
+#endif
+
     m_downloader = new Downloader();
 
     connect(m_downloader, SIGNAL(songFound(QString, QString, QString, QString, QString)), this,
@@ -110,6 +121,7 @@ int DownloaderComponent::rowCount(const QModelIndex & parent) const
     return m_songs.count();
 }
 
+#if QT_VERSION >= 0x050000
 QHash<int, QByteArray> DownloaderComponent::roleNames() const
 {
     QHash<int, QByteArray> roles;
@@ -121,6 +133,7 @@ QHash<int, QByteArray> DownloaderComponent::roleNames() const
     roles[UrlRole] = "url";
     return roles;
 }
+#endif
 
 void DownloaderComponent::searchEnded()
 {

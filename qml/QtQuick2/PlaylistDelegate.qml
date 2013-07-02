@@ -21,23 +21,29 @@ Item {
         }
 
         Label {
+            elide: Text.ElideRight
+
             font {
-                pointSize: 12
+                pointSize: 9
                 weight: Font.Light
             }
 
             text: model.name + " - <i>" + model.group + "</i>"
+
+            width: parent.width
         }
 
         Label {
             color: Styler.darkTheme ? Style.SECONDARY_TEXT_COLOR_DARK : Style.SECONDARY_TEXT_COLOR_LIGHT
+            elide: Text.ElideRight
 
             font {
-                pointSize: 12
+                pointSize: 8
                 weight: Font.Light
             }
 
             text: model.length + " - <i>" + model.comment + "</i>"
+            width: parent.width
         }
 
         Item { // Spacer

@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QDateTime>
 #include <QMap>
+#include <QVariantMap>
 
 class QNetworkReply;
 class QNetworkAccessManager;

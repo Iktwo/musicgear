@@ -4,4 +4,6 @@ import Styler 1.0
 
 Text {
     color: Styler.darkTheme ? Style.TEXT_COLOR_DARK : Style.TEXT_COLOR_LIGHT
+
+    font.pointSize: 10
 }
