@@ -9,6 +9,7 @@ Item {
 
     function open() {
         state = "opened"
+        textEdit.focus = true
     }
 
     function close() {
@@ -75,8 +76,6 @@ Item {
 
                 onClicked: root.search()
             }
-
-            Behavior on y { NumberAnimation { } }
         }
 
         ListView {
@@ -93,49 +92,17 @@ Item {
             clip: true
 
             delegate: SongDelegate {
-                onAddToPlaylist: {
-                    console.log("Going to append")
-                    playlist.append({"name" : model.name, "group" : model.group, "length" : model.length, "comment" : model.comment, "code" : model.code, "url": model.url})
-                    console.log("Append")
-                }
+                onAddToPlaylist: playlist.append({"name" : model.name, "group" : model.group, "length" : model.length, "comment" : model.comment, "code" : model.code, "url": model.url})
 
                 onDownload: downloaderComponent.downloadSong(model.name, model.url)
             }
 
             onContentYChanged: {
+                resultsList.focus = true
                 if (contentHeight != 0)
-                    if (((contentY + height) / contentHeight) > 0.85)
+                    //if (((contentY + height) / contentHeight) > 0.85)
+                    if (atYEnd)
                         downloaderComponent.fetchMore()
-            }
-
-            onFlickStarted: {
-                if (contentHeight > height) {
-                    titleBar.y = -titleBar.height
-                    hideBarTimer.stop()
-                    titleBar.hideme = true
-                }
-            }
-
-            onFlickEnded: hideBarTimer.restart()
-
-            Timer {
-                id: hideBarTimer
-
-                interval: 1000
-
-                onTriggered: {
-                    if (titleBar.hideme) {
-                        titleBar.y = 0
-                        titleBar.hideme = false
-                    }
-                }
-            }
-
-            MouseArea {
-                anchors.fill: parent
-
-                onPressed: if (pressed)
-                               resultsList.focus = true
             }
         }
 

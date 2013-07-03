@@ -23,6 +23,8 @@
         <file alias="add_playlist_dark_pressed">resources/images/add_playlist_dark_pressed.png</file>
         <file alias="add_playlist_light">resources/images/add_playlist_light.png</file>
         <file alias="add_playlist_light_pressed">resources/images/add_playlist_light_pressed.png</file>
+        <file alias="settings_dark">resources/images/settings_dark.png</file>
+        <file alias="settings_light">resources/images/settings_light.png</file>
     </qresource>
     <qresource prefix="/QtQuick1">
         <file>qml/QtQuick1/Button.qml</file>
@@ -43,7 +45,6 @@
         <file>qml/QtQuick1/TitleBarTextInput.qml</file>
     </qresource>
     <qresource prefix="/QtQuick2">
-        <file>qml/QtQuick2/Button.qml</file>
         <file>qml/QtQuick2/Dialog.qml</file>
         <file>qml/QtQuick2/Divider.qml</file>
         <file>qml/QtQuick2/ImageButton.qml</file>

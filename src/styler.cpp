@@ -1,10 +1,14 @@
 #include "styler.h"
+#include <QSettings>
 #include <QDebug>
 
 Styler::Styler(QObject *parent):
     QObject(parent),
     m_darkTheme(true)
 {
+    QSettings settings;
+    settings.beginGroup("ui");
+    m_darkTheme = settings.value("DarkTheme", true).toBool();
 }
 
 bool Styler::darkTheme()
@@ -19,13 +23,8 @@ void Styler::setDarkTheme(bool darkTheme)
 
     m_darkTheme = darkTheme;
     emit darkThemeChanged();
-}
 
-int Styler::titleBarHeight()
-{
-#ifdef Q_OS_BLACKBERRY
-    return 92;
-#else
-    return 122;
-#endif
+    QSettings settings;
+    settings.beginGroup("ui");
+    settings.setValue("DarkTheme", darkTheme);
 }

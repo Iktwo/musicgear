@@ -71,7 +71,7 @@ Rectangle {
                 bottom: parent.bottom
             }
 
-            color: Styler.darkTheme ? Style.SECONDARY_TEXT_COLOR_DARK : Style.SECONDARY_TEXT_COLOR_LIGHT
+            color: Styler.darkTheme ? Style.TEXT_SECONDARY_COLOR_DARK : Style.TEXT_SECONDARY_COLOR_LIGHT
             font.pointSize: 8
             text: formatMilliseconds(audio.position)
         }
@@ -82,7 +82,7 @@ Rectangle {
                 bottom: parent.bottom
             }
 
-            color: Styler.darkTheme ? Style.SECONDARY_TEXT_COLOR_DARK : Style.SECONDARY_TEXT_COLOR_LIGHT
+            color: Styler.darkTheme ? Style.TEXT_SECONDARY_COLOR_DARK : Style.TEXT_SECONDARY_COLOR_LIGHT
             font.pointSize: 8
             text: formatMilliseconds(audio.duration)
         }

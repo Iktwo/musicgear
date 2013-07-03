@@ -24,6 +24,8 @@ Item {
 
     state: "closed"
 
+    z: 9999
+
     onOpenedChanged: {
         if (opened)
             state = "opened"
@@ -83,13 +85,26 @@ Item {
                     right: parent.right; rightMargin: 10
                 }
 
-                text: "Menu"
+                text: qsTr("Menu")
 
                 elide: Text.ElideRight
+
                 font {
                     weight: Font.Light
-                    pointSize: 18
+                    pointSize: 12
                 }
+            }
+
+            Rectangle {
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                    bottom: parent.bottom
+                }
+
+                height: 2
+
+                color: Styler.darkTheme ? Style.TITLE_BAR_HIGHLIGHTER_DARK : Style.TITLE_BAR_HIGHLIGHTER_LIGHT
             }
         }
 

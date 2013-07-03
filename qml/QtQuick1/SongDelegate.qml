@@ -49,7 +49,7 @@ Item {
             }
 
             elide: Text.ElideRight
-            color: Styler.darkTheme ? Style.SECONDARY_TEXT_COLOR_DARK : Style.SECONDARY_TEXT_COLOR_LIGHT
+            color: Styler.darkTheme ? Style.TEXT_SECONDARY_COLOR_DARK : Style.TEXT_SECONDARY_COLOR_LIGHT
             text: model.length + " - <i>" + model.comment + "</i>"
             width: parent.width
         }

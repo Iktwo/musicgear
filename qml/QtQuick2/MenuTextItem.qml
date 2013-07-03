@@ -1,5 +1,5 @@
 import QtQuick 2.0
-import "." 1.0
+import Styler 1.0
 import "style.js" as Style
 
 Item {
@@ -26,16 +26,19 @@ Item {
     Label {
         id: label
 
-        verticalAlignment: Text.AlignVCenter
-
         anchors {
             fill: parent
             leftMargin: 20
             rightMargin: 20
         }
-
-        font.pointSize: 16
         elide: Text.ElideRight
+
+        font {
+            weight: Font.Light
+            pointSize: 11
+        }
+
+        verticalAlignment: Text.AlignVCenter
     }
 
     MouseArea {
@@ -46,9 +49,8 @@ Item {
         onClicked: {
             root.clicked()
 
-            if (root.parent.objectName == "menu" && root.autoCloseMenu) {
+            if (root.parent.objectName == "menu" && root.autoCloseMenu)
                 root.parent.close()
-            }
         }
     }
 }

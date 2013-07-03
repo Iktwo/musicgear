@@ -39,7 +39,7 @@
     <asset path="%QT_INSTALL_QML%/QtQuick">imports/QtQuick</asset>
     <asset path="%QT_INSTALL_QML%/QtAudioEngine">imports/QtAudioEngine</asset>
     <asset path="%QT_INSTALL_QML%/Qt">imports/Qt</asset>
-    <asset path="%SRC_DIR%/resources/images/bb_icon.png">icon</asset>
+    <asset path="%SRC_DIR%/resources/images/icon_bb.png">icon</asset>
     <!-- These values will be replaced when deploying in Qt Creator -->
     <icon>
         <image>icon</image>

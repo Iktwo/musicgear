@@ -28,7 +28,22 @@ Item {
                 verticalCenter: parent.verticalCenter
             }
 
-            font.pointSize: 14
+            font {
+                pointSize: 12
+                weight: Font.Light
+            }
+        }
+
+        Rectangle {
+            anchors {
+                left: parent.left
+                right: parent.right
+                bottom: parent.bottom
+            }
+
+            height: 2
+
+            color: Styler.darkTheme ? Style.TITLE_BAR_HIGHLIGHTER_DARK : Style.TITLE_BAR_HIGHLIGHTER_LIGHT
         }
     }
 }

@@ -50,7 +50,7 @@ Item {
             }
 
             elide: Text.ElideRight
-            color: Styler.darkTheme ? Style.SECONDARY_TEXT_COLOR_DARK : Style.SECONDARY_TEXT_COLOR_LIGHT
+            color: Styler.darkTheme ? Style.TEXT_SECONDARY_COLOR_DARK : Style.TEXT_SECONDARY_COLOR_LIGHT
             text: model.length + " - <i>" + model.comment + "</i>"
             width: parent.width
         }
@@ -85,17 +85,17 @@ Item {
             onClicked: root.addToPlaylist()
         }
 
-        ImageButton {
-            height: parent.height
-            width: 92
+        //ImageButton {
+        //    height: parent.height
+        //    width: 92
 
-            background: Styler.darkTheme ? "qrc:/images/download_dark" : "qrc:/images/download_light"
-            backgroundPressed: Styler.darkTheme ? "qrc:/images/download_dark_pressed" : "qrc:/images/download_light_pressed"
+        //    background: Styler.darkTheme ? "qrc:/images/download_dark" : "qrc:/images/download_light"
+        //    backgroundPressed: Styler.darkTheme ? "qrc:/images/download_dark_pressed" : "qrc:/images/download_light_pressed"
 
-            visible: model.url === "" ? false : true
+        //    visible: model.url === "" ? false : true
 
-            onClicked: root.download()
-        }
+        //    onClicked: root.download()
+        //}
     }
 
     Divider { anchors.top: column.bottom }

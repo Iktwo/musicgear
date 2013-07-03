@@ -49,7 +49,6 @@ FocusScope {
         clip: true
         color: Styler.darkTheme ? Style.TEXT_COLOR_DARK : Style.TEXT_COLOR_LIGHT
 
-
         focus: true
 
         font {
@@ -79,6 +78,10 @@ FocusScope {
         source: Styler.darkTheme ? "qrc:/images/clear_dark" : "qrc:/images/clear_light"
 
         onClicked: textEdit.text = ""
+
+        opacity: textEdit.text === "" ? 0 : 1
+
+        Behavior on opacity { NumberAnimation { } }
     }
 
     Rectangle {

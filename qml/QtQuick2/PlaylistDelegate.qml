@@ -5,91 +5,144 @@ import Styler 1.0
 Item {
     id: root
 
-    signal play()
-    signal remove()
+    signal requestedPlay()
+    signal requestedRemove()
 
-    height: column.height + divider.height + 20
+    height: column.height + divider.height
     width: parent.width
 
-    Column {
-        id: column
+    MouseArea {
+        id: mouseArea
 
-        anchors {
-            verticalCenter: parent.verticalCenter
-            left: parent.left; leftMargin: 10
-            right: row.left; rightMargin: 10
-        }
+        anchors.fill: parent
 
-        Label {
-            elide: Text.ElideRight
+        onClicked: root.requestedPlay()
+    }
 
-            font {
-                pointSize: 9
-                weight: Font.Light
+    Rectangle {
+        height: parent.height
+        width: parent.width
+
+        color: Qt.darker(container.color)
+        opacity: 0.6
+    }
+
+    Rectangle {
+        id: container
+
+        height: column.height
+        width: parent.width
+
+        color: mouseArea.pressed ? (Styler.darkTheme ? Style.LIST_DELEGATE_BACKGROUND_PRESSED_DARK : Style.LIST_DELEGATE_BACKGROUND_PRESSED_LIGHT) :
+                                   Styler.darkTheme ? Style.LIST_DELEGATE_BACKGROUND_DARK : Style.LIST_DELEGATE_BACKGROUND_LIGHT
+
+        Column {
+            id: column
+
+            anchors {
+                left: parent.left; leftMargin: 10
+                right: row.left; rightMargin: 10
             }
 
-            text: model.name + " - <i>" + model.group + "</i>"
-
-            width: parent.width
-        }
-
-        Label {
-            color: Styler.darkTheme ? Style.SECONDARY_TEXT_COLOR_DARK : Style.SECONDARY_TEXT_COLOR_LIGHT
-            elide: Text.ElideRight
-
-            font {
-                pointSize: 8
-                weight: Font.Light
+            // Spacer
+            Item {
+                height: 15
+                width: 1
             }
 
-            text: model.length + " - <i>" + model.comment + "</i>"
-            width: parent.width
+            Label {
+                elide: Text.ElideRight
+
+                font {
+                    pointSize: 9
+                    weight: Font.Light
+                }
+
+                text: model.name + " - <i>" + model.group + "</i>"
+
+                width: parent.width
+            }
+
+            Label {
+                color: Styler.darkTheme ? Style.TEXT_SECONDARY_COLOR_DARK : Style.TEXT_SECONDARY_COLOR_LIGHT
+                elide: Text.ElideRight
+
+                font {
+                    pointSize: 8
+                    weight: Font.Light
+                }
+
+                text: model.length + " - <i>" + model.comment + "</i>"
+                width: parent.width
+            }
+
+            // Spacer
+            Item {
+                height: 15
+                width: 1
+            }
         }
 
-        Item { // Spacer
-            height: 20
-            width: 1
+        Row {
+            id: row
+
+            anchors {
+                right: parent.right; rightMargin: 15
+            }
+
+            height: column.height
+            spacing: 15
+
+            //            ImageButton {
+            //                height: parent.height
+            //                width: 92
+
+            //                background: Styler.darkTheme ? "qrc:/images/play_dark" : "qrc:/images/play_light"
+            //                backgroundPressed: Styler.darkTheme ? "qrc:/images/play_dark_pressed" : "qrc:/images/play_light_pressed"
+
+            //                visible: model.url === "" ? false : true
+
+            //                onClicked: root.requestedPlay()
+            //            }
+
+            ImageButton {
+                height: parent.height
+                width: 92
+
+                background: Styler.darkTheme ? "qrc:/images/remove_dark" : "qrc:/images/remove_light"
+                backgroundPressed: Styler.darkTheme ? "qrc:/images/remove_dark_pressed" : "qrc:/images/remove_light_pressed"
+
+                visible: model.url === "" ? false : true
+
+                onClicked: root.requestedRemove()
+            }
         }
     }
+
 
     Divider {
         id: divider
 
-        anchors.top: column.bottom
+        anchors.bottom: parent.bottom
     }
 
-    Row {
-        id: row
+    //    ListView.onRemove: Transition {
+    //        ParallelAnimation {
+    //            NumberAnimation { property: "opacity"; to: 0; duration: 5000 }
+    //            NumberAnimation { properties: "x"; to: -300; duration: 5000 }
+    //        }
+    //    }
 
-        anchors {
-            right: parent.right; rightMargin: 15
+    ListView.onRemove: SequentialAnimation {
+        ScriptAction { script: console.log("I can't believe it! this is not butter!") }
+
+        PropertyAction { target: root; property: "ListView.delayRemove"; value: true }
+
+        ParallelAnimation {
+            NumberAnimation { target: container; property: "x"; to: -root.width; duration: 450; easing.type: Easing.InOutQuad }
+            NumberAnimation { target: container; property: "opacity"; to: 0.35; duration: 350; easing.type: Easing.InOutQuad }
         }
 
-        height: column.height
-        spacing: 15
-
-        ImageButton {
-            height: parent.height
-            width: 92
-
-            background: Styler.darkTheme ? "qrc:/images/play_dark" : "qrc:/images/play_light"
-            backgroundPressed: Styler.darkTheme ? "qrc:/images/play_dark_pressed" : "qrc:/images/play_light_pressed"
-
-            visible: model.url === "" ? false : true
-
-            onClicked: root.play()
-        }
-
-        ImageButton {
-            height: parent.height
-            width: 92
-
-            background: Styler.darkTheme ? "qrc:/images/remove_dark" : "qrc:/images/remove_light"
-            backgroundPressed: Styler.darkTheme ? "qrc:/images/remove_dark_pressed" : "qrc:/images/remove_light_pressed"
-
-            visible: model.url === "" ? false : true
-
-            onClicked: root.remove()
-        }
+        PropertyAction { target: root; property: "ListView.delayRemove"; value: false }
     }
 }
