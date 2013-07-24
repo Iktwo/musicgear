@@ -15,7 +15,7 @@ public:
     explicit Downloader(QObject *parent = 0);
     ~Downloader();
 
-    static QString ImageUrl;
+    static QString DownloadUrl;
 
 public slots:
     void downloadSong(const QString &name, const QString &url);
@@ -36,11 +36,12 @@ signals:
 private:
     QNetworkAccessManager *m_netAccess;
     QMap<QString, QString> m_subdirs;
-    QMap<QString, bool> m_getNsfw;
     QVariantMap m_songsToDownload;
+    QNetworkReply *m_nreply;
 
 private slots:
     QString decodeHtml(const QString &html);
+    void downloadProgressChanged(qint64 bytesReceived, qint64 bytesTotal);
 };
 
 #endif // DOWNLOADER_H

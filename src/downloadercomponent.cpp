@@ -65,12 +65,14 @@ void DownloaderComponent::search(const QString &term)
 void DownloaderComponent::songFound(const QString &title, const QString &group, const QString &length,
                                     const QString &comment, const QString &code)
 {
+//    qDebug() << "apending " << title;
     // m_downloader->download(QString(Downloader::ImageUrl + hash + extension));
     // m_songs.append(QString(title));
-    /// TODO: store in a map to be able to match it? maybe not..
+
     beginInsertRows(QModelIndex(), rowCount(), rowCount());
-    m_songs.append(new Song(title, group, length, comment, code));
+    m_songs.append(new Song(title, group, length, comment, code, this));
     endInsertRows();
+
     emit songsChanged();
 }
 
@@ -96,6 +98,7 @@ void DownloaderComponent::decodedUrl(const QString &code, const QString &url)
 
 QVariant DownloaderComponent::data(const QModelIndex & index, int role) const
 {
+    qDebug() << "asking for: " << index.row();
     if (index.row() < 0 || index.row() >= m_songs.count())
         return QVariant();
 
@@ -111,7 +114,7 @@ QVariant DownloaderComponent::data(const QModelIndex & index, int role) const
     else if (role == CodeRole)
         return song->code();
     else if (role == UrlRole)
-        return song->url();
+        return Downloader::DownloadUrl + song->code();
     return QVariant();
 }
 
@@ -121,7 +124,6 @@ int DownloaderComponent::rowCount(const QModelIndex & parent) const
     return m_songs.count();
 }
 
-#if QT_VERSION >= 0x050000
 QHash<int, QByteArray> DownloaderComponent::roleNames() const
 {
     QHash<int, QByteArray> roles;
@@ -133,7 +135,6 @@ QHash<int, QByteArray> DownloaderComponent::roleNames() const
     roles[UrlRole] = "url";
     return roles;
 }
-#endif
 
 void DownloaderComponent::searchEnded()
 {
@@ -175,6 +176,7 @@ void DownloaderComponent::setServerError(bool serverError)
 
 void DownloaderComponent::lastSearchHasMoreResults(const QString &url)
 {
+    qDebug() << "more results: " << url;
     m_lastSearchHasMoreResults = url;
 }
 

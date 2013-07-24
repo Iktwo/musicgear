@@ -12,15 +12,15 @@
     </initialWindow>
     <author>PUBLISHER</author>
     <copyright>COPYRIGHT</copyright>
-    <env value="app/native/imports" var="QML2_IMPORT_PATH"/>
-    <env value="app/native/plugins" var="QT_PLUGIN_PATH"/>
-    <env value="app/native/lib" var="LD_LIBRARY_PATH"/>
+    <env var="QML2_IMPORT_PATH" value="app/native/imports"/>
+    <env var="QT_PLUGIN_PATH" value="app/native/plugins"/>
+    <env var="LD_LIBRARY_PATH" value="app/native/lib"/>
     <arg>-platform</arg>
     <arg>qnx</arg>
     <action system="true">run_native</action>
     <action>access_shared</action>
     <!-- musicgear should point to the project binary, path can be relative -->
-    <asset path="musicgear" type="Qnx/Elf" entry="true">musicgear</asset>
+    <asset type="Qnx/Elf" entry="true" path="musicgear">musicgear</asset>
     <asset path="%QT_INSTALL_PLUGINS%">plugins</asset>
     <asset path="%QT_INSTALL_LIBS%/libQt5Core.so.5">lib/libQt5Core.so.5</asset>
     <asset path="%QT_INSTALL_LIBS%/libQt5Gui.so.5">lib/libQt5Gui.so.5</asset>
@@ -32,7 +32,6 @@
     <asset path="%QT_INSTALL_LIBS%/libQt5Sql.so.5">lib/libQt5Sql.so.5</asset>
     <asset path="%QT_INSTALL_LIBS%/libQt5V8.so.5">lib/libQt5V8.so.5</asset>
     <asset path="%QT_INSTALL_LIBS%/libQt5Xml.so.5">lib/libQt5Xml.so.5</asset>
-    <asset path="%QT_INSTALL_QML%/com/iktwo">imports/com/iktwo</asset>
     <asset path="%QT_INSTALL_QML%/QtGraphicalEffects">imports/QtGraphicalEffects</asset>
     <asset path="%QT_INSTALL_QML%/QtMultimedia">imports/QtMultimedia</asset>
     <asset path="%QT_INSTALL_QML%/QtQuick.2">imports/QtQuick.2</asset>

@@ -25,41 +25,31 @@
         <file alias="add_playlist_light_pressed">resources/images/add_playlist_light_pressed.png</file>
         <file alias="settings_dark">resources/images/settings_dark.png</file>
         <file alias="settings_light">resources/images/settings_light.png</file>
+        <file alias="next_dark">resources/images/next_dark.png</file>
+        <file alias="next_light">resources/images/next_light.png</file>
+        <file alias="previous_dark">resources/images/previous_dark.png</file>
+        <file alias="previous_light">resources/images/previous_light.png</file>
+        <file alias="stop_dark">resources/images/stop_dark.png</file>
+        <file alias="stop_light">resources/images/stop_light.png</file>
+        <file alias="playlist_dark">resources/images/playlist_dark.png</file>
+        <file alias="playlist_light">resources/images/playlist_light.png</file>
     </qresource>
-    <qresource prefix="/QtQuick1">
-        <file>qml/QtQuick1/Button.qml</file>
-        <file>qml/QtQuick1/Dialog.qml</file>
-        <file>qml/QtQuick1/Divider.qml</file>
-        <file>qml/QtQuick1/ImageButton.qml</file>
-        <file>qml/QtQuick1/Label.qml</file>
-        <file>qml/QtQuick1/main.qml</file>
-        <file>qml/QtQuick1/MainPage.qml</file>
-        <file>qml/QtQuick1/Menu.qml</file>
-        <file>qml/QtQuick1/MenuTextItem.qml</file>
-        <file>qml/QtQuick1/PlaylistDelegate.qml</file>
-        <file>qml/QtQuick1/SearchDialog.qml</file>
-        <file>qml/QtQuick1/SongDelegate.qml</file>
-        <file>qml/QtQuick1/style.js</file>
-        <file>qml/QtQuick1/TitleBar.qml</file>
-        <file>qml/QtQuick1/TitleBarImageButton.qml</file>
-        <file>qml/QtQuick1/TitleBarTextInput.qml</file>
-    </qresource>
-    <qresource prefix="/QtQuick2">
-        <file>qml/QtQuick2/Dialog.qml</file>
-        <file>qml/QtQuick2/Divider.qml</file>
-        <file>qml/QtQuick2/ImageButton.qml</file>
-        <file>qml/QtQuick2/Label.qml</file>
-        <file>qml/QtQuick2/main.qml</file>
-        <file>qml/QtQuick2/MainPage.qml</file>
-        <file>qml/QtQuick2/Menu.qml</file>
-        <file>qml/QtQuick2/MenuTextItem.qml</file>
-        <file>qml/QtQuick2/PlaylistDelegate.qml</file>
-        <file>qml/QtQuick2/SearchDialog.qml</file>
-        <file>qml/QtQuick2/SongDelegate.qml</file>
-        <file>qml/QtQuick2/style.js</file>
-        <file>qml/QtQuick2/TitleBar.qml</file>
-        <file>qml/QtQuick2/TitleBarImageButton.qml</file>
-        <file>qml/QtQuick2/TitleBarTextInput.qml</file>
-        <file>qml/QtQuick2/ToolBar.qml</file>
+    <qresource prefix="/qml">
+        <file>qml/Dialog.qml</file>
+        <file>qml/Divider.qml</file>
+        <file>qml/ImageButton.qml</file>
+        <file>qml/Label.qml</file>
+        <file>qml/main.qml</file>
+        <file>qml/MainPage.qml</file>
+        <file>qml/Menu.qml</file>
+        <file>qml/MenuTextItem.qml</file>
+        <file>qml/PlaylistDelegate.qml</file>
+        <file>qml/SearchDialog.qml</file>
+        <file>qml/SongDelegate.qml</file>
+        <file>qml/style.js</file>
+        <file>qml/TitleBar.qml</file>
+        <file>qml/TitleBarImageButton.qml</file>
+        <file>qml/TitleBarTextInput.qml</file>
+        <file>qml/ToolBar.qml</file>
     </qresource>
 </RCC>
