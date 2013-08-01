@@ -22,16 +22,7 @@ Item {
 
     anchors.fill: parent
 
-    state: "closed"
-
     z: 9999
-
-    onOpenedChanged: {
-        if (opened)
-            state = "opened"
-        else
-            state = "closed"
-    }
 
     Rectangle {
         id: dimmer
@@ -110,10 +101,10 @@ Item {
 
         Flickable {
             anchors {
-                top: titleContainer.bottom; topMargin: 5
+                top: titleContainer.bottom
                 left: parent.left
                 right: parent.right
-                bottom: parent.bottom; bottomMargin: 5
+                bottom: parent.bottom
             }
 
             clip: true
@@ -128,7 +119,6 @@ Item {
 
                 objectName: "menu"
 
-                spacing: 5
                 width: parent.width
 
                 onClose: root.close()
@@ -164,12 +154,14 @@ Item {
 
     states: [
         State {
+            when: root.opened
             name: "opened"
             PropertyChanges { target: background; x: leftToRight ? 0 : root.width - background.width; }
             PropertyChanges { target: dimmer; opacity: 0.35; }
             PropertyChanges { target: background; opacity: 1 }
         },
         State {
+            when: !root.opened
             name: "closed"
             PropertyChanges { target: background; x: leftToRight ? -background.width : root.width + background.width; }
             PropertyChanges { target: dimmer; opacity: 0; }

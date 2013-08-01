@@ -16,7 +16,8 @@ Item {
     Rectangle {
         anchors.fill: parent
 
-        color: Styler.darkTheme ? Style.MENU_ITEM_HIGHLIGHT_DARK : Style.MENU_ITEM_HIGHLIGHT_LIGHT
+        color: Styler.darkTheme ? Style.MENU_ITEM_HIGHLIGHT_DARK
+                                : Style.MENU_ITEM_HIGHLIGHT_LIGHT
 
         opacity: mouseArea.pressed && mouseArea.containsMouse ? 0.55 : 0
 

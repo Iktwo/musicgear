@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
 #endif
 #endif
 
-    VirtualKeyboardControl vkc(app.data(), view.data());
+    VirtualKeyboardControl vkc(*app.data(), *view.data());
     view->rootContext()->setContextProperty("vkControl", &vkc);
 
     view->setResizeMode(QQuickView::SizeRootObjectToView);

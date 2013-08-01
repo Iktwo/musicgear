@@ -6,7 +6,20 @@ import Styler 1.0
 Rectangle {
     anchors.fill: parent
 
-    color: Styler.darkTheme ? Style.MENU_BACKGROUND_COLOR_DARK : Style.MENU_BACKGROUND_COLOR_LIGHT
+    color: Styler.darkTheme ? Style.MENU_BACKGROUND_COLOR_DARK
+                            : Style.MENU_BACKGROUND_COLOR_LIGHT
+
+    focus: true
+
+    Keys.onReleased: {
+        if (event.key === Qt.Key_Back) {
+            console.log("back", searchDialog.opened)
+            if (searchDialog.opened)
+                searchDialog.close()
+
+            event.accepted = true
+        }
+    }
 
     Timer {
         id: timer
@@ -20,7 +33,6 @@ Rectangle {
             audio.play()
         }
     }
-
 
     Audio {
         id: audio
@@ -84,11 +96,14 @@ Rectangle {
 
         MenuTextItem {
             text: qsTr("About MusicGear")
-            onClicked: aboutDialog.open()
+            onClicked: {
+                console.log("About")
+                aboutDialog.open()
+            }
         }
     }
 
-    Dialog { // TODO: write a nice dialog, create InformationDialog component
+    Dialog { // TODO: write a nice dialog, create InformationDialog component?
         id: aboutDialog
 
         onOuterClicked: close()
@@ -152,14 +167,14 @@ Rectangle {
     TitleBar {
         id: titleBar
 
-        property bool hideme: false
-
         title: "MusicGear"
 
         TitleBarImageButton {
             anchors.right: searchButton.left
 
-            source: Styler.darkTheme ? "qrc:/images/settings_dark" : "qrc:/images/settings_light"
+            source: Styler.darkTheme ? "qrc:/images/settings_dark"
+                                     : "qrc:/images/settings_light"
+
             onClicked: menu.open()
         }
 
@@ -168,7 +183,8 @@ Rectangle {
 
             anchors.right: parent.right
 
-            source: Styler.darkTheme ? "qrc:/images/search_dark" : "qrc:/images/search_light"
+            source: Styler.darkTheme ? "qrc:/images/search_dark"
+                                     : "qrc:/images/search_light"
             onClicked: searchDialog.open()
         }
     }
@@ -216,5 +232,7 @@ Rectangle {
     }
 
     Component.onCompleted: searchDialog.open()
-    //Component.onCompleted: playlist.append({"name" : "First Song", "group" : "First Group", "length" : "3:31", "comment" : "this is a test", "code" : "XASDDASD", "url": "invalid"})
+    //Component.onCompleted: playlist.append({"name" : "First Song",
+    //"group" : "First Group", "length" : "3:31", "comment" : "this is a test",
+    //"code" : "XASDDASD", "url": "invalid"})
 }

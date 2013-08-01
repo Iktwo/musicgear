@@ -14,6 +14,8 @@ Item {
     width: parent.width
     height: Style.TITLE_BAR_HEIGHT
 
+    anchors.top: parent.top
+
     Rectangle {
         id: container
 

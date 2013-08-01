@@ -17,8 +17,6 @@ Downloader::Downloader(QObject *parent) :
 
     connect(m_netAccess, SIGNAL(finished(QNetworkReply*)),
             this, SLOT(downloadFinished(QNetworkReply*)));
-
-    search("daft-punk");
 }
 
 Downloader::~Downloader()

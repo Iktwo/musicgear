@@ -9,11 +9,10 @@ class VirtualKeyboardControl : public QObject
 {
     Q_OBJECT
 public:
-    explicit VirtualKeyboardControl(QGuiApplication *app,
-                                    QQuickView *view, QObject *parent = 0);
+    explicit VirtualKeyboardControl(QGuiApplication &app,
+                                    QQuickView &view, QObject *parent = 0);
 
     Q_INVOKABLE void close();
-    Q_INVOKABLE void open();
     
 private:
     QGuiApplication *m_app;

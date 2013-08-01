@@ -1,6 +1,6 @@
 import QtQuick 2.0
-import "style.js" as Style
 import Styler 1.0
+import "style.js" as Style
 
 Item {
     id: root
@@ -20,29 +20,11 @@ Item {
 
     anchors.fill: parent
 
-    state: "closed"
-
     z: 9999
-
-    onOpenedChanged: {
-        if (opened)
-            state = "opened"
-        else
-            state = "closed"
-    }
-
-    Rectangle {
-        id: dimmer
-
-        anchors.fill: parent
-
-        color: "black"
-
-        Behavior on opacity { NumberAnimation {} }
-    }
 
     MouseArea {
         anchors.fill: parent
+
         enabled: root.opened
 
         onClicked: root.outerClicked()
@@ -54,26 +36,31 @@ Item {
         width: parent.width
         height: parent.height
 
-        color: Styler.darkTheme ? Style.MENU_BACKGROUND_COLOR_DARK : Style.MENU_BACKGROUND_COLOR_LIGHT
+        color: Styler.darkTheme ? Style.MENU_BACKGROUND_COLOR_DARK
+                                : Style.MENU_BACKGROUND_COLOR_LIGHT
 
-        Behavior on opacity { NumberAnimation {} }
+        Behavior on opacity { NumberAnimation { } }
 
         Item {
             id: container
 
             anchors.fill: parent
+
+            enabled: root.opened
         }
     }
 
     states: [
         State {
+            when: root.opened
             name: "opened"
-            PropertyChanges { target: dimmer; opacity: 0.35; }
+            //            PropertyChanges { target: dimmer; opacity: 0.35; }
             PropertyChanges { target: background; opacity: 1 }
         },
         State {
+            when: !root.opened
             name: "closed"
-            PropertyChanges { target: dimmer; opacity: 0; }
+            //            PropertyChanges { target: dimmer; opacity: 0; }
             PropertyChanges { target: background; opacity: 0 }
         }
     ]

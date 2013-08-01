@@ -30,6 +30,8 @@ Item {
 
         anchors.fill: parent
 
+        enabled: parent.enabled
+
         onClicked: root.clicked()
     }
 }
