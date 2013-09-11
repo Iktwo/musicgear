@@ -6,9 +6,14 @@ Song::Song(QObject *parent)
 {
 }
 
-Song::Song(const QString &name, const QString &group, const QString &length, const QString &comment,
-           const QString &code, QObject *parent)
-    : QObject(parent), m_name(name), m_group(group), m_length(length), m_comment(comment), m_code(code)
+Song::Song(const QString &name, const QString &group, const QString &length,
+           const QString &comment, const QString &code, QObject *parent)
+    : QObject(parent),
+      m_name(name),
+      m_group(group),
+      m_length(length),
+      m_comment(comment),
+      m_code(code)
 {
 }
 

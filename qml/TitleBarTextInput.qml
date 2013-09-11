@@ -56,10 +56,7 @@ FocusScope {
             weight: Font.Light
         }
 
-        onTextChanged: console.log("text changed!")
-
         Keys.onPressed: {
-            console.log("key pressed", Q_OS)
             if (Q_OS === "ANDROID") {
                 if (event.key === Qt.Key_Enter || event.key === Qt.Key_Return) {
                     event.accepted = true;

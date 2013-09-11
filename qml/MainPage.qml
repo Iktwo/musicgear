@@ -108,6 +108,12 @@ Rectangle {
 
         onOuterClicked: close()
 
+        Label {
+            anchors.centerIn: parent
+
+            text: "TODO: write a nice dialog"
+        }
+
         //        Flickable {
         //            anchors.fill: parent
 

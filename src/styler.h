@@ -4,6 +4,14 @@
 #include <QObject>
 #include <QColor>
 
+/*!
+    \class Styler
+
+    \brief Styler class provides access to styling facilities.
+
+    Styler class stores style preferences.
+*/
+
 class Styler : public QObject
 {
     Q_OBJECT

@@ -2,7 +2,7 @@
 <qnx xmlns="http://www.qnx.com/schemas/application/1.0">
     <id>com.iktwo.musicgear</id>
     <name>MusicGear</name>
-    <versionNumber>1.0.0</versionNumber>
+    <versionNumber>0.0.1</versionNumber>
     <description>Stream and download your favorite music!</description>
     <initialWindow>
         <aspectRatio>portrait</aspectRatio>
@@ -10,7 +10,7 @@
         <systemChrome>none</systemChrome>
         <transparent>false</transparent>
     </initialWindow>
-    <author>PUBLISHER</author>
+    <author>Iktwo Corp.</author>
     <copyright>COPYRIGHT</copyright>
     <env var="QML2_IMPORT_PATH" value="app/native/imports"/>
     <env var="QT_PLUGIN_PATH" value="app/native/plugins"/>
@@ -20,7 +20,7 @@
     <action system="true">run_native</action>
     <action>access_shared</action>
     <!-- musicgear should point to the project binary, path can be relative -->
-    <asset type="Qnx/Elf" entry="true" path="musicgear">musicgear</asset>
+    <asset type="Qnx/Elf" path="musicgear" entry="true">musicgear</asset>
     <asset path="%QT_INSTALL_PLUGINS%">plugins</asset>
     <asset path="%QT_INSTALL_LIBS%/libQt5Core.so.5">lib/libQt5Core.so.5</asset>
     <asset path="%QT_INSTALL_LIBS%/libQt5Gui.so.5">lib/libQt5Gui.so.5</asset>
@@ -41,6 +41,7 @@
     <asset path="%SRC_DIR%/resources/images/icon_bb.png">icon</asset>
     <!-- These values will be replaced when deploying in Qt Creator -->
     <icon>
-        <image>icon</image>
+        <image>icon_bb.png</image>
     </icon>
+    <authorId>gYAAgH43TNyknQZ4yVfW-mkq_i0</authorId>
 </qnx>
