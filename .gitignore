@@ -18,3 +18,12 @@ moc_*.cpp
 qrc_*.cpp
 Makefile
 *-build-*
+
+*~
+
+# Android
+android/assets/--Managed_by_Qt_Creator--/*
+android/bin/*.apk
+android/local.properties
+*.class
+*.d
