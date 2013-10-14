@@ -9,9 +9,11 @@
 #define TARGET_URL "http://www.goear.com/"
 #define SEARCH_URL "http://www.goear.com/search/"
 QString Downloader::DownloadUrl("http://www.goear.com/action/sound/get/");
+QString Downloader::TargetDir("/home/user/MyDocs/Music/");
 
 Downloader::Downloader(QObject *parent) :
-    QObject(parent)
+    QObject(parent),
+    m_downloading(false)
 {
     m_netAccess = new QNetworkAccessManager(this);
 
@@ -28,6 +30,7 @@ void Downloader::downloadSong(const QString &name, const QString &url)
 {
     m_songsToDownload.insert(url, name);
     download(url);
+    setDownloading(true);
 }
 
 void Downloader::download(const QString &urlString)
@@ -46,6 +49,9 @@ void Downloader::search(const QString &term)
 
 void Downloader::downloadFinished(QNetworkReply *reply)
 {
+    if (reply->url().toString().endsWith(".mp3"))
+        setDownloading(false);
+
     if (reply->url().toString().startsWith(SEARCH_URL))
         emit searchEnded();
 
@@ -66,6 +72,9 @@ void Downloader::downloadFinished(QNetworkReply *reply)
 
     if (redir.isValid()) {
         QUrl url = redir.toUrl();
+        QString name = m_songsToDownload.value(reply->url().toString()).toString();
+        m_songsToDownload.remove(reply->url().toString());
+        m_songsToDownload.insert(url.toString(), name);
         qDebug() << reply->url().toString() << " was redirected to:" << url.toString();
 
         if (url.isRelative()) {
@@ -167,7 +176,6 @@ void Downloader::downloadFinished(QNetworkReply *reply)
 //            QString comment = songs.mid(termBegins + searchTerm.length(), termEnds - termBegins
 //                                        - searchTerm.length()).simplified();
 
-            qDebug() << "Song found " << title << group << length << comment << code;
             emit songFound(title, group, length, comment, code);
 
             songs = songs.mid(songs.indexOf("<li>", termEnds));
@@ -185,23 +193,13 @@ void Downloader::downloadFinished(QNetworkReply *reply)
 
         emit decodedUrl(reply->url().toString().replace(DownloadUrl, ""), link);
     } else if (mimeType == "audio/mpeg") {
-        qDebug() << "Writing file";
         QString name(m_songsToDownload.value(reply->url().toString()).toString());
+        m_songsToDownload.remove(reply->url().toString());
 
-#ifdef Q_OS_BLACKBERRY
-        name = "shared/music/" + name;
-#endif
-
-#ifdef Q_OS_ANDROID
-        QDir musicDir("/sdcard/Music");
-        if (!musicDir.exists())
-            musicDir.mkdir("/sdcard/Music");
-
-        name = "/sdcard/Music/" + name;
-#endif
+        name.replace("/", "-");
 
         bool permission;
-        QFile file(name + reply->url().toString().mid(reply->url().toString().lastIndexOf(".")));
+        QFile file(TargetDir + name + reply->url().toString().mid(reply->url().toString().lastIndexOf(".")));
         permission = file.open(QIODevice::WriteOnly);
 
         /// TODO: do this
@@ -259,7 +257,21 @@ void Downloader::downloadProgressChanged(qint64 bytesReceived, qint64 bytesTotal
     float i = bytesReceived / (double)bytesTotal;
 
     QNetworkReply *net = (QNetworkReply *)sender();
-    qDebug() << "Progress for: "<< net->url().toString() << " " << i;
+    //qDebug() << "Progress for: "<< net->url().toString() << " " << i;
 
-    //emit progressChanged(i);
+    emit progressChanged(i, m_songsToDownload.value(net->url().toString()).toString());
+}
+
+bool Downloader::isDownloading() const
+{
+    return m_downloading;
+}
+
+void Downloader::setDownloading(bool downloading)
+{
+    if (m_downloading == downloading)
+        return;
+
+    m_downloading = downloading;
+    emit downloadingChanged();
 }

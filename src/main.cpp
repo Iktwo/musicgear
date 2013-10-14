@@ -1,62 +1,27 @@
-#include <QQuickView>
-#include <QGuiApplication>
-#include <QQmlContext>
-#include <QQmlEngine>
-#include <QtQml>
+#include <QtGui/QApplication>
+#include <QtDeclarative>
 
-#include "virtualkeyboardcontrol.h"
-#include "downloadercomponent.h"
-#include "styler.h"
-
-static QObject *stylerProvider(QQmlEngine *engine, QJSEngine *scriptEngine)
-{
-    Q_UNUSED(engine)
-    Q_UNUSED(scriptEngine)
-
-    Styler *example = new Styler();
-    return example;
-}
+#include "musicstreamer.h"
+#include "audiocomponent.h"
 
 int main(int argc, char *argv[])
 {
+    QScopedPointer<QApplication> app(new QApplication(argc, argv));
+
     QCoreApplication::setOrganizationName("Iktwo Corp.");
     QCoreApplication::setOrganizationDomain("iktwo.com");
     QCoreApplication::setApplicationName("MusicGear");
 
-    QScopedPointer<QGuiApplication> app(new QGuiApplication(argc, argv));
+    QScopedPointer<QDeclarativeView> view(new QDeclarativeView());
 
-    QScopedPointer<QQuickView> view(new QQuickView);
+    MusicStreamer musicStreamer;
+    view->rootContext()->setContextProperty("musicStreamer", &musicStreamer);
 
-    qmlRegisterSingletonType<Styler>("Styler", 1, 0, "Styler", stylerProvider);
-    qRegisterMetaType<QObjectList>("QObjectList");
+    qRegisterMetaType<AudioComponent::PlaybackState>("AudioComponent::PlaybackState");
+    qmlRegisterType<AudioComponent>("com.iktwo.components", 1, 0, "AudioComponent");
 
-    DownloaderComponent downloaderComponent;
-    view->rootContext()->setContextProperty("downloaderComponent",
-                                            &downloaderComponent);
-
-    view->rootContext()->setContextProperty("Q_OS", "UNKNOWN");
-
-#ifdef Q_OS_ANDROID
-    view->rootContext()->setContextProperty("Q_OS", "ANDROID");
-#endif
-
-#ifdef Q_OS_LINUX
-#ifndef Q_OS_ANDROID
-    view->rootContext()->setContextProperty("Q_OS", "LINUX");
-#endif
-#endif
-
-#ifdef Q_OS_BLACKBERRY
-    view->rootContext()->setContextProperty("Q_OS", "BLACKBERRY");
-#endif
-
-    VirtualKeyboardControl vkc(*app.data(), *view.data());
-    view->rootContext()->setContextProperty("vkControl", &vkc);
-
-    view->setResizeMode(QQuickView::SizeRootObjectToView);
     view->setSource(QUrl("qrc:/qml/qml/main.qml"));
-
-    view->show();
+    view->showFullScreen();
 
     return app->exec();
 }

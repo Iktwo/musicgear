@@ -1,55 +1,27 @@
 <RCC>
-    <qresource prefix="/images">
-        <file alias="logo">resources/images/iktwo.png</file>
-        <file alias="search_dark">resources/images/search_dark.png</file>
-        <file alias="search_light">resources/images/search_light.png</file>
-        <file alias="back_dark">resources/images/back_dark.png</file>
-        <file alias="back_light">resources/images/back_light.png</file>
-        <file alias="play_dark">resources/images/play_dark.png</file>
-        <file alias="play_light">resources/images/play_light.png</file>
-        <file alias="play_dark_pressed">resources/images/play_dark_pressed.png</file>
-        <file alias="play_light_pressed">resources/images/play_light_pressed.png</file>
-        <file alias="clear_dark">resources/images/clear_dark.png</file>
-        <file alias="clear_light">resources/images/clear_light.png</file>
-        <file alias="download_dark">resources/images/download_dark.png</file>
-        <file alias="download_dark_pressed">resources/images/download_dark_pressed.png</file>
-        <file alias="download_light">resources/images/download_light.png</file>
-        <file alias="download_light_pressed">resources/images/download_light_pressed.png</file>
-        <file alias="remove_dark">resources/images/remove_dark.png</file>
-        <file alias="remove_dark_pressed">resources/images/remove_dark_pressed.png</file>
-        <file alias="remove_light">resources/images/remove_light.png</file>
-        <file alias="remove_pressed">resources/images/remove_light_pressed.png</file>
-        <file alias="add_playlist_dark">resources/images/add_playlist_dark.png</file>
-        <file alias="add_playlist_dark_pressed">resources/images/add_playlist_dark_pressed.png</file>
-        <file alias="add_playlist_light">resources/images/add_playlist_light.png</file>
-        <file alias="add_playlist_light_pressed">resources/images/add_playlist_light_pressed.png</file>
-        <file alias="settings_dark">resources/images/settings_dark.png</file>
-        <file alias="settings_light">resources/images/settings_light.png</file>
-        <file alias="next_dark">resources/images/next_dark.png</file>
-        <file alias="next_light">resources/images/next_light.png</file>
-        <file alias="previous_dark">resources/images/previous_dark.png</file>
-        <file alias="previous_light">resources/images/previous_light.png</file>
-        <file alias="stop_dark">resources/images/stop_dark.png</file>
-        <file alias="stop_light">resources/images/stop_light.png</file>
-        <file alias="playlist_dark">resources/images/playlist_dark.png</file>
-        <file alias="playlist_light">resources/images/playlist_light.png</file>
-    </qresource>
     <qresource prefix="/qml">
-        <file>qml/Dialog.qml</file>
-        <file>qml/Divider.qml</file>
-        <file>qml/ImageButton.qml</file>
-        <file>qml/Label.qml</file>
+        <file>qml/AboutDialog.qml</file>
         <file>qml/main.qml</file>
         <file>qml/MainPage.qml</file>
-        <file>qml/Menu.qml</file>
-        <file>qml/MenuTextItem.qml</file>
-        <file>qml/PlaylistDelegate.qml</file>
-        <file>qml/SearchDialog.qml</file>
-        <file>qml/SongDelegate.qml</file>
-        <file>qml/style.js</file>
+        <file>qml/DownloadPage.qml</file>
+        <file>qml/SearchPage.qml</file>
         <file>qml/TitleBar.qml</file>
-        <file>qml/TitleBarImageButton.qml</file>
-        <file>qml/TitleBarTextInput.qml</file>
-        <file>qml/ToolBar.qml</file>
+        <file>qml/PlaylistPage.qml</file>
+        <file>qml/SearchDelegate.qml</file>
+        <file>qml/PlaylistDelegate.qml</file>
+        <file>qml/PlaybackControls.qml</file>
+    </qresource>
+    <qresource prefix="/images">
+        <file alias="download">resources/images/download.png</file>
+        <file alias="iktwo">resources/images/iktwo.png</file>
+        <file alias="listen">resources/images/listen.png</file>
+        <file alias="remove">resources/images/remove.png</file>
+        <file alias="search">resources/images/search.png</file>
+        <file alias="splash">resources/images/splash.png</file>
+        <file alias="add_playlist">resources/images/add_playlist_dark.png</file>
+        <file alias="previous">resources/images/previous.png</file>
+        <file alias="play">resources/images/play.png</file>
+        <file alias="pause">resources/images/pause.png</file>
+        <file alias="next">resources/images/next.png</file>
     </qresource>
 </RCC>

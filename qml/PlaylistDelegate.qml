@@ -1,14 +1,15 @@
-import QtQuick 2.0
-import "style.js" as Style
-import Styler 1.0
+import QtQuick 1.1
+import com.nokia.meego 1.0
+import com.nokia.extras 1.0
 
 Item {
     id: root
 
     signal requestedPlay()
     signal requestedRemove()
+    signal requestedDownload()
 
-    height: column.height + divider.height
+    height: 80
     width: parent.width
 
     MouseArea {
@@ -30,112 +31,92 @@ Item {
     Rectangle {
         id: container
 
-        height: column.height
+        height: parent.height
         width: parent.width
 
-        color: mouseArea.pressed ? (Styler.darkTheme ? Style.LIST_DELEGATE_BACKGROUND_PRESSED_DARK : Style.LIST_DELEGATE_BACKGROUND_PRESSED_LIGHT) :
-                                   Styler.darkTheme ? Style.LIST_DELEGATE_BACKGROUND_DARK : Style.LIST_DELEGATE_BACKGROUND_LIGHT
+        color: mouseArea.pressed ? "#575757" : "#000000"
 
-        Column {
-            id: column
-
+        Label {
             anchors {
                 left: parent.left; leftMargin: 10
-                right: row.left; rightMargin: 10
+                right: removeButton.left; rightMargin: 10
             }
 
-            // Spacer
-            Item {
-                height: 15
-                width: 1
+            elide: Text.ElideRight
+
+            font {
+                pointSize: 9
+                weight: Font.Light
             }
 
-            Label {
-                elide: Text.ElideRight
+            text: model.name + " - " + model.group
 
-                font {
-                    pointSize: 9
-                    weight: Font.Light
-                }
-
-                text: model.name + " - <i>" + model.group + "</i>"
-
-                width: parent.width
-            }
-
-            Label {
-                color: Styler.darkTheme ? Style.TEXT_SECONDARY_COLOR_DARK : Style.TEXT_SECONDARY_COLOR_LIGHT
-                elide: Text.ElideRight
-
-                font {
-                    pointSize: 8
-                    weight: Font.Light
-                }
-
-                text: model.length + " - <i>" + model.comment + "</i>"
-                width: parent.width
-            }
-
-            // Spacer
-            Item {
-                height: 15
-                width: 1
-            }
+            height: parent.height / 2
+            clip: true
         }
 
-        Row {
-            id: row
+        Label {
+            anchors {
+                left: parent.left; leftMargin: 10
+                right: removeButton.left; rightMargin: 10
+                bottom: parent.bottom
+            }
+
+            color: "#d1d1d1"
+            elide: Text.ElideRight
+
+            font {
+                pointSize: 8
+                weight: Font.Light
+            }
+
+            text: model.length + " - " + model.comment
+            height: parent.height / 2
+            clip: true
+        }
+
+        Button {
+            id: removeButton
 
             anchors {
-                right: parent.right; rightMargin: 15
+                right: downloadButton.left; rightMargin: 10
+                verticalCenter: parent.verticalCenter
             }
 
-            height: column.height
-            spacing: 15
+            iconSource: "qrc:/images/remove"
+            width: 80
 
-            //            ImageButton {
-            //                height: parent.height
-            //                width: 92
+            onClicked: root.requestedRemove()
+            visible: model.url !== ""
+        }
 
-            //                background: Styler.darkTheme ? "qrc:/images/play_dark" : "qrc:/images/play_light"
-            //                backgroundPressed: Styler.darkTheme ? "qrc:/images/play_dark_pressed" : "qrc:/images/play_light_pressed"
+        Button {
+            id: downloadButton
 
-            //                visible: model.url === "" ? false : true
-
-            //                onClicked: root.requestedPlay()
-            //            }
-
-            ImageButton {
-                height: parent.height
-                width: 92
-
-                background: Styler.darkTheme ? "qrc:/images/remove_dark" : "qrc:/images/remove_light"
-                backgroundPressed: Styler.darkTheme ? "qrc:/images/remove_dark_pressed" : "qrc:/images/remove_light_pressed"
-
-                visible: model.url === "" ? false : true
-
-                onClicked: root.requestedRemove()
+            anchors {
+                right: parent.right; rightMargin: 5
+                verticalCenter: parent.verticalCenter
             }
+
+            iconSource: "qrc:/images/download"
+            width: 80
+
+            onClicked: root.requestedDownload()
+            visible: model.url !== ""
         }
     }
 
 
-    Divider {
-        id: divider
-
+    Rectangle {
         anchors.bottom: parent.bottom
+
+        width: parent.width
+        height: 2
+
+        color: "#515151"
     }
 
-    //    ListView.onRemove: Transition {
-    //        ParallelAnimation {
-    //            NumberAnimation { property: "opacity"; to: 0; duration: 5000 }
-    //            NumberAnimation { properties: "x"; to: -300; duration: 5000 }
-    //        }
-    //    }
-
     ListView.onRemove: SequentialAnimation {
-        ScriptAction { script: console.log("I can't believe it! this is not butter!") }
-
         PropertyAction { target: root; property: "ListView.delayRemove"; value: true }
 
         ParallelAnimation {

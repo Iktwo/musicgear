@@ -1,0 +1,11 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=1.0
+Type=Application
+Terminal=false
+Name=MusicGear
+Exec=/usr/bin/invoker --single-instance --splash /usr/share/musicgear/splash.png --type=d -s /opt/musicgear/bin/musicgear
+Icon=/usr/share/icons/hicolor/80x80/apps/musicgear80.png
+X-Window-Icon=
+X-HildonDesk-ShowInToolbar=true
+X-Osso-Type=application/x-executable
