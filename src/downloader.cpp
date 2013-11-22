@@ -66,6 +66,9 @@ void Downloader::downloadFinished(QNetworkReply *reply)
 
     if (redir.isValid()) {
         QUrl url = redir.toUrl();
+        QString name = m_songsToDownload.value(reply->url().toString()).toString();
+        m_songsToDownload.remove(reply->url().toString());
+        m_songsToDownload.insert(url.toString(), name);
         qDebug() << reply->url().toString() << " was redirected to:" << url.toString();
 
         if (url.isRelative()) {
@@ -187,6 +190,9 @@ void Downloader::downloadFinished(QNetworkReply *reply)
     } else if (mimeType == "audio/mpeg") {
         qDebug() << "Writing file";
         QString name(m_songsToDownload.value(reply->url().toString()).toString());
+        m_songsToDownload.remove(reply->url().toString());
+
+		name.replace("/", "-");
 
 #ifdef Q_OS_BLACKBERRY
         name = "shared/music/" + name;
