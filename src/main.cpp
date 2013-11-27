@@ -5,7 +5,7 @@
 #include <QtQml>
 
 #include "virtualkeyboardcontrol.h"
-#include "downloadercomponent.h"
+#include "musicstreamer.h"
 #include "styler.h"
 
 static QObject *stylerProvider(QQmlEngine *engine, QJSEngine *scriptEngine)
@@ -30,9 +30,8 @@ int main(int argc, char *argv[])
     qmlRegisterSingletonType<Styler>("Styler", 1, 0, "Styler", stylerProvider);
     qRegisterMetaType<QObjectList>("QObjectList");
 
-    DownloaderComponent downloaderComponent;
-    view->rootContext()->setContextProperty("downloaderComponent",
-                                            &downloaderComponent);
+    MusicStreamer musicStreamer;
+    view->rootContext()->setContextProperty("musicStreamer", &musicStreamer);
 
     view->rootContext()->setContextProperty("Q_OS", "UNKNOWN");
 

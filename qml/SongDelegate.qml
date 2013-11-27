@@ -22,13 +22,13 @@ Item {
 
         // Spacer
         Item {
-            height: 15
+            height: 25
             width: 1
         }
 
         Label {
             font {
-                pointSize: 9
+                pointSize: 16
                 weight: Font.Light
             }
 
@@ -46,7 +46,7 @@ Item {
 
         Label {
             font {
-                pointSize: 8
+                pointSize: 15
                 weight: Font.Light
             }
 
@@ -86,17 +86,17 @@ Item {
             onClicked: root.addToPlaylist()
         }
 
-//        ImageButton {
-//            height: parent.height
-//            width: 92
+        ImageButton {
+            height: parent.height
+            width: 92
 
-//            background: Styler.darkTheme ? "qrc:/images/download_dark" : "qrc:/images/download_light"
-//            backgroundPressed: Styler.darkTheme ? "qrc:/images/download_dark_pressed" : "qrc:/images/download_light_pressed"
+            background: Styler.darkTheme ? "qrc:/images/download_dark" : "qrc:/images/download_light"
+            backgroundPressed: Styler.darkTheme ? "qrc:/images/download_dark_pressed" : "qrc:/images/download_light_pressed"
 
-//            visible: model.url === "" ? false : true
+            visible: model.url === "" ? false : true
 
-//            onClicked: root.download()
-//        }
+            onClicked: root.download()
+        }
     }
 
     Divider { anchors.top: column.bottom }

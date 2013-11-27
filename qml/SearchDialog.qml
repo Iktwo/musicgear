@@ -1,14 +1,17 @@
-import QtQuick 2.0
+import QtQuick 2.2
+import QtQuick.Controls 1.1
+import QtQuick.Controls.Styles 1.1
 import Styler 1.0
 import "style.js" as Style
+import "." 1.0
 
 Dialog {
     id: root
 
     function search() {
-        if (!downloaderComponent.searching)
+        if (!musicStreamer.searching)
             if (textEdit.text.length > 0) {
-                downloaderComponent.search(textEdit.text)
+                musicStreamer.search(textEdit.text)
                 vkControl.close()
             }
     }
@@ -37,7 +40,7 @@ Dialog {
                 onClicked: root.close()
             }
 
-            TitleBarTextInput {
+            TextField {
                 id: textEdit
 
                 anchors {
@@ -45,11 +48,9 @@ Dialog {
                     verticalCenter: parent.verticalCenter
                 }
 
-                placeholderText: "Artist, Song"
+                placeholderText: "Artist, Song.."
 
-                focus: true
-
-                onSubmit: root.search()
+                onAccepted: root.search()
             }
 
             TitleBarImageButton {
@@ -72,7 +73,7 @@ Dialog {
                 bottom: parent.bottom
             }
 
-            model: downloaderComponent
+            model: musicStreamer
             clip: true
 
             delegate: SongDelegate {
@@ -83,7 +84,7 @@ Dialog {
                                                      "code" : model.code,
                                                      "url": model.url })
 
-                onDownload: downloaderComponent.downloadSong(model.name, model.url)
+                onDownload: musicStreamer.downloadSong(model.name, model.url)
             }
 
             onContentYChanged: {
@@ -91,7 +92,7 @@ Dialog {
                 if (contentHeight != 0)
                     //if (((contentY + height) / contentHeight) > 0.85)
                     if (atYEnd)
-                        downloaderComponent.fetchMore()
+                        musicStreamer.fetchMore()
             }
         }
 
@@ -99,12 +100,85 @@ Dialog {
             anchors.fill: parent
 
             color: "#88000000"
-            opacity: downloaderComponent.searching ? 1 : 0
+            opacity: musicStreamer.searching ? 1 : 0
 
             Label {
                 anchors.centerIn: parent
 
                 text: "Searching.."
+            }
+        }
+    }
+
+    Rectangle {
+        anchors.fill: parent
+
+        visible: musicStreamer.downloading
+
+        color: "black"
+
+        MouseArea {
+            anchors.fill: parent
+            enabled: parent.visible
+        }
+
+        Label {
+            id: progressLabel
+
+            anchors.centerIn: parent
+
+            property double progress: 0
+            property string name: ""
+
+            text: qsTr("Downloading") + "\n" + (name.length > 20 ? name.substring(0, 20) + "..." : name) + "\n" + Math.floor(progress * 100) + "%"
+
+            font {
+                pointSize: 22
+                weight: Font.Light
+            }
+
+            wrapMode: Text.Wrap
+            horizontalAlignment: Text.AlignHCenter
+        }
+
+        // TODO: add cancel button
+
+        ProgressBar {
+            maximumValue: 1
+            minimumValue: 0
+            value: progressLabel.progress
+            anchors {
+                left: parent.left
+                right: parent.right
+                top: progressLabel.bottom; topMargin: 15
+            }
+            style: ProgressBarStyle {
+                background: Rectangle {
+                    radius: 2
+                    color: "lightgray"
+                    border.color: "gray"
+                    border.width: 1
+                    implicitWidth: 200
+                    implicitHeight: 24
+                }
+                progress: Rectangle {
+                    color: "lightsteelblue"
+                    border.color: "steelblue"
+                }
+            }
+        }
+
+        Connections {
+            target: musicStreamer
+
+            onProgressChanged: {
+                progressLabel.progress = progress
+                progressLabel.name = name
+            }
+
+            onServerError: {
+                messageBanner.text = "Server error"
+                messageBanner.show()
             }
         }
     }

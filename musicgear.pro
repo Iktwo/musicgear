@@ -1,19 +1,22 @@
 QT += quick network xml multimedia
 
+
+ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
+
 SOURCES += \
     src/main.cpp \
     src/song.cpp \
     src/downloader.cpp \
-    src/downloadercomponent.cpp \
     src/styler.cpp \
-    src/virtualkeyboardcontrol.cpp
+    src/virtualkeyboardcontrol.cpp \
+    src/musicstreamer.cpp
 
 HEADERS += \
     src/song.h \
     src/downloader.h \
-    src/downloadercomponent.h \
     src/styler.h \
-    src/virtualkeyboardcontrol.h
+    src/virtualkeyboardcontrol.h \
+    src/musicstreamer.h
 
 RESOURCES += \
     resources.qrc

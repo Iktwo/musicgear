@@ -54,7 +54,7 @@ Item {
                 elide: Text.ElideRight
 
                 font {
-                    pointSize: 9
+                    pointSize: 12
                     weight: Font.Light
                 }
 
@@ -68,7 +68,7 @@ Item {
                 elide: Text.ElideRight
 
                 font {
-                    pointSize: 8
+                    pointSize: 11
                     weight: Font.Light
                 }
 

@@ -6,12 +6,13 @@
 #include <QStringList>
 
 class Downloader;
-class DownloaderComponent : public QAbstractListModel
+class MusicStreamer : public QAbstractListModel
 {
     Q_OBJECT
     Q_PROPERTY(QObjectList songs READ songs NOTIFY songsChanged)
     Q_PROPERTY(bool searching READ searching NOTIFY searchingChanged)
-    Q_PROPERTY(bool serverError READ serverError NOTIFY serverErrorChanged)
+    //Q_PROPERTY(bool serverError READ serverError NOTIFY serverErrorChanged)
+    Q_PROPERTY(bool downloading READ isDownloading NOTIFY downloadingChanged)
 
 public:
     enum DownloaderRoles {
@@ -23,8 +24,7 @@ public:
         UrlRole
     };
 
-    explicit DownloaderComponent(QObject *parent = 0);
-    ~DownloaderComponent();
+    explicit MusicStreamer(QObject *parent = 0);
 
     Q_INVOKABLE void downloadSong(const QString &name, const QString &url);
     Q_INVOKABLE void search(const QString &term);
@@ -39,14 +39,18 @@ public:
     bool searching();
     void setSearching(bool searching);
 
-    bool serverError();
-    void setServerError(bool serverError);
+    //bool serverError();
+    //void setServerError(bool serverError);
 
+    bool isDownloading() const;
 
 signals:
     void songsChanged();
     void searchingChanged();
-    void serverErrorChanged();
+    //void serverErrorChanged();
+    void serverError();
+    void downloadingChanged();
+    void progressChanged(float progress, const QString &name);
 
 #if QT_VERSION >= 0x050000
 protected:
@@ -67,8 +71,9 @@ private slots:
 
     void decodedUrl(const QString &code, const QString &url);
     void searchEnded();
-    void serverErrorOcurred();
+    //void serverErrorOcurred();
     void lastSearchHasMoreResults(const QString &url);
+    void emitDownloadingChanged();
     
 };
 

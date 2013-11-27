@@ -1,11 +1,11 @@
-#include "downloadercomponent.h"
+#include "musicstreamer.h"
 
 #include "downloader.h"
 #include "song.h"
 
 #include <QDebug>
 
-DownloaderComponent::DownloaderComponent(QObject *parent) :
+MusicStreamer::MusicStreamer(QObject *parent) :
     QAbstractListModel(parent),
     m_searching(false),
     m_serverError(false),
@@ -22,32 +22,31 @@ DownloaderComponent::DownloaderComponent(QObject *parent) :
     setRoleNames(roles);
 #endif
 
-    m_downloader = new Downloader();
+    m_downloader = new Downloader(this);
 
     connect(m_downloader, SIGNAL(songFound(QString, QString, QString, QString, QString)), this,
             SLOT(songFound(QString, QString, QString, QString, QString)));
 
-    connect(m_downloader, SIGNAL(searchEnded()), this, SLOT(searchEnded()));
-    connect(m_downloader, SIGNAL(serverError()), this, SLOT(serverErrorOcurred()));
-    connect(m_downloader, SIGNAL(decodedUrl(QString,QString)), this, SLOT(decodedUrl(QString,QString)));
-    connect(m_downloader, SIGNAL(searchHasMoreResults(QString)), this,
+    connect(m_downloader, SIGNAL(searchEnded()), SLOT(searchEnded()));
+    //connect(m_downloader, SIGNAL(serverError()), SLOT(serverErrorOcurred()));
+    connect(m_downloader, SIGNAL(decodedUrl(QString,QString)), SLOT(decodedUrl(QString,QString)));
+    connect(m_downloader, SIGNAL(searchHasMoreResults(QString)),
             SLOT(lastSearchHasMoreResults(QString)));
+    connect(m_downloader, SIGNAL(downloadingChanged()), SLOT(emitDownloadingChanged()));
+    connect(m_downloader, SIGNAL(progressChanged(float, QString)), SIGNAL(progressChanged(float, QString)));
+
+    connect(m_downloader, SIGNAL(serverError()), SIGNAL(serverError()));
 }
 
-DownloaderComponent::~DownloaderComponent()
+void MusicStreamer::downloadSong(const QString &name, const QString &url)
 {
-    delete m_downloader;
-}
-
-void DownloaderComponent::downloadSong(const QString &name, const QString &url)
-{
-    setServerError(false);
+    //setServerError(false);
     m_downloader->downloadSong(name, url);
 }
 
-void DownloaderComponent::search(const QString &term)
+void MusicStreamer::search(const QString &term)
 {
-    setServerError(false);
+    //setServerError(false);
     setSearching(true);
 
     foreach (QObject *item, m_songs)
@@ -62,10 +61,10 @@ void DownloaderComponent::search(const QString &term)
     m_downloader->search(searchTerm.replace(" ", "-"));
 }
 
-void DownloaderComponent::songFound(const QString &title, const QString &group, const QString &length,
-                                    const QString &comment, const QString &code)
+void MusicStreamer::songFound(const QString &title, const QString &group, const QString &length,
+                              const QString &comment, const QString &code)
 {
-//    qDebug() << "apending " << title;
+    //    qDebug() << "apending " << title;
     // m_downloader->download(QString(Downloader::ImageUrl + hash + extension));
     // m_songs.append(QString(title));
 
@@ -76,12 +75,12 @@ void DownloaderComponent::songFound(const QString &title, const QString &group, 
     emit songsChanged();
 }
 
-QObjectList DownloaderComponent::songs()
+QObjectList MusicStreamer::songs()
 {
     return m_songs;
 }
 
-void DownloaderComponent::decodedUrl(const QString &code, const QString &url)
+void MusicStreamer::decodedUrl(const QString &code, const QString &url)
 {
     int i = 0;
     foreach (QObject *item, m_songs) {
@@ -96,9 +95,8 @@ void DownloaderComponent::decodedUrl(const QString &code, const QString &url)
     }
 }
 
-QVariant DownloaderComponent::data(const QModelIndex & index, int role) const
+QVariant MusicStreamer::data(const QModelIndex & index, int role) const
 {
-    qDebug() << "asking for: " << index.row();
     if (index.row() < 0 || index.row() >= m_songs.count())
         return QVariant();
 
@@ -118,13 +116,13 @@ QVariant DownloaderComponent::data(const QModelIndex & index, int role) const
     return QVariant();
 }
 
-int DownloaderComponent::rowCount(const QModelIndex & parent) const
+int MusicStreamer::rowCount(const QModelIndex & parent) const
 {
     Q_UNUSED(parent);
     return m_songs.count();
 }
 
-QHash<int, QByteArray> DownloaderComponent::roleNames() const
+QHash<int, QByteArray> MusicStreamer::roleNames() const
 {
     QHash<int, QByteArray> roles;
     roles[NameRole] = "name";
@@ -136,17 +134,17 @@ QHash<int, QByteArray> DownloaderComponent::roleNames() const
     return roles;
 }
 
-void DownloaderComponent::searchEnded()
+void MusicStreamer::searchEnded()
 {
     setSearching(false);
 }
 
-bool DownloaderComponent::searching()
+bool MusicStreamer::searching()
 {
     return m_searching;
 }
 
-void DownloaderComponent::setSearching(bool searching)
+void MusicStreamer::setSearching(bool searching)
 {
     if (m_searching == searching)
         return;
@@ -155,32 +153,32 @@ void DownloaderComponent::setSearching(bool searching)
     emit searchingChanged();
 }
 
-bool DownloaderComponent::serverError()
+/*bool MusicStreamer::serverError()
 {
     return m_serverError;
-}
+}*/
 
-void DownloaderComponent::serverErrorOcurred()
+/*void MusicStreamer::serverErrorOcurred()
 {
     setServerError(true);
-}
+}*/
 
-void DownloaderComponent::setServerError(bool serverError)
+/*void MusicStreamer::setServerError(bool serverError)
 {
     if (m_serverError == serverError)
         return;
 
     m_serverError = serverError;
     emit serverErrorChanged();
-}
+}*/
 
-void DownloaderComponent::lastSearchHasMoreResults(const QString &url)
+void MusicStreamer::lastSearchHasMoreResults(const QString &url)
 {
     qDebug() << "more results: " << url;
     m_lastSearchHasMoreResults = url;
 }
 
-void DownloaderComponent::fetchMore()
+void MusicStreamer::fetchMore()
 {
     //    if (fetched < 3)
     if (!m_lastSearchHasMoreResults.isEmpty() && !m_searching) {
@@ -188,4 +186,14 @@ void DownloaderComponent::fetchMore()
         setSearching(true);
     }
     //    fetched++;
+}
+
+bool MusicStreamer::isDownloading() const
+{
+    return m_downloader->isDownloading();
+}
+
+void MusicStreamer::emitDownloadingChanged()
+{
+    emit downloadingChanged();
 }

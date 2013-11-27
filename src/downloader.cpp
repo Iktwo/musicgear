@@ -11,7 +11,8 @@
 QString Downloader::DownloadUrl("http://www.goear.com/action/sound/get/");
 
 Downloader::Downloader(QObject *parent) :
-    QObject(parent)
+    QObject(parent),
+    m_downloading(false)
 {
     m_netAccess = new QNetworkAccessManager(this);
 
@@ -28,6 +29,7 @@ void Downloader::downloadSong(const QString &name, const QString &url)
 {
     m_songsToDownload.insert(url, name);
     download(url);
+    setDownloading(true);
 }
 
 void Downloader::download(const QString &urlString)
@@ -46,6 +48,9 @@ void Downloader::search(const QString &term)
 
 void Downloader::downloadFinished(QNetworkReply *reply)
 {
+    if (reply->url().toString().endsWith(".mp3"))
+        setDownloading(false);
+
     if (reply->url().toString().startsWith(SEARCH_URL))
         emit searchEnded();
 
@@ -267,5 +272,19 @@ void Downloader::downloadProgressChanged(qint64 bytesReceived, qint64 bytesTotal
     QNetworkReply *net = (QNetworkReply *)sender();
     qDebug() << "Progress for: "<< net->url().toString() << " " << i;
 
-    //emit progressChanged(i);
+    emit progressChanged(i, m_songsToDownload.value(net->url().toString()).toString());
+}
+
+bool Downloader::isDownloading() const
+{
+    return m_downloading;
+}
+
+void Downloader::setDownloading(bool downloading)
+{
+    if (m_downloading == downloading)
+        return;
+
+    m_downloading = downloading;
+    emit downloadingChanged();
 }
