@@ -6,6 +6,10 @@
 #include <QMap>
 #include <QVariantMap>
 
+#ifdef Q_OS_ANDROID
+#include "androiddownloadmanager.h"
+#endif
+
 //! Downloader class.
 
 /*!
@@ -59,6 +63,9 @@ private:
 private slots:
     QString decodeHtml(const QString &html);
     void downloadProgressChanged(qint64 bytesReceived, qint64 bytesTotal);
+#ifdef Q_OS_ANDROID
+    AndroidDownloadManager mAdm;
+#endif
 };
 
 #endif // DOWNLOADER_H

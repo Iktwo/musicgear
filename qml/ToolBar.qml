@@ -1,4 +1,6 @@
-import QtQuick 2.0
+import QtQuick 2.2
+import QtQuick.Controls 1.1
+import QtQuick.Controls.Styles 1.1
 import QtMultimedia 5.0
 import "style.js" as Style
 import Styler 1.0
@@ -33,8 +35,73 @@ Rectangle {
     color: Styler.darkTheme ? Style.MENU_TITLE_BACKGROUND_COLOR_DARK : Style.MENU_TITLE_BACKGROUND_COLOR_LIGHT
     height: 122
 
-    Item {
+    ProgressBar {
         id: progressBar
+
+        anchors {
+            left: parent.left
+            right: parent.right
+            top: parent.top
+        }
+        maximumValue: audio.duration
+        minimumValue: 0
+        value: audio.position
+
+        style: ProgressBarStyle {
+            background: Rectangle {
+                //radius: 2
+                color: Styler.darkTheme ? Style.PROGRESS_BAR_BACKGROUND_DARK : Style.PROGRESS_BAR_BACKGROUND_LIGHT
+                //border.color: "gray"
+                //border.width: 1
+                implicitWidth: 200
+                implicitHeight: 15
+            }
+            progress: Rectangle {
+                color: "#99cc00"
+                //color: "lightsteelblue"
+                //border.color: "steelblue"
+            }
+        }
+
+        MouseArea {
+            anchors {
+                fill: parent
+                margins: -10
+            }
+
+            onClicked: {
+                if (audio.seekable)
+                    audio.seek((mouseX / parent.width) * audio.duration)
+            }
+        }
+    }
+
+    Label {
+        id: currentTimeLabel
+
+        anchors {
+            left: parent.left; leftMargin: 5
+            bottom: parent.bottom
+        }
+
+        color: Styler.darkTheme ? Style.TEXT_SECONDARY_COLOR_DARK : Style.TEXT_SECONDARY_COLOR_LIGHT
+        font.pointSize: 8
+        text: formatMilliseconds(audio.position)
+    }
+
+    Label {
+        anchors {
+            right: parent.right; rightMargin: 5
+            bottom: parent.bottom
+        }
+
+        color: Styler.darkTheme ? Style.TEXT_SECONDARY_COLOR_DARK : Style.TEXT_SECONDARY_COLOR_LIGHT
+        font.pointSize: 8
+        text: formatMilliseconds(audio.duration)
+    }
+
+    /*Item {
+        //id: progressBar
 
         anchors {
             left: parent.left
@@ -98,7 +165,7 @@ Rectangle {
                     audio.seek((mouseX / parent.width) * audio.duration)
             }
         }
-    }
+    }*/
 
     Label {
         id: songLabel

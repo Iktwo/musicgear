@@ -27,9 +27,13 @@ Downloader::~Downloader()
 
 void Downloader::downloadSong(const QString &name, const QString &url)
 {
+#ifdef Q_OS_ANDROID
+    mAdm.downloadFile(url, name.simplified());
+#else
     m_songsToDownload.insert(url, name);
     download(url);
     setDownloading(true);
+#endif
 }
 
 void Downloader::download(const QString &urlString)
@@ -167,22 +171,22 @@ void Downloader::downloadFinished(QNetworkReply *reply)
 
             QString comment = songs.mid(termBegins, termEnds - termBegins);
 
-//            searchTerm = "<p class=\"comment\">";
-//            closingTerm = "</p>";
-//            termBegins = songs.indexOf(searchTerm, listenBegins);
-//            termEnds = songs.indexOf(closingTerm, termBegins);
+            //            searchTerm = "<p class=\"comment\">";
+            //            closingTerm = "</p>";
+            //            termBegins = songs.indexOf(searchTerm, listenBegins);
+            //            termEnds = songs.indexOf(closingTerm, termBegins);
 
-//            QString comment = songs.mid(termBegins + searchTerm.length(), termEnds - termBegins
-//                                        - searchTerm.length()).simplified();
+            //            QString comment = songs.mid(termBegins + searchTerm.length(), termEnds - termBegins
+            //                                        - searchTerm.length()).simplified();
 
             qDebug() << "Song found " << title << group << length << comment << code;
             emit songFound(title, group, length, comment, code);
 
             songs = songs.mid(songs.indexOf("<li>", termEnds));
-//            download(DOWNLOAD_URL + code);
+            //            download(DOWNLOAD_URL + code);
 
-//            songs = songs.mid(listenEnds) + 1;
-//            exit(0);
+            //            songs = songs.mid(listenEnds) + 1;
+            //            exit(0);
         }
     } else if (mimeType == "text/xml") {
         QString link = reply->readAll();
@@ -197,7 +201,7 @@ void Downloader::downloadFinished(QNetworkReply *reply)
         QString name(m_songsToDownload.value(reply->url().toString()).toString());
         m_songsToDownload.remove(reply->url().toString());
 
-		name.replace("/", "-");
+        name.replace("/", "-");
 
 #ifdef Q_OS_BLACKBERRY
         name = "shared/music/" + name;

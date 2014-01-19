@@ -1,7 +1,16 @@
 QT += quick network xml multimedia
 
-
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
+
+android {
+    QT += androidextras
+
+    SOURCES += \
+    src/androiddownloadmanager.cpp
+
+    HEADERS += \
+    src/androiddownloadmanager.h
+}
 
 SOURCES += \
     src/main.cpp \
@@ -44,7 +53,5 @@ OTHER_FILES += \
     android/src/org/kde/necessitas/ministro/IMinistro.aidl \
     android/src/org/qtproject/qt5/android/bindings/QtActivity.java \
     android/src/org/qtproject/qt5/android/bindings/QtApplication.java \
-    android/res/layout/splash.xml \
-    android/res/values/libs.xml \
-    android/res/values/strings.xml \
-    android/AndroidManifest.xml
+    android/AndroidManifest.xml \
+    android/src/com/iktwo/utils/QDownloadManager.java
