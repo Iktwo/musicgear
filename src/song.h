@@ -37,8 +37,8 @@ class Song : public QObject
 public:
     Song(QObject *parent = 0);
 
-    Song(const QString &name, const QString &group, const QString &length, const QString &comment,
-         const QString &code, QObject *parent = 0);
+    Song(const QString &name, const QString &group, const QString &length,
+         const QString &comment, const QString &code, QObject *parent = 0);
 
     /*!
     Return the name of the song.

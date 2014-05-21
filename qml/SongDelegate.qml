@@ -8,9 +8,8 @@ Item {
     signal addToPlaylist()
     signal download()
 
-    height: model.url === "" ? 0 : column.height
-    width: model.url === "" ? 0 : parent.width
-    visible: model.url !== ""
+    height: column.height
+    width: parent.width
 
     Column {
         id: column

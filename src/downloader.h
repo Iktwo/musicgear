@@ -16,6 +16,7 @@
 Downloader class provides functions to download files using http.
 */
 
+class QNetworkCookie;
 class QNetworkReply;
 class QNetworkAccessManager;
 class Downloader : public QObject
@@ -35,6 +36,7 @@ public:
 
 public slots:
     void downloadSong(const QString &name, const QString &url);
+    void getDownloadLink(const QString &code);
     void download(const QString &urlString);
     void search(const QString &term);
     void downloadFinished(QNetworkReply *reply);
@@ -48,6 +50,7 @@ signals:
     void songDownloaded(const QString &url);
     void serverError();
     void searchHasMoreResults(const QString &url);
+    void searchHasNoMoreResults();
     void downloadingChanged();
     void progressChanged(float progress, const QString &name);
 
@@ -57,12 +60,14 @@ private:
     QVariantMap m_songsToDownload;
     QNetworkReply *m_nreply;
     bool m_downloading;
+    QList<QNetworkCookie> mCookies;
 
     void setDownloading(bool downloading);
 
 private slots:
     QString decodeHtml(const QString &html);
     void downloadProgressChanged(qint64 bytesReceived, qint64 bytesTotal);
+
 #ifdef Q_OS_ANDROID
     AndroidDownloadManager mAdm;
 #endif

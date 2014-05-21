@@ -7,41 +7,27 @@
 
 MusicStreamer::MusicStreamer(QObject *parent) :
     QAbstractListModel(parent),
-    m_searching(false),
-    m_serverError(false),
+    mSearching(false),
+    mServerError(false),
     fetched(0)
 {
-#if QT_VERSION < 0x050000
-    QHash<int, QByteArray> roles;
-    roles[NameRole] = "name";
-    roles[GroupRole] = "group";
-    roles[LengthRole] = "length";
-    roles[CommentRole] = "comment";
-    roles[CodeRole] = "code";
-    roles[UrlRole] = "url";
-    setRoleNames(roles);
-#endif
+    mDownloader = new Downloader(this);
 
-    m_downloader = new Downloader(this);
-
-    connect(m_downloader, SIGNAL(songFound(QString, QString, QString, QString, QString)), this,
-            SLOT(songFound(QString, QString, QString, QString, QString)));
-
-    connect(m_downloader, SIGNAL(searchEnded()), SLOT(searchEnded()));
+    connect(mDownloader, SIGNAL(songFound(QString, QString, QString, QString, QString)), SLOT(songFound(QString, QString, QString, QString, QString)));
+    connect(mDownloader, SIGNAL(searchEnded()), SLOT(searchEnded()));
     //connect(m_downloader, SIGNAL(serverError()), SLOT(serverErrorOcurred()));
-    connect(m_downloader, SIGNAL(decodedUrl(QString,QString)), SLOT(decodedUrl(QString,QString)));
-    connect(m_downloader, SIGNAL(searchHasMoreResults(QString)),
-            SLOT(lastSearchHasMoreResults(QString)));
-    connect(m_downloader, SIGNAL(downloadingChanged()), SLOT(emitDownloadingChanged()));
-    connect(m_downloader, SIGNAL(progressChanged(float, QString)), SIGNAL(progressChanged(float, QString)));
-
-    connect(m_downloader, SIGNAL(serverError()), SIGNAL(serverError()));
+    connect(mDownloader, SIGNAL(decodedUrl(QString,QString)), SLOT(decodedUrl(QString,QString)));
+    connect(mDownloader, SIGNAL(searchHasMoreResults(QString)), SLOT(lastSearchHasMoreResults(QString)));
+    connect(mDownloader, SIGNAL(searchHasNoMoreResults()), SLOT(lastSearchHasNoMoreResults()));
+    connect(mDownloader, SIGNAL(downloadingChanged()), SLOT(emitDownloadingChanged()));
+    connect(mDownloader, SIGNAL(progressChanged(float, QString)), SIGNAL(progressChanged(float, QString)));
+    connect(mDownloader, SIGNAL(serverError()), SIGNAL(serverError()));
 }
 
 void MusicStreamer::downloadSong(const QString &name, const QString &url)
 {
     //setServerError(false);
-    m_downloader->downloadSong(name, url);
+    mDownloader->downloadSong(name, url);
 }
 
 void MusicStreamer::search(const QString &term)
@@ -49,16 +35,16 @@ void MusicStreamer::search(const QString &term)
     //setServerError(false);
     setSearching(true);
 
-    foreach (QObject *item, m_songs)
+    foreach (QObject *item, mSongs)
         delete item;
 
     beginRemoveRows(QModelIndex(), 0, rowCount());
-    m_songs.clear();
+    mSongs.clear();
     emit songsChanged();
     endRemoveRows();
 
     QString searchTerm(term);
-    m_downloader->search(searchTerm.replace(" ", "-"));
+    mDownloader->search(searchTerm.replace(" ", "-"));
 }
 
 void MusicStreamer::songFound(const QString &title, const QString &group, const QString &length,
@@ -69,7 +55,7 @@ void MusicStreamer::songFound(const QString &title, const QString &group, const 
     // m_songs.append(QString(title));
 
     beginInsertRows(QModelIndex(), rowCount(), rowCount());
-    m_songs.append(new Song(title, group, length, comment, code, this));
+    mSongs.append(new Song(title, group, length, comment, code, this));
     endInsertRows();
 
     emit songsChanged();
@@ -77,13 +63,14 @@ void MusicStreamer::songFound(const QString &title, const QString &group, const 
 
 QObjectList MusicStreamer::songs()
 {
-    return m_songs;
+    return mSongs;
 }
 
 void MusicStreamer::decodedUrl(const QString &code, const QString &url)
 {
+    qDebug() << Q_FUNC_INFO << " URL: " << url;
     int i = 0;
-    foreach (QObject *item, m_songs) {
+    foreach (QObject *item, mSongs) {
         Song *song = qobject_cast<Song *>(item);
         if (song->code() == code) {
             song->setUrl(url);
@@ -97,10 +84,10 @@ void MusicStreamer::decodedUrl(const QString &code, const QString &url)
 
 QVariant MusicStreamer::data(const QModelIndex & index, int role) const
 {
-    if (index.row() < 0 || index.row() >= m_songs.count())
+    if (index.row() < 0 || index.row() >= mSongs.count())
         return QVariant();
 
-    Song *song = qobject_cast<Song*>(m_songs[index.row()]);
+    Song *song = qobject_cast<Song*>(mSongs[index.row()]);
     if (role == NameRole)
         return song->name();
     else if (role == GroupRole)
@@ -112,14 +99,14 @@ QVariant MusicStreamer::data(const QModelIndex & index, int role) const
     else if (role == CodeRole)
         return song->code();
     else if (role == UrlRole)
-        return Downloader::DownloadUrl + song->code();
+        return song->url();
     return QVariant();
 }
 
 int MusicStreamer::rowCount(const QModelIndex & parent) const
 {
     Q_UNUSED(parent);
-    return m_songs.count();
+    return mSongs.count();
 }
 
 QHash<int, QByteArray> MusicStreamer::roleNames() const
@@ -141,15 +128,15 @@ void MusicStreamer::searchEnded()
 
 bool MusicStreamer::searching()
 {
-    return m_searching;
+    return mSearching;
 }
 
 void MusicStreamer::setSearching(bool searching)
 {
-    if (m_searching == searching)
+    if (mSearching == searching)
         return;
 
-    m_searching = searching;
+    mSearching = searching;
     emit searchingChanged();
 }
 
@@ -175,14 +162,19 @@ void MusicStreamer::setSearching(bool searching)
 void MusicStreamer::lastSearchHasMoreResults(const QString &url)
 {
     qDebug() << "more results: " << url;
-    m_lastSearchHasMoreResults = url;
+    mLastSearchHasMoreResults = url;
+}
+
+void MusicStreamer::lastSearchHasNoMoreResults()
+{
+    mLastSearchHasMoreResults.clear();
 }
 
 void MusicStreamer::fetchMore()
 {
     //    if (fetched < 3)
-    if (!m_lastSearchHasMoreResults.isEmpty() && !m_searching) {
-        m_downloader->download(m_lastSearchHasMoreResults);
+    if (!mLastSearchHasMoreResults.isEmpty() && !mSearching) {
+        mDownloader->download(mLastSearchHasMoreResults);
         setSearching(true);
     }
     //    fetched++;
@@ -190,7 +182,7 @@ void MusicStreamer::fetchMore()
 
 bool MusicStreamer::isDownloading() const
 {
-    return m_downloader->isDownloading();
+    return mDownloader->isDownloading();
 }
 
 void MusicStreamer::emitDownloadingChanged()

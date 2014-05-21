@@ -6,6 +6,7 @@
 #include <QDir>
 #include <QFile>
 
+#define COOKIE_CREATOR_URL "http://www.goear.com/listen/"
 #define TARGET_URL "http://www.goear.com/"
 #define SEARCH_URL "http://www.goear.com/search/"
 QString Downloader::DownloadUrl("http://www.goear.com/action/sound/get/");
@@ -15,9 +16,7 @@ Downloader::Downloader(QObject *parent) :
     m_downloading(false)
 {
     m_netAccess = new QNetworkAccessManager(this);
-
-    connect(m_netAccess, SIGNAL(finished(QNetworkReply*)),
-            this, SLOT(downloadFinished(QNetworkReply*)));
+    connect(m_netAccess, SIGNAL(finished(QNetworkReply*)), SLOT(downloadFinished(QNetworkReply*)));
 }
 
 Downloader::~Downloader()
@@ -36,22 +35,48 @@ void Downloader::downloadSong(const QString &name, const QString &url)
 #endif
 }
 
+void Downloader::getDownloadLink(const QString &code)
+{
+    qDebug() << Q_FUNC_INFO << " - " << code;
+//    QString newUrl = url;
+//    newUrl.replace(DownloadUrl, COOKIE_CREATOR_URL);
+
+    download(COOKIE_CREATOR_URL + code);
+//    setDownloading(true);
+}
+
 void Downloader::download(const QString &urlString)
 {
     QUrl url(urlString);
     QNetworkRequest request(url);
+
+    if (!mCookies.isEmpty()) {
+        QVariant var;
+        var.setValue(mCookies);
+        request.setHeader(QNetworkRequest::CookieHeader, var);
+    }
+
+    request.setRawHeader("User-Agent", " Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:29.0) Gecko/20100101 Firefox/29.0");
     m_nreply = m_netAccess->get(request);
     connect(m_nreply, SIGNAL(downloadProgress(qint64, qint64)), this, SLOT(downloadProgressChanged(qint64, qint64)));
 }
 
 void Downloader::search(const QString &term)
 {
-    qDebug() << Q_FUNC_INFO << " " + term;
+    // qDebug() << Q_FUNC_INFO << " " + term;
     download(SEARCH_URL + term);
 }
 
 void Downloader::downloadFinished(QNetworkReply *reply)
 {
+    if (reply->url().toString().startsWith(COOKIE_CREATOR_URL)) {
+        mCookies = m_netAccess->cookieJar()->cookiesForUrl(reply->url());
+
+        download(reply->url().toString().replace(COOKIE_CREATOR_URL, DownloadUrl));
+        reply->deleteLater();
+        return;
+    }
+
     if (reply->url().toString().endsWith(".mp3"))
         setDownloading(false);
 
@@ -69,7 +94,7 @@ void Downloader::downloadFinished(QNetworkReply *reply)
         return;
     }
 
-    qDebug() << reply->url().toString() << " has been dowloaded";
+    //    qDebug() << reply->url().toString() << " has been dowloaded";
 
     QVariant redir = reply->attribute(QNetworkRequest::RedirectionTargetAttribute);
 
@@ -78,13 +103,17 @@ void Downloader::downloadFinished(QNetworkReply *reply)
         QString name = m_songsToDownload.value(reply->url().toString()).toString();
         m_songsToDownload.remove(reply->url().toString());
         m_songsToDownload.insert(url.toString(), name);
+
+        if (url.toString().endsWith(".mp3")) {
+            emit decodedUrl(reply->url().toString().remove(DownloadUrl), url.toString());
+            reply->deleteLater();
+            return;
+        }
+
         qDebug() << reply->url().toString() << " was redirected to:" << url.toString();
 
-        if (url.isRelative()) {
+        if (url.isRelative())
             url.setScheme(reply->url().scheme());
-            /// TODO: check why this doesn't work
-            //            url.setEncodedHost(reply->url().encodedHost());
-        }
 
         download(url.toString());
         reply->deleteLater();
@@ -112,14 +141,25 @@ void Downloader::downloadFinished(QNetworkReply *reply)
 
         QStringList list = hasMore.simplified().split("<li", QString::SkipEmptyParts);
 
+        bool foundMore = false;
         for (int i = 0; i < list.length() - 1; ++i) {
             if (list.at(i).simplified().startsWith("class=\"active\">")) {
-                emit searchHasMoreResults(reply->url().toString() + "/"
-                                          + QString::number(++i));
+                QString number = reply->url().toString().mid(reply->url().toString().lastIndexOf("/") + 1);
+                bool isNumber = false;
+                int index = number.toInt(&isNumber);
+                //                reply->url().toString().mid(reply->url().toString().length() - 1).toInt(isANumber);
+                if (isNumber)
+                    emit searchHasMoreResults(reply->url().toString().mid(0, reply->url().toString().lastIndexOf("/")) + "/" + QString::number(index + 1));
+                else
+                    emit searchHasMoreResults(reply->url().toString() + "/" + QString::number(++i));
 
+                foundMore = true;
                 break;
             }
         }
+
+        if (!foundMore)
+            emit searchHasNoMoreResults();
 
         searchTerm = "<ol id=\"search_results\">";
         closingTerm = "</ol>";
@@ -181,6 +221,7 @@ void Downloader::downloadFinished(QNetworkReply *reply)
 
             qDebug() << "Song found " << title << group << length << comment << code;
             emit songFound(title, group, length, comment, code);
+            getDownloadLink(code);
 
             songs = songs.mid(songs.indexOf("<li>", termEnds));
             //            download(DOWNLOAD_URL + code);
@@ -189,13 +230,17 @@ void Downloader::downloadFinished(QNetworkReply *reply)
             //            exit(0);
         }
     } else if (mimeType == "text/xml") {
-        QString link = reply->readAll();
+//        qDebug() << "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
+//        qDebug() << "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
+//        qDebug() << "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
 
-        int linkBegins = link.indexOf("path=\"") + 6;
-        int linkEnds = link.indexOf("\"", linkBegins);
-        link = link.mid(linkBegins, linkEnds - linkBegins);
+//        QString link = reply->readAll();
 
-        emit decodedUrl(reply->url().toString().replace(DownloadUrl, ""), link);
+//        int linkBegins = link.indexOf("path=\"") + 6;
+//        int linkEnds = link.indexOf("\"", linkBegins);
+//        link = link.mid(linkBegins, linkEnds - linkBegins);
+
+//        emit decodedUrl(reply->url().toString().replace(DownloadUrl, ""), link);
     } else if (mimeType == "audio/mpeg") {
         qDebug() << "Writing file";
         QString name(m_songsToDownload.value(reply->url().toString()).toString());
@@ -274,7 +319,7 @@ void Downloader::downloadProgressChanged(qint64 bytesReceived, qint64 bytesTotal
     float i = bytesReceived / (double)bytesTotal;
 
     QNetworkReply *net = (QNetworkReply *)sender();
-    qDebug() << "Progress for: "<< net->url().toString() << " " << i;
+    // qDebug() << "Progress for: "<< net->url().toString() << " " << i;
 
     emit progressChanged(i, m_songsToDownload.value(net->url().toString()).toString());
 }

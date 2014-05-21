@@ -13,8 +13,8 @@ static QObject *stylerProvider(QQmlEngine *engine, QJSEngine *scriptEngine)
     Q_UNUSED(engine)
     Q_UNUSED(scriptEngine)
 
-    Styler *example = new Styler();
-    return example;
+    Styler *styler = new Styler();
+    return styler;
 }
 
 int main(int argc, char *argv[])
@@ -35,18 +35,12 @@ int main(int argc, char *argv[])
 
     view->rootContext()->setContextProperty("Q_OS", "UNKNOWN");
 
-#ifdef Q_OS_ANDROID
+#if defined(Q_OS_ANDROID)
     view->rootContext()->setContextProperty("Q_OS", "ANDROID");
-#endif
-
-#ifdef Q_OS_LINUX
-#ifndef Q_OS_ANDROID
+#elif defined(Q_OS_LINUX)
     view->rootContext()->setContextProperty("Q_OS", "LINUX");
-#endif
-#endif
-
-#ifdef Q_OS_BLACKBERRY
-    view->rootContext()->setContextProperty("Q_OS", "BLACKBERRY");
+#elif defined(Q_OS_WINDOWS)
+    view->rootContext()->setContextProperty("Q_OS", "WINDOWS");
 #endif
 
     VirtualKeyboardControl vkc(*app.data(), *view.data());

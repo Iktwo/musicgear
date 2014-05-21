@@ -52,29 +52,25 @@ signals:
     void downloadingChanged();
     void progressChanged(float progress, const QString &name);
 
-#if QT_VERSION >= 0x050000
 protected:
     QHash<int, QByteArray> roleNames() const;
-#endif
 
 private:
-    Downloader *m_downloader;
-    QObjectList m_songs;
-    bool m_searching;
-    bool m_serverError;
-    QString m_lastSearchHasMoreResults;
+    Downloader *mDownloader;
+    QObjectList mSongs;
+    bool mSearching;
+    bool mServerError;
+    QString mLastSearchHasMoreResults;
     int fetched;
 
 private slots:
-    void songFound(const QString &title, const QString &group, const QString &length,
-                   const QString &comment, const QString &code);
-
+    void songFound(const QString &title, const QString &group, const QString &length, const QString &comment, const QString &code);
     void decodedUrl(const QString &code, const QString &url);
     void searchEnded();
     //void serverErrorOcurred();
     void lastSearchHasMoreResults(const QString &url);
+    void lastSearchHasNoMoreResults();
     void emitDownloadingChanged();
-    
 };
 
 #endif // DOWNLOADERCOMPONENT_H
