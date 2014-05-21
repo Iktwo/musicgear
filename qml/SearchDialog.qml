@@ -12,7 +12,7 @@ Dialog {
         if (!musicStreamer.searching)
             if (textEdit.text.length > 0) {
                 musicStreamer.search(textEdit.text)
-                vkControl.close()
+                Qt.inputMethod.hide()
             }
     }
 
@@ -20,7 +20,7 @@ Dialog {
         if (opened)
             textEdit.focus = true
         else
-            vkControl.close()
+            Qt.inputMethod.hide()
     }
 
     Item {
@@ -88,7 +88,7 @@ Dialog {
             }
 
             onContentYChanged: {
-                vkControl.close()
+                 Qt.inputMethod.hide()
                 if (contentHeight != 0)
                     //if (((contentY + height) / contentHeight) > 0.85)
                     if (atYEnd)
