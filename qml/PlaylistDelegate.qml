@@ -134,8 +134,6 @@ Item {
     //    }
 
     ListView.onRemove: SequentialAnimation {
-        ScriptAction { script: console.log("I can't believe it! this is not butter!") }
-
         PropertyAction { target: root; property: "ListView.delayRemove"; value: true }
 
         ParallelAnimation {

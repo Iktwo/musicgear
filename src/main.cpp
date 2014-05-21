@@ -1,10 +1,8 @@
-#include <QQuickView>
-#include <QGuiApplication>
+#include <QApplication>
+#include <QQmlApplicationEngine>
 #include <QQmlContext>
-#include <QQmlEngine>
 #include <QtQml>
 
-#include "virtualkeyboardcontrol.h"
 #include "musicstreamer.h"
 #include "styler.h"
 
@@ -25,31 +23,25 @@ int main(int argc, char *argv[])
 
     QScopedPointer<QGuiApplication> app(new QGuiApplication(argc, argv));
 
-    QScopedPointer<QQuickView> view(new QQuickView);
-
     qmlRegisterSingletonType<Styler>("Styler", 1, 0, "Styler", stylerProvider);
     qRegisterMetaType<QObjectList>("QObjectList");
 
-    MusicStreamer musicStreamer;
-    view->rootContext()->setContextProperty("musicStreamer", &musicStreamer);
+    QQmlApplicationEngine engine;
 
-    view->rootContext()->setContextProperty("Q_OS", "UNKNOWN");
+    MusicStreamer musicStreamer;
+    engine.rootContext()->setContextProperty("musicStreamer", &musicStreamer);
 
 #if defined(Q_OS_ANDROID)
-    view->rootContext()->setContextProperty("Q_OS", "ANDROID");
+    engine.rootContext()->setContextProperty("Q_OS", "ANDROID");
 #elif defined(Q_OS_LINUX)
-    view->rootContext()->setContextProperty("Q_OS", "LINUX");
+    engine.rootContext()->setContextProperty("Q_OS", "LINUX");
 #elif defined(Q_OS_WINDOWS)
-    view->rootContext()->setContextProperty("Q_OS", "WINDOWS");
+    engine.rootContext()->setContextProperty("Q_OS", "WINDOWS");
+#else
+    engine.rootContext()->setContextProperty("Q_OS", "UNKNOWN");
 #endif
 
-    VirtualKeyboardControl vkc(*app.data(), *view.data());
-    view->rootContext()->setContextProperty("vkControl", &vkc);
-
-    view->setResizeMode(QQuickView::SizeRootObjectToView);
-    view->setSource(QUrl("qrc:/qml/qml/main.qml"));
-
-    view->show();
+    engine.load(QUrl(QStringLiteral("qrc:/qml/qml/main.qml")));
 
     return app->exec();
 }
