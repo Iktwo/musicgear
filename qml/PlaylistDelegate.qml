@@ -75,41 +75,23 @@ Item {
             }
         }
 
-        Row {
-            id: row
-
+        TitleBarImageButton {
             anchors {
-                right: parent.right; rightMargin: 15
+                right: parent.right; rightMargin: 0.02 * dpi
             }
 
-            height: column.height
-            spacing: 15
+            height: parent.height
+            width: 0.40 * dpi
 
-            //            ImageButton {
-            //                height: parent.height
-            //                width: 92
+            source: Styler.darkTheme ? "qrc:/images/remove_dark" : "qrc:/images/remove_light"
+            //                background: Styler.darkTheme ? "qrc:/images/remove_dark" : "qrc:/images/remove_light"
+            //                backgroundPressed: Styler.darkTheme ? "qrc:/images/remove_dark_pressed" : "qrc:/images/remove_light_pressed"
 
-            //                background: Styler.darkTheme ? "qrc:/images/play_dark" : "qrc:/images/play_light"
-            //                backgroundPressed: Styler.darkTheme ? "qrc:/images/play_dark_pressed" : "qrc:/images/play_light_pressed"
+            visible: model.url === "" ? false : true
 
-            //                visible: model.url === "" ? false : true
-
-            //                onClicked: root.requestedPlay()
-            //            }
-
-            TitleBarImageButton {
-                height: parent.height
-                width: 0.40 * dpi
-
-                source: Styler.darkTheme ? "qrc:/images/remove_dark" : "qrc:/images/remove_light"
-//                background: Styler.darkTheme ? "qrc:/images/remove_dark" : "qrc:/images/remove_light"
-//                backgroundPressed: Styler.darkTheme ? "qrc:/images/remove_dark_pressed" : "qrc:/images/remove_light_pressed"
-
-                visible: model.url === "" ? false : true
-
-                onClicked: root.requestedRemove()
-            }
+            onClicked: root.requestedRemove()
         }
+
     }
 
 
