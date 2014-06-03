@@ -13,26 +13,6 @@ Item {
     height: column.height + (0.08 * dpi)
     width: parent.width
 
-    //    Rectangle {
-    //        anchors.fill: parent
-    //        color: "white"
-    //        opacity: 0.5
-    //        border.color: "yellow"
-    //        border.width: 1
-    //    }
-
-    //    Rectangle {
-    //        anchors.fill: column
-    //        color: "green"
-    //        opacity: 0.3
-    //    }
-
-    //    Rectangle {
-    //        anchors.fill: row
-    //        color: "red"
-    //        opacity: 0.3
-    //    }
-
     Column {
         id: column
 
@@ -77,17 +57,20 @@ Item {
         anchors {
             //            top: column.top; topMargin: 10
             //            bottom: column.bottom; bottomMargin: 10
+            top: parent.top
+            bottom: parent.bottom
             right: parent.right; rightMargin: 15
-            verticalCenter: parent.verticalCenter
         }
 
-        height: parent.height
         spacing: 0.02 * dpi
 
         TitleBarImageButton {
-            height: parent.height
-            width: 0.35 * dpi
+            anchors {
+                top: parent.top
+                bottom: parent.bottom
+            }
 
+            width: 0.35 * dpi
             source: Styler.darkTheme ? "qrc:/images/add_playlist_dark" : "qrc:/images/add_playlist_light"
             //            background: Styler.darkTheme ? "qrc:/images/add_playlist_dark" : "qrc:/images/add_playlist_light"
             //            backgroundPressed: Styler.darkTheme ? "qrc:/images/add_playlist_dark_pressed" : "qrc:/images/add_playlist_light_pressed"
@@ -98,7 +81,11 @@ Item {
         }
 
         TitleBarImageButton {
-            height: parent.height
+            anchors {
+                top: parent.top
+                bottom: parent.bottom
+            }
+
             width: 0.35 * dpi
 
             source: Styler.darkTheme ? "qrc:/images/download_dark" : "qrc:/images/download_light"

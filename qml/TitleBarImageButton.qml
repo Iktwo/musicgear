@@ -5,6 +5,7 @@ Item {
 
     property alias source: image.source
     property double pressedOpacity: 0.5
+    property int iconMargins: root.height * 0.15
 
     signal clicked
 
@@ -23,7 +24,7 @@ Item {
 
         anchors {
             fill: parent
-            margins: root.height * 0.15
+            margins: iconMargins
         }
 
         fillMode: Image.PreserveAspectFit

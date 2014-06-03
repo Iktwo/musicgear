@@ -41,7 +41,7 @@ Item {
             id: column
 
             anchors {
-                left: parent.left; leftMargin: 10
+                left: parent.left; leftMargin: 0.08 * dpi
                 right: removeButton.left; rightMargin: 10
                 verticalCenter: parent.verticalCenter
             }
@@ -85,9 +85,9 @@ Item {
             height: parent.height
             width: 0.35 * dpi
 
+            iconMargins: height * 0.29
+
             source: Styler.darkTheme ? "qrc:/images/remove_dark" : "qrc:/images/remove_light"
-            //                background: Styler.darkTheme ? "qrc:/images/remove_dark" : "qrc:/images/remove_light"
-            //                backgroundPressed: Styler.darkTheme ? "qrc:/images/remove_dark_pressed" : "qrc:/images/remove_light_pressed"
 
             visible: model.url === "" ? false : true
 

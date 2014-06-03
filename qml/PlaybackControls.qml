@@ -7,7 +7,7 @@ import "style.js" as Style
 import Styler 1.0
 
 Rectangle {
-    property Audio audio
+    property Audio audioElement
     property alias song: songLabel.text
 
     function formatMilliseconds(ms) {
@@ -45,6 +45,12 @@ Rectangle {
             right: parent.right
         }
 
+        Connections {
+            target: audioElement
+            onDurationChanged: progressBar.maximumValue = audioElement.duration
+            onPositionChanged: progressBar.value = audioElement.position
+        }
+
         ProgressBar {
             id: progressBar
 
@@ -54,9 +60,9 @@ Rectangle {
             //                top: parent.top
             //            }
 
-            maximumValue: audio.duration
+            maximumValue: audioElement.duration
             minimumValue: 0
-            value: audio.position
+            value: audioElement.position
             width: parent.width
 
             style: ProgressBarStyle {
@@ -78,12 +84,12 @@ Rectangle {
             MouseArea {
                 anchors {
                     fill: parent
-                    margins: -10
+                    margins: -0.04 * dpi
                 }
 
                 onClicked: {
-                    if (audio.seekable)
-                        audio.seek((mouseX / parent.width) * audio.duration)
+                    if (audioElement.seekable)
+                        audioElement.seek((mouseX / parent.width) * audioElement.duration)
                 }
             }
         }
@@ -105,7 +111,7 @@ Rectangle {
                 font.pointSize: 12
                 height: parent.height
                 verticalAlignment: "AlignVCenter"
-                text: formatMilliseconds(audio.position)
+                text: formatMilliseconds(audioElement.position)
             }
 
             RowLayout {
@@ -118,7 +124,8 @@ Rectangle {
                     width: 0.35 * dpi
 
                     source: "qrc:/images/previous_" + (Styler.darkTheme ? "dark" : "light")
-                    visible: false
+
+                    onClicked: applicationWindow.previous()
                 }
 
                 TitleBarImageButton {
@@ -127,13 +134,13 @@ Rectangle {
                     height: 0.35 * dpi
                     width: 0.35 * dpi
 
-                    source: (audio.playbackState == Audio.PlayingState ? "qrc:/images/pause_" : "qrc:/images/play_") + (Styler.darkTheme ? "dark" : "light")
+                    source: (audioElement.playbackState == Audio.PlayingState ? "qrc:/images/pause_" : "qrc:/images/play_") + (Styler.darkTheme ? "dark" : "light")
 
                     onClicked: {
-                        if (audio.playbackState == Audio.PlayingState)
-                            audio.pause();
-                        else if (audio.source != "")
-                            audio.play();
+                        if (audioElement.playbackState == Audio.PlayingState)
+                            audioElement.pause();
+                        else if (audioElement.source != "")
+                            audioElement.play();
                     }
                 }
 
@@ -145,8 +152,7 @@ Rectangle {
 
                     source: "qrc:/images/next_" + (Styler.darkTheme ? "dark" : "light")
 
-                    //onClicked:
-                    visible: false
+                    onClicked: applicationWindow.next()
                 }
             }
 
@@ -162,7 +168,7 @@ Rectangle {
 
                 color: Styler.darkTheme ? Style.TEXT_SECONDARY_COLOR_DARK : Style.TEXT_SECONDARY_COLOR_LIGHT
                 font.pointSize: 12
-                text: formatMilliseconds(audio.duration)
+                text: formatMilliseconds(audioElement.duration)
                 horizontalAlignment: "AlignRight"
             }
         }
