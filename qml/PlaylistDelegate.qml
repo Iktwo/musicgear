@@ -1,4 +1,5 @@
-import QtQuick 2.0
+import QtQuick 2.1
+import QtQuick.Controls 1.1
 import "style.js" as Style
 import Styler 1.0
 
@@ -8,7 +9,7 @@ Item {
     signal requestedPlay()
     signal requestedRemove()
 
-    height: column.height + divider.height
+    height: column.height + (0.08 * dpi)
     width: parent.width
 
     MouseArea {
@@ -30,7 +31,7 @@ Item {
     Rectangle {
         id: container
 
-        height: column.height
+        height: parent.height
         width: parent.width
 
         color: mouseArea.pressed ? (Styler.darkTheme ? Style.LIST_DELEGATE_BACKGROUND_PRESSED_DARK : Style.LIST_DELEGATE_BACKGROUND_PRESSED_LIGHT) :
@@ -42,24 +43,21 @@ Item {
             anchors {
                 left: parent.left; leftMargin: 10
                 right: row.left; rightMargin: 10
+                verticalCenter: parent.verticalCenter
             }
 
-            // Spacer
-            Item {
-                height: 15
-                width: 1
-            }
+            spacing: 0.02 * dpi
 
             Label {
                 elide: Text.ElideRight
 
                 font {
-                    pointSize: 12
+                    pointSize: 17
                     weight: Font.Light
                 }
 
+                color: Styler.darkTheme ? Style.TITLE_TEXT_COLOR_DARK : Style.TITLE_TEXT_COLOR_LIGHT
                 text: model.name + " - <i>" + model.group + "</i>"
-
                 width: parent.width
             }
 
@@ -68,18 +66,12 @@ Item {
                 elide: Text.ElideRight
 
                 font {
-                    pointSize: 11
+                    pointSize: 14
                     weight: Font.Light
                 }
 
                 text: model.length + " - <i>" + model.comment + "</i>"
                 width: parent.width
-            }
-
-            // Spacer
-            Item {
-                height: 15
-                width: 1
             }
         }
 
@@ -105,12 +97,13 @@ Item {
             //                onClicked: root.requestedPlay()
             //            }
 
-            ImageButton {
+            TitleBarImageButton {
                 height: parent.height
-                width: 92
+                width: 0.40 * dpi
 
-                background: Styler.darkTheme ? "qrc:/images/remove_dark" : "qrc:/images/remove_light"
-                backgroundPressed: Styler.darkTheme ? "qrc:/images/remove_dark_pressed" : "qrc:/images/remove_light_pressed"
+                source: Styler.darkTheme ? "qrc:/images/remove_dark" : "qrc:/images/remove_light"
+//                background: Styler.darkTheme ? "qrc:/images/remove_dark" : "qrc:/images/remove_light"
+//                backgroundPressed: Styler.darkTheme ? "qrc:/images/remove_dark_pressed" : "qrc:/images/remove_light_pressed"
 
                 visible: model.url === "" ? false : true
 

@@ -1,4 +1,5 @@
-import QtQuick 2.0
+import QtQuick 2.1
+import QtQuick.Controls 1.1
 import Styler 1.0
 import "style.js" as Style
 
@@ -12,7 +13,7 @@ Item {
     objectName: "titleBar"
 
     width: parent.width
-    height: Style.TITLE_BAR_HEIGHT
+    height: 0.40 * dpi
 
     anchors.top: parent.top
 
@@ -31,9 +32,11 @@ Item {
             }
 
             font {
-                pointSize: 12
+//                pointSize: 12
                 weight: Font.Light
             }
+
+            color: Styler.darkTheme ? Style.TITLE_TEXT_COLOR_DARK : Style.TITLE_TEXT_COLOR_LIGHT
         }
 
         Rectangle {

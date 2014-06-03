@@ -1,9 +1,13 @@
-import QtQuick 2.0
+import QtQuick 2.1
+import QtQuick.Controls 1.1
+import QtQuick.Layouts 1.1
 import QtMultimedia 5.0
 import "style.js" as Style
 import Styler 1.0
 
 Rectangle {
+    property variant audioElement: audio
+
     anchors.fill: parent
 
     color: Styler.darkTheme ? Style.MENU_BACKGROUND_COLOR_DARK
@@ -13,7 +17,6 @@ Rectangle {
 
     Keys.onReleased: {
         if (event.key === Qt.Key_Back) {
-            console.log("back", searchDialog.opened)
             if (searchDialog.opened)
                 searchDialog.close()
 
@@ -21,50 +24,12 @@ Rectangle {
         }
     }
 
-    Timer {
-        id: timer
-
-        interval: 250
-
-        onTriggered: {
-            var x = audio.source
-            audio.source = ""
-            audio.source = x
-            audio.play()
-        }
-    }
-
     Audio {
         id: audio
 
         property int index: 0
-        property int retries: 0
 
         onErrorStringChanged: console.log("ERROR STRING: ", errorString)
-
-        onErrorChanged: {
-            if (error === Audio.ResourceError) {
-                if (retries < 15) {
-                    retries++
-                    timer.restart()
-                } else {
-                    console.log("RETRIED A LOT OF TIMES!")
-                }
-            }
-        }
-
-        onRetriesChanged: console.log("RETRIES!", retries)
-
-        // onPositionChanged: {
-        //  if (position & duration)
-        //   if (Math.abs((position - duration) / 1000) < 5 && index + 1 < playlist.count) {
-        //    console.log("La que sigue!")
-        //    audio.index = index + 1
-        //    toolBar.song = playlist.get(index).name + " - <i>" + playlist.get(index).group + "</i>"
-        //    audio.source = playlist.get(index).url
-        //    audio.play()
-        //   }
-        //  }
 
         onPlaybackStateChanged: {
             // console.log("Audio.StoppedState, ", playbackState === Audio.StoppedState)
@@ -80,25 +45,6 @@ Rectangle {
                             index = 0
                         }
                     }
-            } else if (playbackState === Audio.PlayingState) {
-                retries = 0
-            }
-        }
-    }
-
-    Menu {
-        id: menu
-
-        MenuTextItem {
-            text: Styler.darkTheme ? qsTr("Light theme") : qsTr("Dark theme")
-            onClicked: Styler.darkTheme = !Styler.darkTheme
-        }
-
-        MenuTextItem {
-            text: qsTr("About MusicGear")
-            onClicked: {
-                console.log("About")
-                aboutDialog.open()
             }
         }
     }
@@ -112,6 +58,7 @@ Rectangle {
             anchors.centerIn: parent
 
             text: "TODO: write a nice dialog"
+            color: Styler.darkTheme ? Style.TITLE_TEXT_COLOR_DARK : Style.TITLE_TEXT_COLOR_LIGHT
         }
 
         //        Flickable {
@@ -181,7 +128,7 @@ Rectangle {
             source: Styler.darkTheme ? "qrc:/images/settings_dark"
                                      : "qrc:/images/settings_light"
 
-            onClicked: menu.open()
+            onClicked: mainMenu.open()
         }
 
         TitleBarImageButton {
@@ -225,14 +172,10 @@ Rectangle {
         }
     }
 
-    ToolBar {
+    PlaybackControls {
         id: toolBar
 
-        anchors {
-            bottom: parent.bottom
-            left: parent.left
-            right: parent.right
-        }
+        anchors.bottom: parent.bottom
 
         audio: audio
     }

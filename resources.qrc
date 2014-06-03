@@ -38,7 +38,6 @@
         <file>qml/Dialog.qml</file>
         <file>qml/Divider.qml</file>
         <file>qml/ImageButton.qml</file>
-        <file>qml/Label.qml</file>
         <file>qml/main.qml</file>
         <file>qml/MainPage.qml</file>
         <file>qml/Menu.qml</file>
@@ -50,6 +49,6 @@
         <file>qml/TitleBar.qml</file>
         <file>qml/TitleBarImageButton.qml</file>
         <file>qml/TitleBarTextInput.qml</file>
-        <file>qml/ToolBar.qml</file>
+        <file>qml/PlaybackControls.qml</file>
     </qresource>
 </RCC>

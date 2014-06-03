@@ -1,6 +1,6 @@
 .pragma library
 
-var TITLE_BAR_HEIGHT = 122
+var TITLE_BAR_HEIGHT = 182
 
 var DIVIDER_LIGHT = "#d8d8d8"
 var DIVIDER_DARK = "#515151"

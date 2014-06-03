@@ -11,6 +11,7 @@ Item {
     Image {
         anchors.centerIn: parent
         source: mouseArea.pressed && mouseArea.containsMouse ? backgroundPressed : background
+        fillMode: Image.PreserveAspectFit
     }
 
     MouseArea {

@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.1
 
 Item {
     id: root
@@ -15,21 +15,24 @@ Item {
         id: container
 
         anchors.fill: parent
-
         opacity: mouseArea.pressed ? pressedOpacity : 0
     }
 
     Image {
         id: image
 
-        anchors.centerIn: parent
+        anchors {
+            fill: parent
+            margins: root.height * 0.15
+        }
+
+        fillMode: Image.PreserveAspectFit
     }
 
     MouseArea {
         id: mouseArea
 
         anchors.fill: parent
-
         enabled: parent.enabled
 
         onClicked: root.clicked()

@@ -1,4 +1,5 @@
-import QtQuick 2.0
+import QtQuick 2.1
+import QtQuick.Controls 1.1
 import "style.js" as Style
 import Styler 1.0
 
@@ -44,7 +45,7 @@ Item {
     Rectangle {
         id: background
 
-        width: Math.min(480, parent.width - 80)
+        width: parent.width * 0.75
         height: parent.height
         color: Styler.darkTheme ? Style.MENU_BACKGROUND_COLOR_DARK : Style.MENU_BACKGROUND_COLOR_LIGHT
 
@@ -63,8 +64,7 @@ Item {
                 right: parent.right
             }
 
-            height: menuTitle.height + 20
-
+            height: 0.40 * dpi
             color: Styler.darkTheme ? Style.MENU_TITLE_BACKGROUND_COLOR_DARK : Style.MENU_TITLE_BACKGROUND_COLOR_LIGHT
 
             Label {
@@ -76,13 +76,15 @@ Item {
                     right: parent.right; rightMargin: 10
                 }
 
+                color: Styler.darkTheme ? Style.TEXT_COLOR_DARK : Style.TEXT_COLOR_LIGHT
+
                 text: qsTr("Menu")
 
                 elide: Text.ElideRight
 
                 font {
                     weight: Font.Light
-                    pointSize: 12
+                    pointSize: 17
                 }
             }
 

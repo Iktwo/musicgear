@@ -1,4 +1,5 @@
-import QtQuick 2.0
+import QtQuick 2.1
+import QtQuick.Controls 1.1
 import Styler 1.0
 import "style.js" as Style
 
@@ -11,7 +12,7 @@ Item {
     signal clicked
 
     width: parent.width
-    height: 80
+    height: 0.36 * dpi
 
     Rectangle {
         anchors.fill: parent
@@ -36,8 +37,10 @@ Item {
 
         font {
             weight: Font.Light
-            pointSize: 11
+            pointSize: 16
         }
+
+        color: Styler.darkTheme ? Style.TEXT_SECONDARY_COLOR_DARK : Style.TEXT_SECONDARY_COLOR_LIGHT
 
         verticalAlignment: Text.AlignVCenter
     }
