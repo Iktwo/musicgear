@@ -17,8 +17,6 @@ ApplicationWindow {
         id: mainPage
     }
 
-
-
     Menu {
         id: mainMenu
 

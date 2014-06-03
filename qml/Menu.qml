@@ -64,7 +64,7 @@ Item {
                 right: parent.right
             }
 
-            height: 0.40 * dpi
+            height: 0.35 * dpi
             color: Styler.darkTheme ? Style.MENU_TITLE_BACKGROUND_COLOR_DARK : Style.MENU_TITLE_BACKGROUND_COLOR_LIGHT
 
             Label {

@@ -12,7 +12,7 @@ Item {
     signal clicked
 
     width: parent.width
-    height: 0.36 * dpi
+    height: 0.35 * dpi
 
     Rectangle {
         anchors.fill: parent

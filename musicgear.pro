@@ -1,4 +1,4 @@
-QT += quick network xml multimedia widgets
+QT += quick widgets svg network multimedia
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 

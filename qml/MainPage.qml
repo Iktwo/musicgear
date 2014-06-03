@@ -176,7 +176,6 @@ Rectangle {
         id: toolBar
 
         anchors.bottom: parent.bottom
-
         audio: audio
     }
 

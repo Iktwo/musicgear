@@ -15,6 +15,8 @@
 class Styler : public QObject
 {
     Q_OBJECT
+    /// TODO: add a QString with theme name
+//    Q_PROPERTY(QString theme READ theme WRITE setTheme NOTIFY themeChanged)
     Q_PROPERTY (bool darkTheme READ darkTheme WRITE setDarkTheme NOTIFY darkThemeChanged)
 
 public:
@@ -24,6 +26,7 @@ public:
 
 signals:
     void darkThemeChanged();
+//    void themeChanged();
 
 private:
     bool m_darkTheme;

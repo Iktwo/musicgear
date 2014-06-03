@@ -105,6 +105,9 @@ Dialog {
             Label {
                 anchors.centerIn: parent
 
+                color: Styler.darkTheme ? Style.TITLE_TEXT_COLOR_DARK : Style.TITLE_TEXT_COLOR_LIGHT
+                font.pointSize: 26
+
                 text: "Searching.."
             }
         }

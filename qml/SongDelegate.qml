@@ -86,7 +86,7 @@ Item {
 
         TitleBarImageButton {
             height: parent.height
-            width: 0.40 * dpi
+            width: 0.35 * dpi
 
             source: Styler.darkTheme ? "qrc:/images/add_playlist_dark" : "qrc:/images/add_playlist_light"
             //            background: Styler.darkTheme ? "qrc:/images/add_playlist_dark" : "qrc:/images/add_playlist_light"
@@ -99,7 +99,7 @@ Item {
 
         TitleBarImageButton {
             height: parent.height
-            width: 0.40 * dpi
+            width: 0.35 * dpi
 
             source: Styler.darkTheme ? "qrc:/images/download_dark" : "qrc:/images/download_light"
             //            background: Styler.darkTheme ? "qrc:/images/download_dark" : "qrc:/images/download_light"

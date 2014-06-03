@@ -42,7 +42,7 @@ Item {
 
             anchors {
                 left: parent.left; leftMargin: 10
-                right: row.left; rightMargin: 10
+                right: removeButton.left; rightMargin: 10
                 verticalCenter: parent.verticalCenter
             }
 
@@ -76,12 +76,14 @@ Item {
         }
 
         TitleBarImageButton {
+            id: removeButton
+
             anchors {
                 right: parent.right; rightMargin: 0.02 * dpi
             }
 
             height: parent.height
-            width: 0.40 * dpi
+            width: 0.35 * dpi
 
             source: Styler.darkTheme ? "qrc:/images/remove_dark" : "qrc:/images/remove_light"
             //                background: Styler.darkTheme ? "qrc:/images/remove_dark" : "qrc:/images/remove_light"

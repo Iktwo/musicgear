@@ -89,13 +89,11 @@ Rectangle {
         }
 
         RowLayout {
-            height: currentTimeLabel.height
+            height: playBtn.height
             width: parent.width
 
             Label {
-                id: currentTimeLabel
-
-//                width: column.width / 2
+                //                width: column.width / 2
                 Layout.fillWidth: true//: column.width / 2
 
                 //                anchors {
@@ -104,20 +102,66 @@ Rectangle {
                 //                }
 
                 color: Styler.darkTheme ? Style.TEXT_SECONDARY_COLOR_DARK : Style.TEXT_SECONDARY_COLOR_LIGHT
-                font.pointSize: 14
+                font.pointSize: 12
+                height: parent.height
+                verticalAlignment: "AlignVCenter"
                 text: formatMilliseconds(audio.position)
             }
 
+            RowLayout {
+                spacing: 0.35 * dpi
+
+                TitleBarImageButton {
+                    id: previousBtn
+
+                    height: 0.35 * dpi
+                    width: 0.35 * dpi
+
+                    source: "qrc:/images/previous_" + (Styler.darkTheme ? "dark" : "light")
+                    visible: false
+                }
+
+                TitleBarImageButton {
+                    id: playBtn
+
+                    height: 0.35 * dpi
+                    width: 0.35 * dpi
+
+                    source: (audio.playbackState == Audio.PlayingState ? "qrc:/images/pause_" : "qrc:/images/play_") + (Styler.darkTheme ? "dark" : "light")
+
+                    onClicked: {
+                        if (audio.playbackState == Audio.PlayingState)
+                            audio.pause();
+                        else if (audio.source != "")
+                            audio.play();
+                    }
+                }
+
+                TitleBarImageButton {
+                    id: nextBtn
+
+                    height: 0.35 * dpi
+                    width: 0.35 * dpi
+
+                    source: "qrc:/images/next_" + (Styler.darkTheme ? "dark" : "light")
+
+                    //onClicked:
+                    visible: false
+                }
+            }
+
             Label {
-//                width: column.width / 2.1
-//                Layout.minimumWidth: column.width / 2.1
+                Layout.fillWidth: true
+
+                //                width: column.width / 2.1
+                //                Layout.minimumWidth: column.width / 2.1
                 //                anchors {
                 //                    right: parent.right; rightMargin: 5
                 //                    bottom: parent.bottom
                 //                }
 
                 color: Styler.darkTheme ? Style.TEXT_SECONDARY_COLOR_DARK : Style.TEXT_SECONDARY_COLOR_LIGHT
-                font.pointSize: 14
+                font.pointSize: 12
                 text: formatMilliseconds(audio.duration)
                 horizontalAlignment: "AlignRight"
             }
@@ -133,7 +177,7 @@ Rectangle {
 
             color: Styler.darkTheme ? Style.TEXT_COLOR_DARK : Style.TEXT_COLOR_LIGHT
 
-            font.pointSize: 17
+            font.pointSize: 15
         }
     }
 

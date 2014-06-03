@@ -1,12 +1,9 @@
 <RCC>
     <qresource prefix="/images">
-        <file alias="logo">resources/images/iktwo.png</file>
         <file alias="search_dark">resources/images/search_dark.png</file>
         <file alias="search_light">resources/images/search_light.png</file>
         <file alias="back_dark">resources/images/back_dark.png</file>
         <file alias="back_light">resources/images/back_light.png</file>
-        <file alias="play_dark">resources/images/play_dark.png</file>
-        <file alias="play_light">resources/images/play_light.png</file>
         <file alias="play_dark_pressed">resources/images/play_dark_pressed.png</file>
         <file alias="play_light_pressed">resources/images/play_light_pressed.png</file>
         <file alias="clear_dark">resources/images/clear_dark.png</file>
@@ -25,14 +22,18 @@
         <file alias="add_playlist_light_pressed">resources/images/add_playlist_light_pressed.png</file>
         <file alias="settings_dark">resources/images/settings_dark.png</file>
         <file alias="settings_light">resources/images/settings_light.png</file>
-        <file alias="next_dark">resources/images/next_dark.png</file>
-        <file alias="next_light">resources/images/next_light.png</file>
-        <file alias="previous_dark">resources/images/previous_dark.png</file>
-        <file alias="previous_light">resources/images/previous_light.png</file>
         <file alias="stop_dark">resources/images/stop_dark.png</file>
         <file alias="stop_light">resources/images/stop_light.png</file>
         <file alias="playlist_dark">resources/images/playlist_dark.png</file>
         <file alias="playlist_light">resources/images/playlist_light.png</file>
+        <file alias="previous_light">resources/images/previous_light.svg</file>
+        <file alias="previous_dark">resources/images/previous_dark.svg</file>
+        <file alias="play_light">resources/images/play_light.svg</file>
+        <file alias="play_dark">resources/images/play_dark.svg</file>
+        <file alias="next_light">resources/images/next_light.svg</file>
+        <file alias="next_dark">resources/images/next_dark.svg</file>
+        <file alias="pause_light">resources/images/pause_light.svg</file>
+        <file alias="pause_dark">resources/images/pause_dark.svg</file>
     </qresource>
     <qresource prefix="/qml">
         <file>qml/Dialog.qml</file>

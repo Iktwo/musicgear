@@ -13,7 +13,7 @@ Item {
     objectName: "titleBar"
 
     width: parent.width
-    height: 0.40 * dpi
+    height: 0.35 * dpi
 
     anchors.top: parent.top
 

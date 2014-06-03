@@ -2,7 +2,6 @@
 
 #include <QDebug>
 #include <QtNetwork>
-#include <QtXml>
 #include <QDir>
 #include <QFile>
 

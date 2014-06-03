@@ -27,6 +27,7 @@ Item {
         }
 
         fillMode: Image.PreserveAspectFit
+        antialiasing: true
     }
 
     MouseArea {
