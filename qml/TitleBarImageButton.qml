@@ -16,7 +16,7 @@ Item {
         id: container
 
         anchors.fill: parent
-        opacity: mouseArea.pressed ? pressedOpacity : 0
+        opacity: mouseArea.pressed && mouseArea.containsMouse ? pressedOpacity : 0
     }
 
     Image {

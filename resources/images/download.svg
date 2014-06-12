@@ -9,12 +9,12 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="288.5578"
+   width="288.56"
    height="294.021"
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="play_dark.svg">
+   sodipodi:docname="download.svg">
   <defs
      id="defs4" />
   <sodipodi:namedview
@@ -24,9 +24,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.979899"
-     inkscape:cx="89.271945"
-     inkscape:cy="144.3593"
+     inkscape:zoom="0.9899495"
+     inkscape:cx="101.04995"
+     inkscape:cy="143.76524"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -36,8 +36,8 @@
      fit-margin-bottom="0"
      inkscape:window-width="1451"
      inkscape:window-height="959"
-     inkscape:window-x="636"
-     inkscape:window-y="377"
+     inkscape:window-x="1009"
+     inkscape:window-y="423"
      inkscape:window-maximized="0" />
   <metadata
      id="metadata7">
@@ -57,21 +57,16 @@
      id="layer1"
      transform="translate(-219.754,-758.34119)">
     <path
-       sodipodi:type="star"
-       style="fill:#333333;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:0.87614679"
+       style="fill:#333333;fill-opacity:0.8761468;fill-rule:evenodd;stroke:none"
+       d="m 339.11217,780.22777 0,100.96897 -43.84367,0 34.37494,59.53138 34.40618,59.56268 34.37494,-59.56268 34.37494,-59.53138 -43.81242,0 0,-100.96897 -49.87491,0 z"
        id="path2987"
-       sodipodi:sides="3"
-       sodipodi:cx="14.285714"
-       sodipodi:cy="603.79077"
-       sodipodi:r1="169.17567"
-       sodipodi:r2="84.587837"
-       sodipodi:arg1="0"
-       sodipodi:arg2="1.0471976"
-       inkscape:flatsided="false"
-       inkscape:rounded="0"
-       inkscape:randomized="0"
-       d="m 183.46139,603.79077 -126.881761,73.25522 -126.881752,73.25521 0,-146.51043 0,-146.51043 126.881759,73.25522 z"
-       inkscape:transform-center-x="-42.293912"
-       transform="translate(311.26425,301.56098)" />
+       inkscape:connector-curvature="0" />
+    <rect
+       style="fill:#333333;fill-opacity:0.8745098;stroke:none"
+       id="rect3766"
+       width="244.45689"
+       height="20.203051"
+       x="241.8055"
+       y="1012.4611" />
   </g>
 </svg>

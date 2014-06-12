@@ -33,7 +33,7 @@ Rectangle {
         return time
     }
 
-    color: Styler.darkTheme ? Style.MENU_TITLE_BACKGROUND_COLOR_DARK : Style.MENU_TITLE_BACKGROUND_COLOR_LIGHT
+    color: "#fafafa"
     height: column.height
     width: parent.width
 
@@ -54,12 +54,6 @@ Rectangle {
         ProgressBar {
             id: progressBar
 
-            //            anchors {
-            //                left: parent.left
-            //                right: parent.right
-            //                top: parent.top
-            //            }
-
             maximumValue: audioElement.duration
             minimumValue: 0
             value: audioElement.position
@@ -67,17 +61,12 @@ Rectangle {
 
             style: ProgressBarStyle {
                 background: Rectangle {
-                    //radius: 2
-                    color: Styler.darkTheme ? Style.PROGRESS_BAR_BACKGROUND_DARK : Style.PROGRESS_BAR_BACKGROUND_LIGHT
-                    //border.color: "gray"
-                    //border.width: 1
+                    color: Style.PROGRESS_BAR_BACKGROUND_LIGHT
                     implicitWidth: control.width
                     implicitHeight: 10
                 }
                 progress: Rectangle {
-                    color: "#99cc00"
-                    //color: "lightsteelblue"
-                    //border.color: "steelblue"
+                    color: "#0066CC"
                 }
             }
 
@@ -99,15 +88,8 @@ Rectangle {
             width: parent.width
 
             Label {
-                //                width: column.width / 2
-                Layout.fillWidth: true//: column.width / 2
-
-                //                anchors {
-                //                    left: parent.left; leftMargin: 5
-                //                    bottom: parent.bottom
-                //                }
-
-                color: Styler.darkTheme ? Style.TEXT_SECONDARY_COLOR_DARK : Style.TEXT_SECONDARY_COLOR_LIGHT
+                Layout.fillWidth: true
+                color: Style.TEXT_SECONDARY_COLOR_DARK
                 font.pointSize: 12
                 height: parent.height
                 verticalAlignment: "AlignVCenter"
@@ -123,7 +105,7 @@ Rectangle {
                     height: 0.35 * dpi
                     width: 0.35 * dpi
 
-                    source: "qrc:/images/previous_" + (Styler.darkTheme ? "dark" : "light")
+                    source: "qrc:/images/previous_light"
 
                     onClicked: applicationWindow.previous()
                 }
@@ -134,7 +116,7 @@ Rectangle {
                     height: 0.35 * dpi
                     width: 0.35 * dpi
 
-                    source: (audioElement.playbackState == Audio.PlayingState ? "qrc:/images/pause_" : "qrc:/images/play_") + (Styler.darkTheme ? "dark" : "light")
+                    source: (audioElement.playbackState == Audio.PlayingState ? "qrc:/images/pause_" : "qrc:/images/play_") + "light"
 
                     onClicked: {
                         if (audioElement.playbackState == Audio.PlayingState)
@@ -150,7 +132,7 @@ Rectangle {
                     height: 0.35 * dpi
                     width: 0.35 * dpi
 
-                    source: "qrc:/images/next_" + (Styler.darkTheme ? "dark" : "light")
+                    source: "qrc:/images/next_light"
 
                     onClicked: applicationWindow.next()
                 }
@@ -159,14 +141,7 @@ Rectangle {
             Label {
                 Layout.fillWidth: true
 
-                //                width: column.width / 2.1
-                //                Layout.minimumWidth: column.width / 2.1
-                //                anchors {
-                //                    right: parent.right; rightMargin: 5
-                //                    bottom: parent.bottom
-                //                }
-
-                color: Styler.darkTheme ? Style.TEXT_SECONDARY_COLOR_DARK : Style.TEXT_SECONDARY_COLOR_LIGHT
+                color: Style.TEXT_SECONDARY_COLOR_DARK
                 font.pointSize: 12
                 text: formatMilliseconds(audioElement.duration)
                 horizontalAlignment: "AlignRight"
@@ -176,19 +151,8 @@ Rectangle {
         Label {
             id: songLabel
 
-            //            anchors {
-            //                top: progressBar.bottom; topMargin: 10
-            //                left: parent.left; leftMargin: 10
-            //            }
-
-            color: Styler.darkTheme ? Style.TEXT_COLOR_DARK : Style.TEXT_COLOR_LIGHT
-
+            color: Style.TEXT_COLOR_DARK
             font.pointSize: 15
         }
     }
-
-    //    TitleBarImageButton {
-    //        height: parent.height
-    //        width: 0.40 * dpi
-    //    }
 }

@@ -1,12 +1,12 @@
-import QtQuick 2.0
+import QtQuick 2.1
 import "style.js" as Style
-import Styler 1.0
 
 Rectangle {
     property bool horizontal: true
+    property real multiplayer: 0.95
 
-    width: horizontal ? parent.width : 2
-    height: horizontal ? 2 : parent.height
+    width: horizontal ? parent.width * multiplayer: dpi * 0.01
+    height: horizontal ? dpi * 0.01 : parent.height * multiplayer
 
-    color: Styler.darkTheme ? Style.DIVIDER_DARK : Style.DIVIDER_LIGHT
+    color: Style.DIVIDER_DARK
 }

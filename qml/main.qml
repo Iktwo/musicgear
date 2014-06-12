@@ -79,8 +79,6 @@ ApplicationWindow {
 
         property int index: 0
 
-        onErrorStringChanged: console.log("ERROR STRING: ", errorString)
-
         onPlaybackStateChanged: {
             if (playbackState === Audio.StoppedState && duration != 0) {
                 if ((position > duration) || (position == duration) || (1 - (position / duration) <= 0.03 )) {

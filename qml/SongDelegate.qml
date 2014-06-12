@@ -1,7 +1,6 @@
 import QtQuick 2.1
 import QtQuick.Controls 1.1
 import QtQuick.Layouts 1.1
-import Styler 1.0
 import "style.js" as Style
 
 Item {
@@ -31,7 +30,7 @@ Item {
                 weight: Font.Light
             }
 
-            color: Styler.darkTheme ? Style.TITLE_TEXT_COLOR_DARK : Style.TITLE_TEXT_COLOR_LIGHT
+            color: Style.TEXT_COLOR_DARK
             elide: Text.ElideRight
             text: model.name + " - <i>" + model.group + "</i>"
             width: parent.width
@@ -45,7 +44,7 @@ Item {
             }
 
             elide: Text.ElideRight
-            color: Styler.darkTheme ? Style.TEXT_SECONDARY_COLOR_DARK : Style.TEXT_SECONDARY_COLOR_LIGHT
+            color: Style.TEXT_SECONDARY_COLOR_DARK
             text: model.length + " - <i>" + model.comment + "</i>"
             width: parent.width
         }
@@ -71,10 +70,7 @@ Item {
             }
 
             width: 0.35 * dpi
-            source: Styler.darkTheme ? "qrc:/images/add_playlist_dark" : "qrc:/images/add_playlist_light"
-            //            background: Styler.darkTheme ? "qrc:/images/add_playlist_dark" : "qrc:/images/add_playlist_light"
-            //            backgroundPressed: Styler.darkTheme ? "qrc:/images/add_playlist_dark_pressed" : "qrc:/images/add_playlist_light_pressed"
-
+            source: "qrc:/images/add_playlist_light"
             visible: model.url === "" ? false : true
 
             onClicked: root.addToPlaylist()
@@ -88,10 +84,7 @@ Item {
 
             width: 0.35 * dpi
 
-            source: Styler.darkTheme ? "qrc:/images/download_dark" : "qrc:/images/download_light"
-            //            background: Styler.darkTheme ? "qrc:/images/download_dark" : "qrc:/images/download_light"
-            //            backgroundPressed: Styler.darkTheme ? "qrc:/images/download_dark_pressed" : "qrc:/images/download_light_pressed"
-
+            source: "qrc:/images/download"
             visible: model.url === "" ? false : true
 
             onClicked: root.download()

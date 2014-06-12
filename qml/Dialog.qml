@@ -26,7 +26,6 @@ Item {
         anchors.fill: parent
 
         enabled: root.opened
-
         onClicked: root.outerClicked()
     }
 
@@ -36,8 +35,7 @@ Item {
         width: parent.width
         height: parent.height
 
-        color: Styler.darkTheme ? Style.MENU_BACKGROUND_COLOR_DARK
-                                : Style.MENU_BACKGROUND_COLOR_LIGHT
+        color: "#e5e5e5"
 
         Behavior on opacity { NumberAnimation { } }
 
@@ -45,7 +43,6 @@ Item {
             id: container
 
             anchors.fill: parent
-
             enabled: root.opened
         }
     }

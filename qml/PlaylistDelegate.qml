@@ -56,13 +56,13 @@ Item {
                     weight: Font.Light
                 }
 
-                color: Styler.darkTheme ? Style.TITLE_TEXT_COLOR_DARK : Style.TITLE_TEXT_COLOR_LIGHT
+                color: Style.TEXT_COLOR
                 text: model.name + " - <i>" + model.group + "</i>"
                 width: parent.width
             }
 
             Label {
-                color: Styler.darkTheme ? Style.TEXT_SECONDARY_COLOR_DARK : Style.TEXT_SECONDARY_COLOR_LIGHT
+                color: Style.TEXT_SECONDARY_COLOR_DARK
                 elide: Text.ElideRight
 
                 font {

@@ -9,10 +9,7 @@ Rectangle {
     property Audio audioElement: audio
 
     anchors.fill: parent
-
-    color: Styler.darkTheme ? Style.MENU_BACKGROUND_COLOR_DARK
-                            : Style.MENU_BACKGROUND_COLOR_LIGHT
-
+    color: "#fbfbfb"
     focus: true
 
     Keys.onReleased: {
@@ -22,57 +19,6 @@ Rectangle {
 
             event.accepted = true
         }
-    }
-
-    Dialog { // TODO: write a nice dialog, create InformationDialog component?
-        id: aboutDialog
-
-        onOuterClicked: close()
-
-        Label {
-            anchors.centerIn: parent
-
-            text: "TODO: write a nice dialog"
-            color: Styler.darkTheme ? Style.TITLE_TEXT_COLOR_DARK : Style.TITLE_TEXT_COLOR_LIGHT
-        }
-
-        //        Flickable {
-        //            anchors.fill: parent
-
-        //            contentHeight: column.height
-
-        //            enabled: parent.enabled ? (parent.opened ? true : false) : false
-
-        //            Column {
-        //                id: column
-
-        //                anchors {
-        //                    top: parent.top; topMargin: 25
-        //                    left: parent.left
-        //                    right: parent.right
-        //                }
-
-        //                /*Item {
-        //                    height: authorImage.height
-        //                    width: parent.width
-        //                }*/
-
-        //                Image {
-        //                    id: authorImage
-
-        //                    anchors {
-        //                        horizontalCenter: parent.horizontalCenter
-        //                    }
-
-        //                    source: "qrc:/images/logo"
-        //                }
-
-        //                Label {
-        //                    anchors.horizontalCenter: parent.horizontalCenter
-        //                    text: "Music Gear v1.0 by Iktwo Sh"
-        //                }
-        //            }
-        //        }
     }
 
     SearchDialog { id: searchDialog }
@@ -93,9 +39,7 @@ Rectangle {
         }
     }
 
-    ListView {
-        id: songList
-
+    ScrollView {
         anchors {
             top: titleBar.bottom
             left: parent.left
@@ -103,22 +47,28 @@ Rectangle {
             bottom: parent.bottom
         }
 
-        model: playlist
-        clip: true
+        ListView {
+            id: songList
 
-        delegate: PlaylistDelegate {
-            onRequestedPlay: {
-                playbackControls.song = playlist.get(index).name + " - <i>" + playlist.get(index).group + "</i>"
-                audioElement.source = model.url
-                audioElement.index = index
-                audioElement.play()
-            }
+            anchors.fill: parent
 
-            onRequestedRemove: {
-                playlist.remove(index)
+            model: playlist
+            clip: true
 
-                if (audioElement.index === index)
-                    audioElement.stop()
+            delegate: PlaylistDelegate {
+                onRequestedPlay: {
+                    playbackControls.song = playlist.get(index).name + " - <i>" + playlist.get(index).group + "</i>"
+                    audioElement.source = model.url
+                    audioElement.index = index
+                    audioElement.play()
+                }
+
+                onRequestedRemove: {
+                    playlist.remove(index)
+
+                    if (audioElement.index === index)
+                        audioElement.stop()
+                }
             }
         }
     }

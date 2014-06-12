@@ -34,6 +34,7 @@
         <file alias="next_dark">resources/images/next_dark.svg</file>
         <file alias="pause_light">resources/images/pause_light.svg</file>
         <file alias="pause_dark">resources/images/pause_dark.svg</file>
+        <file alias="download">resources/images/download.svg</file>
     </qresource>
     <qresource prefix="/qml">
         <file>qml/Dialog.qml</file>

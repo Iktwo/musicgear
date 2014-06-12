@@ -54,10 +54,10 @@ Dialog {
                 onAccepted: root.search()
 
                 style: TextFieldStyle {
-                    placeholderTextColor: "#7e7e7e"
-                    textColor: "white"
+                    placeholderTextColor: "#ccdedede"
+                    textColor: "#ddefefef"
                     background: Item {
-                        implicitWidth: dpi
+                        implicitWidth: dpi * 1.3
                         implicitHeight: dpi * 0.20
 
                         Rectangle {
@@ -69,8 +69,8 @@ Dialog {
                                 bottom: parent.bottom
                             }
 
-                            color: "#0099cc"
-                            height: dpi * 0.015
+                            color: "#ddefefef"
+                            height: dpi * 0.01
                         }
 
                         Rectangle {
@@ -79,9 +79,9 @@ Dialog {
                                 bottom: parent.bottom
                             }
 
-                            color: "#0099cc"
-                            width: bottomBorder.height
-                            height: width * 1.5
+                            color: "#ddefefef"
+                            width: dpi * 0.01
+                            height: width * 5
                         }
 
                         Rectangle {
@@ -90,9 +90,9 @@ Dialog {
                                 bottom: parent.bottom
                             }
 
-                            color: "#0099cc"
-                            width: bottomBorder.height
-                            height: width * 1.5
+                            color: "#ddefefef"
+                            width: dpi * 0.01
+                            height: width * 5
                         }
                     }
                 }
@@ -108,9 +108,7 @@ Dialog {
             }
         }
 
-        ListView {
-            id: resultsList
-
+        ScrollView {
             anchors {
                 top: titleBar.bottom
                 left: parent.left
@@ -118,28 +116,36 @@ Dialog {
                 bottom: parent.bottom
             }
 
-            model: musicStreamer
-            clip: true
+            ListView {
+                id: resultsList
 
-            delegate: SongDelegate {
-                onAddToPlaylist: playlist.append({   "name" : model.name,
-                                                     "group" : model.group,
-                                                     "length" : model.length,
-                                                     "comment" : model.comment,
-                                                     "code" : model.code,
-                                                     "url": model.url })
+                anchors.fill: parent
 
-                onDownload: musicStreamer.downloadSong(model.name, model.url)
+                model: musicStreamer
+                clip: true
+
+                delegate: SongDelegate {
+                    onAddToPlaylist: playlist.append({ "name" : model.name,
+                                                       "group" : model.group,
+                                                       "length" : model.length,
+                                                       "comment" : model.comment,
+                                                       "code" : model.code,
+                                                       "url": model.url })
+
+                    onDownload: musicStreamer.downloadSong(model.name, model.url)
+                }
+
+                onContentYChanged: {
+                    Qt.inputMethod.hide()
+                    if (contentHeight != 0)
+                        //if (((contentY + height) / contentHeight) > 0.85)
+                        if (atYEnd)
+                            musicStreamer.fetchMore()
+                }
             }
 
-            onContentYChanged: {
-                Qt.inputMethod.hide()
-                if (contentHeight != 0)
-                    //if (((contentY + height) / contentHeight) > 0.85)
-                    if (atYEnd)
-                        musicStreamer.fetchMore()
-            }
         }
+
 
         Rectangle {
             anchors.fill: parent
@@ -153,7 +159,7 @@ Dialog {
                 color: Styler.darkTheme ? Style.TITLE_TEXT_COLOR_DARK : Style.TITLE_TEXT_COLOR_LIGHT
                 font.pointSize: 26
 
-                text: "Searching.."
+                text: qsTr("Searching...") /// TODO: replace this with a busy indicator
             }
         }
     }
@@ -230,36 +236,4 @@ Dialog {
             }
         }
     }
-
-    //    states: [
-    //        State {
-    //            when: root.opened
-    //            name: "opened"
-    //            PropertyChanges { target: root; opacity: 1; scale: 1 }
-    //        },
-    //        State {
-    //            when: !root.opened
-    //            name: "closed"
-    //            PropertyChanges { target: root; opacity: 0; scale: 0.5 }
-    //        }
-    //    ]
-
-    //    transitions: [
-    //        Transition {
-    //            from: "opened"
-    //            to: "closed"
-    //            ParallelAnimation {
-    //                NumberAnimation { properties: "scale"; easing.type: "InOutQuad" }
-    //                NumberAnimation { properties: "opacity"; easing.type: "InOutQuad" }
-    //            }
-    //        },
-    //        Transition {
-    //            from: "closed"
-    //            to: "opened"
-    //            ParallelAnimation {
-    //                NumberAnimation { properties: "scale"; easing.type: "InOutQuad" }
-    //                NumberAnimation { properties: "opacity"; easing.type: "InOutQuad" }
-    //            }
-    //        }
-    //    ]
 }
