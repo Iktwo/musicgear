@@ -27,3 +27,4 @@ android/bin/*.apk
 android/local.properties
 *.class
 *.d
+*.keystore
