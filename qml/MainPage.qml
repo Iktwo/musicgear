@@ -9,7 +9,7 @@ Rectangle {
     property Audio audioElement: audio
 
     anchors.fill: parent
-    color: "#fbfbfb"
+    color: "#e5e5e5"
     focus: true
 
     Keys.onReleased: {

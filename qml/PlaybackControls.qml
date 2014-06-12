@@ -34,7 +34,7 @@ Rectangle {
     }
 
     color: "#fafafa"
-    height: column.height
+    height: column.height + dpi * 0.04
     width: parent.width
 
     ColumnLayout {
@@ -83,73 +83,90 @@ Rectangle {
             }
         }
 
-        RowLayout {
+        Item {
             height: playBtn.height
-            width: parent.width
 
-            Label {
-                Layout.fillWidth: true
-                color: Style.TEXT_SECONDARY_COLOR_DARK
-                font.pointSize: 12
-                height: parent.height
-                verticalAlignment: "AlignVCenter"
-                text: formatMilliseconds(audioElement.position)
+            anchors {
+                left: parent.left
+                right: parent.right
+                margins: dpi * 0.04
             }
 
+
             RowLayout {
-                spacing: 0.35 * dpi
+                anchors.fill: parent
 
-                TitleBarImageButton {
-                    id: previousBtn
-
-                    height: 0.35 * dpi
-                    width: 0.35 * dpi
-
-                    source: "qrc:/images/previous_light"
-
-                    onClicked: applicationWindow.previous()
+                Label {
+                    Layout.fillWidth: true
+                    color: Style.TEXT_SECONDARY_COLOR_DARK
+                    font.pointSize: 12
+                    height: parent.height
+                    verticalAlignment: "AlignVCenter"
+                    text: formatMilliseconds(audioElement.position)
                 }
 
-                TitleBarImageButton {
-                    id: playBtn
+                RowLayout {
+                    spacing: 0.35 * dpi
 
-                    height: 0.35 * dpi
-                    width: 0.35 * dpi
+                    TitleBarImageButton {
+                        id: previousBtn
 
-                    source: (audioElement.playbackState == Audio.PlayingState ? "qrc:/images/pause_" : "qrc:/images/play_") + "light"
+                        height: 0.35 * dpi
+                        width: 0.35 * dpi
 
-                    onClicked: {
-                        if (audioElement.playbackState == Audio.PlayingState)
-                            audioElement.pause();
-                        else if (audioElement.source != "")
-                            audioElement.play();
+                        source: "qrc:/images/previous_light"
+
+                        onClicked: applicationWindow.previous()
+                    }
+
+                    TitleBarImageButton {
+                        id: playBtn
+
+                        height: 0.35 * dpi
+                        width: 0.35 * dpi
+
+                        source: (audioElement.playbackState == Audio.PlayingState ? "qrc:/images/pause_" : "qrc:/images/play_") + "light"
+
+                        onClicked: {
+                            if (audioElement.playbackState == Audio.PlayingState)
+                                audioElement.pause();
+                            else if (audioElement.source != "")
+                                audioElement.play();
+                        }
+                    }
+
+                    TitleBarImageButton {
+                        id: nextBtn
+
+                        height: 0.35 * dpi
+                        width: 0.35 * dpi
+
+                        source: "qrc:/images/next_light"
+
+                        onClicked: applicationWindow.next()
                     }
                 }
 
-                TitleBarImageButton {
-                    id: nextBtn
+                Label {
+                    Layout.fillWidth: true
 
-                    height: 0.35 * dpi
-                    width: 0.35 * dpi
-
-                    source: "qrc:/images/next_light"
-
-                    onClicked: applicationWindow.next()
+                    color: Style.TEXT_SECONDARY_COLOR_DARK
+                    font.pointSize: 12
+                    text: formatMilliseconds(audioElement.duration)
+                    horizontalAlignment: "AlignRight"
                 }
             }
 
-            Label {
-                Layout.fillWidth: true
-
-                color: Style.TEXT_SECONDARY_COLOR_DARK
-                font.pointSize: 12
-                text: formatMilliseconds(audioElement.duration)
-                horizontalAlignment: "AlignRight"
-            }
         }
 
         Label {
             id: songLabel
+
+            anchors {
+                left: parent.left
+                right: parent.right
+                margins: dpi * 0.04
+            }
 
             color: Style.TEXT_COLOR_DARK
             font.pointSize: 15

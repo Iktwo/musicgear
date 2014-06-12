@@ -24,7 +24,7 @@ Item {
         height: parent.height
         width: parent.width
 
-        color: Qt.darker(container.color)
+        color: "#CECECE"
         opacity: 0.6
     }
 
@@ -34,8 +34,7 @@ Item {
         height: parent.height
         width: parent.width
 
-        color: mouseArea.pressed ? (Styler.darkTheme ? Style.LIST_DELEGATE_BACKGROUND_PRESSED_DARK : Style.LIST_DELEGATE_BACKGROUND_PRESSED_LIGHT) :
-                                   Styler.darkTheme ? Style.LIST_DELEGATE_BACKGROUND_DARK : Style.LIST_DELEGATE_BACKGROUND_LIGHT
+        color: "#e5e5e5"
 
         Column {
             id: column
@@ -56,7 +55,7 @@ Item {
                     weight: Font.Light
                 }
 
-                color: Style.TEXT_COLOR
+                color: Style.TEXT_COLOR_DARK
                 text: model.name + " - <i>" + model.group + "</i>"
                 width: parent.width
             }
@@ -87,7 +86,7 @@ Item {
 
             iconMargins: height * 0.29
 
-            source: Styler.darkTheme ? "qrc:/images/remove_dark" : "qrc:/images/remove_light"
+            source: "qrc:/images/remove_light"
 
             visible: model.url === "" ? false : true
 
