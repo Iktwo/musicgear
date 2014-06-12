@@ -83,15 +83,6 @@ Rectangle {
         title: "MusicGear"
 
         TitleBarImageButton {
-            anchors.right: searchButton.left
-
-            source: Styler.darkTheme ? "qrc:/images/settings_dark"
-                                     : "qrc:/images/settings_light"
-
-            onClicked: mainMenu.open()
-        }
-
-        TitleBarImageButton {
             id: searchButton
 
             anchors.right: parent.right

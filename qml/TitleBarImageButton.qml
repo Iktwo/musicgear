@@ -5,7 +5,7 @@ Item {
 
     property alias source: image.source
     property double pressedOpacity: 0.5
-    property int iconMargins: root.height * 0.15
+    property int iconMargins: root.height * 0.25
 
     signal clicked
 

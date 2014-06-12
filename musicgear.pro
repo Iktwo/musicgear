@@ -46,10 +46,6 @@ OTHER_FILES += \
     qml/Dialog.qml \
     bar-descriptor.xml \
     android/version.xml \
-    android/src/org/kde/necessitas/ministro/IMinistroCallback.aidl \
-    android/src/org/kde/necessitas/ministro/IMinistro.aidl \
-    android/src/org/qtproject/qt5/android/bindings/QtActivity.java \
-    android/src/org/qtproject/qt5/android/bindings/QtApplication.java \
     android/AndroidManifest.xml \
     android/src/com/iktwo/utils/QDownloadManager.java \
     qml/PlaybackControls.qml

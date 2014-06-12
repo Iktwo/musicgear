@@ -48,9 +48,54 @@ Dialog {
                     verticalCenter: parent.verticalCenter
                 }
 
-                placeholderText: "Artist, Song.."
+                inputMethodHints: Qt.ImhNoPredictiveText
+                placeholderText: qsTr("Search songs and artists")
 
                 onAccepted: root.search()
+
+                style: TextFieldStyle {
+                    placeholderTextColor: "#7e7e7e"
+                    textColor: "white"
+                    background: Item {
+                        implicitWidth: dpi
+                        implicitHeight: dpi * 0.20
+
+                        Rectangle {
+                            id: bottomBorder
+
+                            anchors {
+                                left: parent.left
+                                right: parent.right
+                                bottom: parent.bottom
+                            }
+
+                            color: "#0099cc"
+                            height: dpi * 0.015
+                        }
+
+                        Rectangle {
+                            anchors {
+                                left: parent.left
+                                bottom: parent.bottom
+                            }
+
+                            color: "#0099cc"
+                            width: bottomBorder.height
+                            height: width * 1.5
+                        }
+
+                        Rectangle {
+                            anchors {
+                                right: parent.right
+                                bottom: parent.bottom
+                            }
+
+                            color: "#0099cc"
+                            width: bottomBorder.height
+                            height: width * 1.5
+                        }
+                    }
+                }
             }
 
             TitleBarImageButton {
@@ -88,7 +133,7 @@ Dialog {
             }
 
             onContentYChanged: {
-                 Qt.inputMethod.hide()
+                Qt.inputMethod.hide()
                 if (contentHeight != 0)
                     //if (((contentY + height) / contentHeight) > 0.85)
                     if (atYEnd)

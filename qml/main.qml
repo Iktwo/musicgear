@@ -99,18 +99,4 @@ ApplicationWindow {
 
         audioElement: audio
     }
-
-    Menu {
-        id: mainMenu
-
-        MenuTextItem {
-            text: Styler.darkTheme ? qsTr("Light theme") : qsTr("Dark theme")
-            onClicked: Styler.darkTheme = !Styler.darkTheme
-        }
-
-        MenuTextItem {
-            text: qsTr("About MusicGear")
-            onClicked: aboutDialog.open()
-        }
-    }
 }
