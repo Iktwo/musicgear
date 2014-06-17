@@ -1,7 +1,7 @@
 import QtQuick 2.1
 import QtQuick.Controls 1.1
 import QtQuick.Layouts 1.1
-import QtMultimedia 5.1
+import QtMultimedia 5.2
 import "style.js" as Style
 import Styler 1.0
 

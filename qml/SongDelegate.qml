@@ -70,7 +70,7 @@ Item {
             }
 
             width: 0.35 * dpi
-            source: "qrc:/images/add_playlist_light"
+            source: "qrc:/images/add_to_playlist"
             visible: model.url === "" ? false : true
 
             onClicked: root.addToPlaylist()

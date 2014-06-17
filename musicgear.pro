@@ -1,6 +1,10 @@
-QT += quick widgets svg network multimedia
+QT += quick widgets network multimedia
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
+
+!qnx {
+    QT += svg
+}
 
 android {
     QT += androidextras
@@ -49,3 +53,5 @@ OTHER_FILES += \
     android/AndroidManifest.xml \
     android/src/com/iktwo/utils/QDownloadManager.java \
     qml/PlaybackControls.qml
+
+include(deployment.pri)

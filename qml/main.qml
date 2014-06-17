@@ -77,6 +77,8 @@ ApplicationWindow {
     Audio {
         id: audio
 
+        autoLoad: true
+
         property int index: 0
 
         onPlaybackStateChanged: {

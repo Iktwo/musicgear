@@ -16,25 +16,14 @@
         <file alias="remove_dark_pressed">resources/images/remove_dark_pressed.png</file>
         <file alias="remove_light">resources/images/remove_light.png</file>
         <file alias="remove_pressed">resources/images/remove_light_pressed.png</file>
-        <file alias="add_playlist_dark">resources/images/add_playlist_dark.png</file>
-        <file alias="add_playlist_dark_pressed">resources/images/add_playlist_dark_pressed.png</file>
-        <file alias="add_playlist_light">resources/images/add_playlist_light.png</file>
-        <file alias="add_playlist_light_pressed">resources/images/add_playlist_light_pressed.png</file>
-        <file alias="settings_dark">resources/images/settings_dark.png</file>
-        <file alias="settings_light">resources/images/settings_light.png</file>
-        <file alias="stop_dark">resources/images/stop_dark.png</file>
-        <file alias="stop_light">resources/images/stop_light.png</file>
         <file alias="playlist_dark">resources/images/playlist_dark.png</file>
         <file alias="playlist_light">resources/images/playlist_light.png</file>
         <file alias="previous_light">resources/images/previous_light.svg</file>
-        <file alias="previous_dark">resources/images/previous_dark.svg</file>
         <file alias="play_light">resources/images/play_light.svg</file>
-        <file alias="play_dark">resources/images/play_dark.svg</file>
         <file alias="next_light">resources/images/next_light.svg</file>
-        <file alias="next_dark">resources/images/next_dark.svg</file>
         <file alias="pause_light">resources/images/pause_light.svg</file>
-        <file alias="pause_dark">resources/images/pause_dark.svg</file>
         <file alias="download">resources/images/download.svg</file>
+        <file alias="add_to_playlist">resources/images/add_to_playlist.svg</file>
     </qresource>
     <qresource prefix="/qml">
         <file>qml/Dialog.qml</file>
