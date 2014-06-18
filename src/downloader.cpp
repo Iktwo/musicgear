@@ -36,7 +36,7 @@ void Downloader::downloadSong(const QString &name, const QString &url)
 
 void Downloader::getDownloadLink(const QString &code)
 {
-    qDebug() << Q_FUNC_INFO << " - " << code;
+//    qDebug() << Q_FUNC_INFO << " - " << code;
 //    QString newUrl = url;
 //    newUrl.replace(DownloadUrl, COOKIE_CREATOR_URL);
 
@@ -218,7 +218,7 @@ void Downloader::downloadFinished(QNetworkReply *reply)
             //            QString comment = songs.mid(termBegins + searchTerm.length(), termEnds - termBegins
             //                                        - searchTerm.length()).simplified();
 
-            qDebug() << "Song found " << title << group << length << comment << code;
+//            qDebug() << "Song found " << title << group << length << comment << code;
             emit songFound(title, group, length, comment, code);
             getDownloadLink(code);
 

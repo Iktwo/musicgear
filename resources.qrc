@@ -1,29 +1,20 @@
 <RCC>
     <qresource prefix="/images">
-        <file alias="search_dark">resources/images/search_dark.png</file>
-        <file alias="search_light">resources/images/search_light.png</file>
-        <file alias="back_dark">resources/images/back_dark.png</file>
-        <file alias="back_light">resources/images/back_light.png</file>
-        <file alias="play_dark_pressed">resources/images/play_dark_pressed.png</file>
-        <file alias="play_light_pressed">resources/images/play_light_pressed.png</file>
+        <file alias="search">resources/images/search_dark.png</file>
         <file alias="clear_dark">resources/images/clear_dark.png</file>
         <file alias="clear_light">resources/images/clear_light.png</file>
-        <file alias="download_dark">resources/images/download_dark.png</file>
-        <file alias="download_dark_pressed">resources/images/download_dark_pressed.png</file>
-        <file alias="download_light">resources/images/download_light.png</file>
-        <file alias="download_light_pressed">resources/images/download_light_pressed.png</file>
         <file alias="remove_dark">resources/images/remove_dark.png</file>
-        <file alias="remove_dark_pressed">resources/images/remove_dark_pressed.png</file>
         <file alias="remove_light">resources/images/remove_light.png</file>
-        <file alias="remove_pressed">resources/images/remove_light_pressed.png</file>
         <file alias="playlist_dark">resources/images/playlist_dark.png</file>
-        <file alias="playlist_light">resources/images/playlist_light.png</file>
-        <file alias="previous_light">resources/images/previous_light.svg</file>
-        <file alias="play_light">resources/images/play_light.svg</file>
-        <file alias="next_light">resources/images/next_light.svg</file>
-        <file alias="pause_light">resources/images/pause_light.svg</file>
         <file alias="download">resources/images/download.svg</file>
         <file alias="add_to_playlist">resources/images/add_to_playlist.svg</file>
+        <file alias="previous">resources/images/previous.svg</file>
+        <file alias="play">resources/images/play.svg</file>
+        <file alias="pause">resources/images/pause.svg</file>
+        <file alias="next">resources/images/next.svg</file>
+        <file alias="back">resources/images/back.svg</file>
+        <file alias="settings">resources/images/settings.svg</file>
+        <file alias="busy">resources/images/busy.svg</file>
     </qresource>
     <qresource prefix="/qml">
         <file>qml/Dialog.qml</file>

@@ -106,15 +106,15 @@ Rectangle {
                 }
 
                 RowLayout {
-                    spacing: 0.35 * dpi
+                    spacing: 0.34 * dpi
 
                     TitleBarImageButton {
                         id: previousBtn
 
-                        height: 0.35 * dpi
-                        width: 0.35 * dpi
+                        height: 0.34 * dpi
+                        width: 0.34 * dpi
 
-                        source: "qrc:/images/previous_light"
+                        source: "qrc:/images/previous"
 
                         onClicked: applicationWindow.previous()
                     }
@@ -122,10 +122,10 @@ Rectangle {
                     TitleBarImageButton {
                         id: playBtn
 
-                        height: 0.35 * dpi
-                        width: 0.35 * dpi
+                        height: 0.34 * dpi
+                        width: 0.34 * dpi
 
-                        source: (audioElement.playbackState == Audio.PlayingState ? "qrc:/images/pause_" : "qrc:/images/play_") + "light"
+                        source: audioElement.playbackState == Audio.PlayingState || (audioElement.status == Audio.Buffering || audioElement.status == Audio.Stalled) ? "qrc:/images/pause" : "qrc:/images/play"
 
                         onClicked: {
                             if (audioElement.playbackState == Audio.PlayingState)
@@ -138,10 +138,10 @@ Rectangle {
                     TitleBarImageButton {
                         id: nextBtn
 
-                        height: 0.35 * dpi
-                        width: 0.35 * dpi
+                        height: 0.34 * dpi
+                        width: 0.34 * dpi
 
-                        source: "qrc:/images/next_light"
+                        source: "qrc:/images/next"
 
                         onClicked: applicationWindow.next()
                     }

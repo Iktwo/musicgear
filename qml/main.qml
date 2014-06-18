@@ -1,6 +1,5 @@
 import QtQuick 2.1
 import QtQuick.Controls 1.1
-import Styler 1.0
 import QtQuick.Window 2.1
 import QtMultimedia 5.1
 import "."
@@ -25,7 +24,7 @@ ApplicationWindow {
         if (audio.index - 1 >= 0)
             audio.index = audio.index - 1
         else
-            audio.index = 0
+            audio.index = playlist.count - 1
 
         playbackControls.song = playlist.get(audio.index).name + " - <i>" + playlist.get(audio.index).group + "</i>"
         audio.source = playlist.get(audio.index).url
@@ -77,16 +76,43 @@ ApplicationWindow {
     Audio {
         id: audio
 
-        autoLoad: true
-
         property int index: 0
 
-        onPlaybackStateChanged: {
-            if (playbackState === Audio.StoppedState && duration != 0) {
-                if ((position > duration) || (position == duration) || (1 - (position / duration) <= 0.03 )) {
-                    stop()
+        autoLoad: true
+
+        onBufferProgressChanged: console.log("BUFFER PROGRESS:", bufferProgress)
+
+        onStatusChanged: {
+            switch(status) {
+            case Audio.NoMedia:
+                console.log("NO MEDIA")
+                break
+            case Audio.Loading:
+                console.log("Loading")
+                break
+            case Audio.Loaded:
+                console.log("Loaded")
+                break
+            case Audio.Buffering:
+                console.log("Buffering")
+                break
+            case Audio.Stalled:
+                console.log("Stalled")
+                break
+            case Audio.Buffered:
+                console.log("Buffered")
+                break
+            case Audio.EndOfMedia:
+                console.log("EndOfMedia")
+                if (index !== playlist.count - 1)
                     next()
-                }
+                break
+            case Audio.InvalidMedia:
+                console.log("InvalidMedia")
+                break
+            case Audio.UnknownStatus:
+                console.log("UnkownStatus")
+                break
             }
         }
     }

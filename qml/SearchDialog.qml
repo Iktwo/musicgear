@@ -1,7 +1,6 @@
 import QtQuick 2.2
 import QtQuick.Controls 1.1
 import QtQuick.Controls.Styles 1.1
-import Styler 1.0
 import "style.js" as Style
 import "." 1.0
 
@@ -33,9 +32,7 @@ Dialog {
 
             TitleBarImageButton {
                 anchors.left: parent.left
-
-                source: Styler.darkTheme ? "qrc:/images/playlist_dark"
-                                         : "qrc:/images/playlist_light"
+                source: "qrc:/images/back"
 
                 onClicked: root.close()
             }
@@ -100,9 +97,7 @@ Dialog {
 
             TitleBarImageButton {
                 anchors.right: parent.right
-
-                source: Styler.darkTheme ? "qrc:/images/search_dark"
-                                         : "qrc:/images/search_light"
+                source: "qrc:/images/search"
 
                 onClicked: root.search()
             }
@@ -125,12 +120,20 @@ Dialog {
                 clip: true
 
                 delegate: SongDelegate {
-                    onAddToPlaylist: playlist.append({ "name" : model.name,
-                                                       "group" : model.group,
-                                                       "length" : model.length,
-                                                       "comment" : model.comment,
-                                                       "code" : model.code,
-                                                       "url": model.url })
+                    onAddToPlaylist: {
+
+                        for (var i = 0; i < playlist.count; i++) {
+                            if (playlist.get(i).url === model.url)
+                                return
+                        }
+
+                        playlist.append({ "name" : model.name,
+                                            "group" : model.group,
+                                            "length" : model.length,
+                                            "comment" : model.comment,
+                                            "code" : model.code,
+                                            "url": model.url })
+                    }
 
                     onDownload: musicStreamer.downloadSong(model.name, model.url)
                 }
@@ -153,13 +156,24 @@ Dialog {
             color: "#88000000"
             opacity: musicStreamer.searching ? 1 : 0
 
-            Label {
+            BusyIndicator {
                 anchors.centerIn: parent
+                running: musicStreamer.searching
 
-                color: Styler.darkTheme ? Style.TITLE_TEXT_COLOR_DARK : Style.TITLE_TEXT_COLOR_LIGHT
-                font.pointSize: 26
-
-                text: qsTr("Searching...") /// TODO: replace this with a busy indicator
+                style: BusyIndicatorStyle {
+                    indicator: Image {
+                        id: busyIndicator
+                        visible: control.running
+                        source: "qrc:/images/busy"
+                        RotationAnimator {
+                            target: busyIndicator
+                            running: control.running
+                            loops: Animation.Infinite
+                            duration: 2000
+                            from: 0; to: 360
+                        }
+                    }
+                }
             }
         }
     }

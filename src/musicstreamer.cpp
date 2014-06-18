@@ -68,7 +68,7 @@ QObjectList MusicStreamer::songs()
 
 void MusicStreamer::decodedUrl(const QString &code, const QString &url)
 {
-    qDebug() << Q_FUNC_INFO << " URL: " << url;
+//    qDebug() << Q_FUNC_INFO << " URL: " << url;
     int i = 0;
     foreach (QObject *item, mSongs) {
         Song *song = qobject_cast<Song *>(item);

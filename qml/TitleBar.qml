@@ -22,17 +22,8 @@ Item {
         anchors.fill: parent
         color: Style.MENU_TITLE_BACKGROUND_COLOR
 
-        Rectangle {
-            anchors {
-                left: parent.left
-                right: parent.right
-                bottom: parent.bottom
-            }
 
-            height: dpi * 0.01
 
-            color: "#005CB8"
-        }
 
         Label {
             id: titleLabel

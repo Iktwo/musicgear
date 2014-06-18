@@ -3,7 +3,6 @@ import QtQuick.Controls 1.1
 import QtQuick.Layouts 1.1
 import QtMultimedia 5.2
 import "style.js" as Style
-import Styler 1.0
 
 Rectangle {
     property Audio audioElement: audio
@@ -32,9 +31,8 @@ Rectangle {
             id: searchButton
 
             anchors.right: parent.right
+            source: "qrc:/images/search"
 
-            source: Styler.darkTheme ? "qrc:/images/search_dark"
-                                     : "qrc:/images/search_light"
             onClicked: searchDialog.open()
         }
     }

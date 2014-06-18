@@ -1,7 +1,6 @@
 import QtQuick 2.1
 import QtQuick.Controls 1.1
 import "style.js" as Style
-import Styler 1.0
 
 Item {
     id: root
@@ -34,7 +33,7 @@ Item {
         height: parent.height
         width: parent.width
 
-        color: "#e5e5e5"
+        color: index === audio.index ? "#F2F2F2" : "#e5e5e5"
 
         Column {
             id: column
