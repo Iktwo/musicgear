@@ -52,6 +52,7 @@ OTHER_FILES += \
     android/version.xml \
     android/AndroidManifest.xml \
     android/src/com/iktwo/utils/QDownloadManager.java \
-    qml/PlaybackControls.qml
+    qml/PlaybackControls.qml \
+    qml/AboutDialog.qml
 
 include(deployment.pri)

@@ -15,6 +15,7 @@
         <file alias="back">resources/images/back.svg</file>
         <file alias="settings">resources/images/settings.svg</file>
         <file alias="busy">resources/images/busy.svg</file>
+        <file alias="help">resources/images/help.svg</file>
     </qresource>
     <qresource prefix="/qml">
         <file>qml/Dialog.qml</file>
@@ -32,5 +33,6 @@
         <file>qml/TitleBarImageButton.qml</file>
         <file>qml/TitleBarTextInput.qml</file>
         <file>qml/PlaybackControls.qml</file>
+        <file>qml/AboutDialog.qml</file>
     </qresource>
 </RCC>

@@ -22,10 +22,19 @@ Rectangle {
 
     SearchDialog { id: searchDialog }
 
+    AboutDialog { id: aboutDialog }
+
     TitleBar {
         id: titleBar
 
         title: "MusicGear"
+
+        TitleBarImageButton {
+            anchors.right: searchButton.left
+            source: "qrc:/images/help"
+
+            onClicked: aboutDialog.open()
+        }
 
         TitleBarImageButton {
             id: searchButton
