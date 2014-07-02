@@ -1,5 +1,7 @@
 QT += quick widgets network multimedia
 
+DEFINES += BUILD_DATE=\\\"$$system(date '+%d/%m/%Y')\\\"
+
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
 !qnx {

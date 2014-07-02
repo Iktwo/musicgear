@@ -29,7 +29,8 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
 
     MusicStreamer musicStreamer;
-    engine.rootContext()->setContextProperty("musicStreamer", &musicStreamer);
+    engine.rootContext()->setContextProperty(QStringLiteral("musicStreamer"), &musicStreamer);
+    engine.rootContext()->setContextProperty(QStringLiteral("buildDate"), QString(BUILD_DATE));
 
 #if defined(Q_OS_ANDROID)
     engine.rootContext()->setContextProperty("Q_OS", "ANDROID");

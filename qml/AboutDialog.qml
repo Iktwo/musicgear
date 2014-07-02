@@ -29,24 +29,21 @@ Dialog {
             margins: dpi * 0.06
         }
 
-        ColumnLayout {
+        Column {
             width: scrollView.width
 
             spacing: dpi * 0.06
 
             Label {
-                Layout.fillWidth: true
-
+                width: parent.width
                 horizontalAlignment: "AlignHCenter"
                 wrapMode: "Wrap"
                 text: "Musicgear"
             }
 
             Label {
-                Layout.fillWidth: true
-
+                width: parent.width
                 textFormat: Text.RichText
-
                 horizontalAlignment: "AlignHCenter"
                 wrapMode: "Wrap"
                 text: qsTr("Stream your favorite music from <a href=\"http://goear.com\">Goear</a>")
@@ -55,13 +52,21 @@ Dialog {
             }
 
             Label {
-                Layout.fillWidth: true
-
+                width: parent.width
                 textFormat: Text.RichText
-
                 horizontalAlignment: "AlignHCenter"
                 wrapMode: "Wrap"
                 text: qsTr("Icons under <a href=\"http://creativecommons.org/licenses/by/3.0/legalcode\">CC 3.0</a> by <a href=\"http://www.freepik.com/\">Freepik</a>")
+
+                onLinkActivated: Qt.openUrlExternally(link)
+            }
+
+            Label {
+                width: parent.width
+                textFormat: Text.RichText
+                horizontalAlignment: "AlignHCenter"
+                wrapMode: "Wrap"
+                text: qsTr("Built on") + " " + buildDate
 
                 onLinkActivated: Qt.openUrlExternally(link)
             }

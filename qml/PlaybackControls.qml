@@ -38,17 +38,17 @@ Rectangle {
     width: parent.width
 
     ColumnLayout {
+    Connections {
+        target: audioElement
+        onDurationChanged: progressBar.maximumValue = audioElement.duration
+        onPositionChanged: progressBar.value = audioElement.position
+    }
+
         id: column
 
         anchors {
             left: parent.left
             right: parent.right
-        }
-
-        Connections {
-            target: audioElement
-            onDurationChanged: progressBar.maximumValue = audioElement.duration
-            onPositionChanged: progressBar.value = audioElement.position
         }
 
         ProgressBar {
