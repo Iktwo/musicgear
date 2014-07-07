@@ -4,6 +4,7 @@ Item {
     id: root
 
     property alias source: image.source
+    property alias icon: image
     property double pressedOpacity: 0.5
     property int iconMargins: root.height * 0.25
 

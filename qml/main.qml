@@ -7,6 +7,9 @@ import "."
 ApplicationWindow {
     id: applicationWindow
 
+    // HVGA, VGA, WVGA, SVGA, nHD, qHD
+    property var resolutions: [ {"height": 480, "width": 320}, {"height": 640, "width": 480}, {"height": 800, "width": 480}, {"height": 800, "width": 600}, {"height": 640, "width": 360}, {"height": 960, "width": 540} ]
+    property int currentResolution: 3
     property int dpi: Screen.pixelDensity * 25.4
 
     function next() {
@@ -31,9 +34,29 @@ ApplicationWindow {
         audio.play()
     }
 
-    height: 720
-    width: 720
+    /// TODO: think of a better way to handle this, as this considers square icons
+    function getBestIconSize(height) {
+        // 36,  48,  72,  96, 144, 192
+        // 42,  60,  84, 120, 168
+        if (height < 42)
+            return "ldpi/"
+        else if (height < 60)
+            return "mdpi/"
+        else if (height < 84)
+            return "hdpi/"
+        else if (height < 120)
+            return "xhdpi/"
+        else if (height < 168)
+            return "xxhdpi/"
+        else if (height < 216)
+            return "xxxhdpi/"
+        else
+            return ""
+    }
+
     visible: true
+    width: resolutions[currentResolution]["width"]
+    height: resolutions[currentResolution]["height"]
 
     StackView {
         id: stackview

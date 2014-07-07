@@ -85,7 +85,7 @@ Item {
 
             iconMargins: height * 0.29
 
-            source: "qrc:/images/remove_light"
+            source: "qrc:/images/" + getBestIconSize(Math.min(icon.height, icon.width)) + "remove"
 
             visible: model.url === "" ? false : true
 

@@ -12,7 +12,7 @@ Dialog {
 
         TitleBarImageButton {
             anchors.left: parent.left
-            source: "qrc:/images/back"
+            source: "qrc:/images/" + getBestIconSize(Math.min(icon.height, icon.width)) + "back"
 
             onClicked: aboutDialog.close()
         }
@@ -28,6 +28,8 @@ Dialog {
             bottom: parent.bottom
             margins: dpi * 0.06
         }
+
+        flickableItem.interactive: true; focus: true
 
         Column {
             width: scrollView.width

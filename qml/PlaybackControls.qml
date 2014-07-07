@@ -114,7 +114,7 @@ Rectangle {
                         height: 0.34 * dpi
                         width: 0.34 * dpi
 
-                        source: "qrc:/images/previous"
+                        source: "qrc:/images/" + getBestIconSize(Math.min(icon.height, icon.width)) + "previous"
 
                         onClicked: applicationWindow.previous()
                     }
@@ -125,7 +125,7 @@ Rectangle {
                         height: 0.34 * dpi
                         width: 0.34 * dpi
 
-                        source: audioElement.playbackState == Audio.PlayingState || (audioElement.status == Audio.Buffering || audioElement.status == Audio.Stalled) ? "qrc:/images/pause" : "qrc:/images/play"
+                        source: "qrc:/images/" + getBestIconSize(Math.min(icon.height, icon.width)) + (audioElement.playbackState == Audio.PlayingState || (audioElement.status == Audio.Buffering || audioElement.status == Audio.Stalled) ? "pause" : "play")
 
                         onClicked: {
                             if (audioElement.playbackState == Audio.PlayingState)
@@ -141,7 +141,7 @@ Rectangle {
                         height: 0.34 * dpi
                         width: 0.34 * dpi
 
-                        source: "qrc:/images/next"
+                        source: "qrc:/images/" + getBestIconSize(Math.min(icon.height, icon.width)) + "next"
 
                         onClicked: applicationWindow.next()
                     }

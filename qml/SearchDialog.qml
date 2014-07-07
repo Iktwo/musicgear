@@ -32,7 +32,7 @@ Dialog {
 
             TitleBarImageButton {
                 anchors.left: parent.left
-                source: "qrc:/images/back"
+                source: "qrc:/images/" + getBestIconSize(Math.min(icon.height, icon.width)) + "back"
 
                 onClicked: root.close()
             }
@@ -97,7 +97,7 @@ Dialog {
 
             TitleBarImageButton {
                 anchors.right: parent.right
-                source: "qrc:/images/search"
+                source: "qrc:/images/" + getBestIconSize(Math.min(icon.height, icon.width)) + "search"
 
                 onClicked: root.search()
             }
@@ -110,6 +110,8 @@ Dialog {
                 right: parent.right
                 bottom: parent.bottom
             }
+
+            flickableItem.interactive: true; focus: true
 
             ListView {
                 id: resultsList
@@ -159,12 +161,15 @@ Dialog {
             BusyIndicator {
                 anchors.centerIn: parent
                 running: musicStreamer.searching
+                height: (applicationWindow.height > applicationWindow.width ? applicationWindow.width : applicationWindow.height) * 0.4
+                width: height
 
                 style: BusyIndicatorStyle {
                     indicator: Image {
                         id: busyIndicator
                         visible: control.running
-                        source: "qrc:/images/busy"
+                        source: "qrc:/images/" + getBestIconSize(height) + "busy"
+                        antialiasing: true
                         RotationAnimator {
                             target: busyIndicator
                             running: control.running

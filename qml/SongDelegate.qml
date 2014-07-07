@@ -70,7 +70,7 @@ Item {
             }
 
             width: 0.35 * dpi
-            source: "qrc:/images/add_to_playlist"
+            source: "qrc:/images/" + getBestIconSize(Math.min(icon.height, icon.width)) + "add_to_playlist"
             visible: model.url === "" ? false : true
 
             onClicked: root.addToPlaylist()
@@ -84,7 +84,7 @@ Item {
 
             width: 0.35 * dpi
 
-            source: "qrc:/images/download"
+            source: "qrc:/images/" + getBestIconSize(Math.min(icon.height, icon.width)) + "download"
             visible: model.url === "" ? false : true
 
             onClicked: root.download()

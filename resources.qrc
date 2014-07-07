@@ -1,22 +1,4 @@
 <RCC>
-    <qresource prefix="/images">
-        <file alias="search">resources/images/search_dark.png</file>
-        <file alias="clear_dark">resources/images/clear_dark.png</file>
-        <file alias="clear_light">resources/images/clear_light.png</file>
-        <file alias="remove_dark">resources/images/remove_dark.png</file>
-        <file alias="remove_light">resources/images/remove_light.png</file>
-        <file alias="playlist_dark">resources/images/playlist_dark.png</file>
-        <file alias="download">resources/images/download.svg</file>
-        <file alias="add_to_playlist">resources/images/add_to_playlist.svg</file>
-        <file alias="previous">resources/images/previous.svg</file>
-        <file alias="play">resources/images/play.svg</file>
-        <file alias="pause">resources/images/pause.svg</file>
-        <file alias="next">resources/images/next.svg</file>
-        <file alias="back">resources/images/back.svg</file>
-        <file alias="settings">resources/images/settings.svg</file>
-        <file alias="busy">resources/images/busy.svg</file>
-        <file alias="help">resources/images/help.svg</file>
-    </qresource>
     <qresource prefix="/qml">
         <file>qml/Dialog.qml</file>
         <file>qml/Divider.qml</file>
@@ -31,8 +13,111 @@
         <file>qml/style.js</file>
         <file>qml/TitleBar.qml</file>
         <file>qml/TitleBarImageButton.qml</file>
-        <file>qml/TitleBarTextInput.qml</file>
         <file>qml/PlaybackControls.qml</file>
         <file>qml/AboutDialog.qml</file>
+    </qresource>
+    <qresource prefix="/images">
+        <file alias="search">resources/images/search.svg</file>
+        <file alias="remove">resources/images/remove.svg</file>
+        <file alias="download">resources/images/download.svg</file>
+        <file alias="add_to_playlist">resources/images/add_to_playlist.svg</file>
+        <file alias="previous">resources/images/previous.svg</file>
+        <file alias="play">resources/images/play.svg</file>
+        <file alias="pause">resources/images/pause.svg</file>
+        <file alias="next">resources/images/next.svg</file>
+        <file alias="back">resources/images/back.svg</file>
+        <file alias="settings">resources/images/settings.svg</file>
+        <file alias="busy">resources/images/busy.svg</file>
+        <file alias="help">resources/images/help.svg</file>
+    </qresource>
+    <qresource prefix="/images/ldpi">
+        <file alias="icon">resources/images/drawable-ldpi/icon.png</file>
+        <file alias="back">resources/images/drawable-ldpi/back.png</file>
+        <file alias="busy">resources/images/drawable-ldpi/busy.png</file>
+        <file alias="help">resources/images/drawable-ldpi/help.png</file>
+        <file alias="play">resources/images/drawable-ldpi/play.png</file>
+        <file alias="next">resources/images/drawable-ldpi/next.png</file>
+        <file alias="pause">resources/images/drawable-ldpi/pause.png</file>
+        <file alias="remove">resources/images/drawable-ldpi/remove.png</file>
+        <file alias="search">resources/images/drawable-ldpi/search.png</file>
+        <file alias="previous">resources/images/drawable-ldpi/previous.png</file>
+        <file alias="download">resources/images/drawable-ldpi/download.png</file>
+        <file alias="settings">resources/images/drawable-ldpi/settings.png</file>
+        <file alias="add_to_playlist">resources/images/drawable-ldpi/add_to_playlist.png</file>
+    </qresource>
+    <qresource prefix="/images/mdpi">
+        <file alias="icon">resources/images/drawable-mdpi/icon.png</file>
+        <file alias="back">resources/images/drawable-mdpi/back.png</file>
+        <file alias="busy">resources/images/drawable-mdpi/busy.png</file>
+        <file alias="help">resources/images/drawable-mdpi/help.png</file>
+        <file alias="play">resources/images/drawable-mdpi/play.png</file>
+        <file alias="next">resources/images/drawable-mdpi/next.png</file>
+        <file alias="pause">resources/images/drawable-mdpi/pause.png</file>
+        <file alias="remove">resources/images/drawable-mdpi/remove.png</file>
+        <file alias="search">resources/images/drawable-mdpi/search.png</file>
+        <file alias="previous">resources/images/drawable-mdpi/previous.png</file>
+        <file alias="download">resources/images/drawable-mdpi/download.png</file>
+        <file alias="settings">resources/images/drawable-mdpi/settings.png</file>
+        <file alias="add_to_playlist">resources/images/drawable-mdpi/add_to_playlist.png</file>
+    </qresource>
+    <qresource prefix="/images/hdpi">
+        <file alias="icon">resources/images/drawable-hdpi/icon.png</file>
+        <file alias="back">resources/images/drawable-hdpi/back.png</file>
+        <file alias="busy">resources/images/drawable-hdpi/busy.png</file>
+        <file alias="help">resources/images/drawable-hdpi/help.png</file>
+        <file alias="play">resources/images/drawable-hdpi/play.png</file>
+        <file alias="next">resources/images/drawable-hdpi/next.png</file>
+        <file alias="pause">resources/images/drawable-hdpi/pause.png</file>
+        <file alias="remove">resources/images/drawable-hdpi/remove.png</file>
+        <file alias="search">resources/images/drawable-hdpi/search.png</file>
+        <file alias="previous">resources/images/drawable-hdpi/previous.png</file>
+        <file alias="download">resources/images/drawable-hdpi/download.png</file>
+        <file alias="settings">resources/images/drawable-hdpi/settings.png</file>
+        <file alias="add_to_playlist">resources/images/drawable-hdpi/add_to_playlist.png</file>
+    </qresource>
+    <qresource prefix="/images/xhdpi">
+        <file alias="icon">resources/images/drawable-xhdpi/icon.png</file>
+        <file alias="back">resources/images/drawable-xhdpi/back.png</file>
+        <file alias="busy">resources/images/drawable-xhdpi/busy.png</file>
+        <file alias="help">resources/images/drawable-xhdpi/help.png</file>
+        <file alias="play">resources/images/drawable-xhdpi/play.png</file>
+        <file alias="next">resources/images/drawable-xhdpi/next.png</file>
+        <file alias="pause">resources/images/drawable-xhdpi/pause.png</file>
+        <file alias="remove">resources/images/drawable-xhdpi/remove.png</file>
+        <file alias="search">resources/images/drawable-xhdpi/search.png</file>
+        <file alias="previous">resources/images/drawable-xhdpi/previous.png</file>
+        <file alias="download">resources/images/drawable-xhdpi/download.png</file>
+        <file alias="settings">resources/images/drawable-xhdpi/settings.png</file>
+        <file alias="add_to_playlist">resources/images/drawable-xhdpi/add_to_playlist.png</file>
+    </qresource>
+    <qresource prefix="/images/xxhdpi">
+        <file alias="icon">resources/images/drawable-xxhdpi/icon.png</file>
+        <file alias="back">resources/images/drawable-xxhdpi/back.png</file>
+        <file alias="busy">resources/images/drawable-xxhdpi/busy.png</file>
+        <file alias="help">resources/images/drawable-xxhdpi/help.png</file>
+        <file alias="play">resources/images/drawable-xxhdpi/play.png</file>
+        <file alias="next">resources/images/drawable-xxhdpi/next.png</file>
+        <file alias="pause">resources/images/drawable-xxhdpi/pause.png</file>
+        <file alias="remove">resources/images/drawable-xxhdpi/remove.png</file>
+        <file alias="search">resources/images/drawable-xxhdpi/search.png</file>
+        <file alias="previous">resources/images/drawable-xxhdpi/previous.png</file>
+        <file alias="download">resources/images/drawable-xxhdpi/download.png</file>
+        <file alias="settings">resources/images/drawable-xxhdpi/settings.png</file>
+        <file alias="add_to_playlist">resources/images/drawable-xxhdpi/add_to_playlist.png</file>
+    </qresource>
+    <qresource prefix="/images/xxxhdpi">
+        <file alias="icon">resources/images/drawable-xxxhdpi/icon.png</file>
+        <file alias="back">resources/images/drawable-xxxhdpi/back.png</file>
+        <file alias="busy">resources/images/drawable-xxxhdpi/busy.png</file>
+        <file alias="help">resources/images/drawable-xxxhdpi/help.png</file>
+        <file alias="play">resources/images/drawable-xxxhdpi/play.png</file>
+        <file alias="next">resources/images/drawable-xxxhdpi/next.png</file>
+        <file alias="pause">resources/images/drawable-xxxhdpi/pause.png</file>
+        <file alias="remove">resources/images/drawable-xxxhdpi/remove.png</file>
+        <file alias="search">resources/images/drawable-xxxhdpi/search.png</file>
+        <file alias="previous">resources/images/drawable-xxxhdpi/previous.png</file>
+        <file alias="download">resources/images/drawable-xxxhdpi/download.png</file>
+        <file alias="settings">resources/images/drawable-xxxhdpi/settings.png</file>
+        <file alias="add_to_playlist">resources/images/drawable-xxxhdpi/add_to_playlist.png</file>
     </qresource>
 </RCC>

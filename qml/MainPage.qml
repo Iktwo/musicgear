@@ -31,7 +31,7 @@ Rectangle {
 
         TitleBarImageButton {
             anchors.right: searchButton.left
-            source: "qrc:/images/help"
+            source: "qrc:/images/" + getBestIconSize(Math.min(icon.height, icon.width)) + "help"
 
             onClicked: aboutDialog.open()
         }
@@ -40,7 +40,7 @@ Rectangle {
             id: searchButton
 
             anchors.right: parent.right
-            source: "qrc:/images/search"
+            source: "qrc:/images/" + getBestIconSize(Math.min(icon.height, icon.width)) + "search"
 
             onClicked: searchDialog.open()
         }
@@ -53,6 +53,8 @@ Rectangle {
             right: parent.right
             bottom: parent.bottom
         }
+
+        flickableItem.interactive: true; focus: true
 
         ListView {
             id: songList
