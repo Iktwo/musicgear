@@ -7,12 +7,12 @@ Item {
 
     property alias color: container.color
     property alias title: titleLabel.text
-    property alias titleFont: titleLabel.font
+    property alias titleColor: titleLabel.color
 
     objectName: "titleBar"
 
     width: parent.width
-    height: 0.35 * dpi
+    height: Math.ceil(dpMultiplier * (musicStreamer.isTablet ? 56 : (isScreenPortrait ? 48 : 40)))
 
     anchors.top: parent.top
 
@@ -22,18 +22,16 @@ Item {
         anchors.fill: parent
         color: Style.MENU_TITLE_BACKGROUND_COLOR
 
-
-
-
         Label {
             id: titleLabel
 
             anchors {
-                left: parent.left; leftMargin: 15
+                left: parent.left; leftMargin: 8 * dpMultiplier
                 verticalCenter: parent.verticalCenter
             }
 
             font {
+                pixelSize: 18 * dpMultiplier
                 weight: Font.Light
             }
 

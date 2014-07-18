@@ -13,6 +13,8 @@ class MusicStreamer : public QAbstractListModel
     Q_PROPERTY(bool searching READ searching NOTIFY searchingChanged)
     //Q_PROPERTY(bool serverError READ serverError NOTIFY serverErrorChanged)
     Q_PROPERTY(bool downloading READ isDownloading NOTIFY downloadingChanged)
+    Q_PROPERTY(int dpi READ dpi WRITE setDpi NOTIFY dpiChanged)
+    Q_PROPERTY(bool isTablet READ isTablet WRITE setIsTablet NOTIFY isTabletChanged)
 
 public:
     enum DownloaderRoles {
@@ -45,6 +47,12 @@ public:
 
     bool isDownloading() const;
 
+    int dpi() const;
+    void setDpi(int dpi);
+
+    bool isTablet() const;
+    void setIsTablet(bool isTablet);
+
 signals:
     void songsChanged();
     void searchingChanged();
@@ -52,6 +60,8 @@ signals:
     void serverError();
     void downloadingChanged();
     void progressChanged(float progress, const QString &name);
+    void dpiChanged();
+    void isTabletChanged();
 
 protected:
     QHash<int, QByteArray> roleNames() const;
@@ -63,6 +73,8 @@ private:
     bool mServerError;
     QString mLastSearchHasMoreResults;
     int fetched;
+    int m_dpi;
+    bool m_isTablet;
 
 private slots:
     void songFound(const QString &title, const QString &group, const QString &length, const QString &comment, const QString &code);

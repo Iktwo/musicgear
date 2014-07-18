@@ -15,6 +15,7 @@
         <file>qml/TitleBarImageButton.qml</file>
         <file>qml/PlaybackControls.qml</file>
         <file>qml/AboutDialog.qml</file>
+        <file>qml/Page.qml</file>
     </qresource>
     <qresource prefix="/images">
         <file alias="search">resources/images/search.svg</file>

@@ -106,9 +106,9 @@ Dialog {
         ScrollView {
             anchors {
                 top: titleBar.bottom
+                bottom: parent.bottom
                 left: parent.left
                 right: parent.right
-                bottom: parent.bottom
             }
 
             flickableItem.interactive: true; focus: true

@@ -3,13 +3,18 @@
 #include "downloader.h"
 #include "song.h"
 
+#ifdef Q_OS_ANDROID
+#include <QAndroidJniObject>
+#endif
 #include <QDebug>
 
 MusicStreamer::MusicStreamer(QObject *parent) :
     QAbstractListModel(parent),
     mSearching(false),
     mServerError(false),
-    fetched(0)
+    fetched(0),
+    m_dpi(0),
+    m_isTablet(false)
 {
     mDownloader = new Downloader(this);
 
@@ -22,6 +27,14 @@ MusicStreamer::MusicStreamer(QObject *parent) :
     connect(mDownloader, SIGNAL(downloadingChanged()), SLOT(emitDownloadingChanged()));
     connect(mDownloader, SIGNAL(progressChanged(float, QString)), SIGNAL(progressChanged(float, QString)));
     connect(mDownloader, SIGNAL(serverError()), SIGNAL(serverError()));
+
+#ifdef Q_OS_ANDROID
+    m_dpi = QAndroidJniObject::callStaticMethod<jint>("com/iktwo/utils/QDownloadManager",
+                                              "getDPI", "()I");
+
+    m_isTablet = QAndroidJniObject::callStaticMethod<jboolean>("com/iktwo/utils/QDownloadManager",
+                                                  "isTablet", "()Z");
+#endif
 }
 
 void MusicStreamer::downloadSong(const QString &name, const QString &url)
@@ -119,6 +132,34 @@ QHash<int, QByteArray> MusicStreamer::roleNames() const
     roles[CodeRole] = "code";
     roles[UrlRole] = "url";
     return roles;
+}
+bool MusicStreamer::isTablet() const
+{
+    return m_isTablet;
+}
+
+void MusicStreamer::setIsTablet(bool isTablet)
+{
+    if (m_isTablet == isTablet)
+        return;
+
+    m_isTablet = isTablet;
+    emit isTabletChanged();
+}
+
+
+int MusicStreamer::dpi() const
+{
+    return m_dpi;
+}
+
+void MusicStreamer::setDpi(int dpi)
+{
+    if (m_dpi == dpi)
+        return;
+
+    m_dpi = dpi;
+    emit dpiChanged();
 }
 
 void MusicStreamer::searchEnded()

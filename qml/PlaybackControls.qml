@@ -4,7 +4,6 @@ import QtQuick.Controls.Styles 1.1
 import QtQuick.Layouts 1.1
 import QtMultimedia 5.1
 import "style.js" as Style
-import Styler 1.0
 
 Rectangle {
     property Audio audioElement
@@ -38,11 +37,11 @@ Rectangle {
     width: parent.width
 
     ColumnLayout {
-    Connections {
-        target: audioElement
-        onDurationChanged: progressBar.maximumValue = audioElement.duration
-        onPositionChanged: progressBar.value = audioElement.position
-    }
+        Connections {
+            target: audioElement
+            onDurationChanged: progressBar.maximumValue = audioElement.duration
+            onPositionChanged: progressBar.value = audioElement.position
+        }
 
         id: column
 
@@ -63,7 +62,7 @@ Rectangle {
                 background: Rectangle {
                     color: Style.PROGRESS_BAR_BACKGROUND_LIGHT
                     implicitWidth: control.width
-                    implicitHeight: 10
+                    implicitHeight: 4 * dpMultiplier
                 }
                 progress: Rectangle {
                     color: "#0066CC"
@@ -97,22 +96,26 @@ Rectangle {
                 anchors.fill: parent
 
                 Label {
+                    /// TODO: add animation where this flashes if paused
                     Layout.fillWidth: true
                     color: Style.TEXT_SECONDARY_COLOR_DARK
-                    font.pointSize: 12
                     height: parent.height
                     verticalAlignment: "AlignVCenter"
                     text: formatMilliseconds(audioElement.position)
+                    font {
+                        pixelSize: 12 * dpMultiplier
+                        weight: Font.Light
+                    }
                 }
 
                 RowLayout {
-                    spacing: 0.34 * dpi
+                    spacing: 8 * dpMultiplier
 
                     TitleBarImageButton {
                         id: previousBtn
 
-                        height: 0.34 * dpi
-                        width: 0.34 * dpi
+                        height: 48 * dpMultiplier
+                        width: 48 * dpMultiplier
 
                         source: "qrc:/images/" + getBestIconSize(Math.min(icon.height, icon.width)) + "previous"
 
@@ -122,10 +125,10 @@ Rectangle {
                     TitleBarImageButton {
                         id: playBtn
 
-                        height: 0.34 * dpi
-                        width: 0.34 * dpi
+                        height: 48 * dpMultiplier
+                        width: 48 * dpMultiplier
 
-                        source: "qrc:/images/" + getBestIconSize(Math.min(icon.height, icon.width)) + (audioElement.playbackState == Audio.PlayingState || (audioElement.status == Audio.Buffering || audioElement.status == Audio.Stalled) ? "pause" : "play")
+                        source: "qrc:/images/" + getBestIconSize(Math.min(icon.height, icon.width)) + (audioElement.playbackState == Audio.PlayingState || (audioElement.status == Audio.Buffering || audioElement.status == Audio.Stalled) && audioElement.playbackState != Audio.PausedState ? "pause" : "play")
 
                         onClicked: {
                             if (audioElement.playbackState == Audio.PlayingState)
@@ -138,8 +141,8 @@ Rectangle {
                     TitleBarImageButton {
                         id: nextBtn
 
-                        height: 0.34 * dpi
-                        width: 0.34 * dpi
+                        height: 48 * dpMultiplier
+                        width: 48 * dpMultiplier
 
                         source: "qrc:/images/" + getBestIconSize(Math.min(icon.height, icon.width)) + "next"
 
@@ -151,12 +154,14 @@ Rectangle {
                     Layout.fillWidth: true
 
                     color: Style.TEXT_SECONDARY_COLOR_DARK
-                    font.pointSize: 12
                     text: formatMilliseconds(audioElement.duration)
                     horizontalAlignment: "AlignRight"
+                    font {
+                        pixelSize: 12 * dpMultiplier
+                        weight: Font.Light
+                    }
                 }
             }
-
         }
 
         Label {
@@ -169,7 +174,10 @@ Rectangle {
             }
 
             color: Style.TEXT_COLOR_DARK
-            font.pointSize: 15
+            font {
+                pixelSize: 14 * dpMultiplier
+                weight: Font.Light
+            }
         }
     }
 }

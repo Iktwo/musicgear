@@ -6,12 +6,11 @@ Item {
     property alias source: image.source
     property alias icon: image
     property double pressedOpacity: 0.5
-    property int iconMargins: root.height * 0.25
 
     signal clicked
 
-    height: parent.objectName === "titleBar" ? parent.height : 80
-    width: parent.objectName === "titleBar" ? parent.height : 80
+    height: parent.objectName === "titleBar" ? parent.height : 48 * dpMultiplier
+    width: parent.objectName === "titleBar" ? parent.height : 48 * dpMultiplier
 
     Rectangle {
         id: container
@@ -23,10 +22,10 @@ Item {
     Image {
         id: image
 
-        anchors {
-            fill: parent
-            margins: iconMargins
-        }
+        anchors.centerIn: parent
+
+        height: 32 * dpMultiplier
+        width: 32 * dpMultiplier
 
         fillMode: Image.PreserveAspectFit
         antialiasing: true

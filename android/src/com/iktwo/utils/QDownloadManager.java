@@ -9,6 +9,9 @@ import android.net.NetworkInfo;
 import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
+import android.util.DisplayMetrics;
+
+import com.iktwo.musicgear.R;
 
 public class QDownloadManager extends org.qtproject.qt5.android.bindings.QtActivity
 {
@@ -49,6 +52,17 @@ public class QDownloadManager extends org.qtproject.qt5.android.bindings.QtActiv
                 Toast.makeText(m_instance.getApplicationContext(), message, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public static int getDPI()
+    {
+        DisplayMetrics dm = m_instance.getResources().getDisplayMetrics();
+        return dm.densityDpi;
+    }
+
+    public static boolean isTablet()
+    {
+        return m_instance.getResources().getBoolean(R.bool.isTablet);
     }
 
     public static String connectionType()

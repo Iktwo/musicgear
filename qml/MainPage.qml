@@ -7,7 +7,6 @@ import "style.js" as Style
 Rectangle {
     property Audio audioElement: audio
 
-    anchors.fill: parent
     color: "#e5e5e5"
     focus: true
 
@@ -33,7 +32,7 @@ Rectangle {
             anchors.right: searchButton.left
             source: "qrc:/images/" + getBestIconSize(Math.min(icon.height, icon.width)) + "help"
 
-            onClicked: aboutDialog.open()
+            onClicked: stackview.push(aboutDialog)
         }
 
         TitleBarImageButton {
@@ -66,17 +65,33 @@ Rectangle {
 
             delegate: PlaylistDelegate {
                 onRequestedPlay: {
-                    playbackControls.song = playlist.get(index).name + " - <i>" + playlist.get(index).group + "</i>"
-                    audioElement.source = model.url
-                    audioElement.index = index
-                    audioElement.play()
+                    if (playlist.count >= index) {
+                        playbackControls.song = playlist.get(index).name + " - <i>" + playlist.get(index).group + "</i>"
+                        audioElement.source = model.url
+                        audioElement.index = index
+                        audioElement.play()
+                    }
                 }
 
                 onRequestedRemove: {
-                    playlist.remove(index)
-
-                    if (audioElement.index === index)
+                    console.log("REQUEST REMOVE:", index)
+                    if (index < audioElement.index) {
+                        audioElement.index = audioElement.index - 1
+                        if (audioElement.index >= 0) {
+                            playbackControls.song = playlist.get(audioElement.index).name + " - <i>" + playlist.get(audioElement.index).group + "</i>"
+                            audioElement.source = playlist.get(audioElement.index).url
+                            audioElement.play()
+                        }
+                    } else if (audioElement.index === index) {
                         audioElement.stop()
+                        if (playlist.count >= index - 1 && playlist.count - 1 > 0) {
+                            playbackControls.song = playlist.get(index + 1).name + " - <i>" + playlist.get(index + 1).group + "</i>"
+                            audioElement.source = playlist.get(index + 1).url
+                            audioElement.play()
+                        }
+                    }
+
+                    playlist.remove(index)
                 }
             }
         }

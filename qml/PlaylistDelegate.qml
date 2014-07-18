@@ -8,7 +8,7 @@ Item {
     signal requestedPlay()
     signal requestedRemove()
 
-    height: column.height + (0.08 * dpi)
+    height: 64 * dpMultiplier + 1 * dpMultiplier
     width: parent.width
 
     MouseArea {
@@ -30,60 +30,58 @@ Item {
     Rectangle {
         id: container
 
-        height: parent.height
+        height: parent.height - divider.height
         width: parent.width
 
         color: index === audio.index ? "#F2F2F2" : "#e5e5e5"
 
-        Column {
-            id: column
+        Label {
+            id: songName
 
             anchors {
-                left: parent.left; leftMargin: 0.08 * dpi
-                right: removeButton.left; rightMargin: 10
-                verticalCenter: parent.verticalCenter
+                top: parent.top; topMargin: 12 * dpMultiplier
+                right: removeButton.left; rightMargin: 8 * dpMultiplier
+                left: parent.left; leftMargin: 16 * dpMultiplier
             }
 
-            spacing: 0.02 * dpi
-
-            Label {
-                elide: Text.ElideRight
-
-                font {
-                    pointSize: 17
-                    weight: Font.Light
-                }
-
-                color: Style.TEXT_COLOR_DARK
-                text: model.name + " - <i>" + model.group + "</i>"
-                width: parent.width
+            font {
+                pixelSize: 18 * dpMultiplier
+                weight: Font.Light
             }
 
-            Label {
-                color: Style.TEXT_SECONDARY_COLOR_DARK
-                elide: Text.ElideRight
-
-                font {
-                    pointSize: 14
-                    weight: Font.Light
-                }
-
-                text: model.length + " - <i>" + model.comment + "</i>"
-                width: parent.width
-            }
+            color: Style.TEXT_COLOR_DARK
+            elide: Text.ElideRight
+            text: model.name + " - <i>" + model.group + "</i>"
+            width: parent.width
+            // TODO: add a dialog to show full name in case it's too long ???
         }
+
+        Label {
+            anchors {
+                bottom: parent.bottom; bottomMargin:  12 * dpMultiplier
+                right: removeButton.left; rightMargin: 8 * dpMultiplier
+                left: parent.left; leftMargin: 16 * dpMultiplier
+            }
+
+            font {
+                pixelSize: 12 * dpMultiplier
+                weight: Font.Light
+            }
+
+            elide: Text.ElideRight
+            color: Style.TEXT_SECONDARY_COLOR_DARK
+            text: model.length + " - <i>" + model.comment + "</i>"
+            width: parent.width
+        }
+
 
         TitleBarImageButton {
             id: removeButton
 
-            anchors {
-                right: parent.right; rightMargin: 0.02 * dpi
-            }
+            anchors { right: parent.right; rightMargin: 16 * dpMultiplier }
 
             height: parent.height
-            width: 0.35 * dpi
-
-            iconMargins: height * 0.29
+            width: 48 * dpMultiplier
 
             source: "qrc:/images/" + getBestIconSize(Math.min(icon.height, icon.width)) + "remove"
 
@@ -91,7 +89,6 @@ Item {
 
             onClicked: root.requestedRemove()
         }
-
     }
 
 

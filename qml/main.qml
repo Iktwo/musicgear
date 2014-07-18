@@ -10,7 +10,9 @@ ApplicationWindow {
     // HVGA, VGA, WVGA, SVGA, nHD, qHD
     property var resolutions: [ {"height": 480, "width": 320}, {"height": 640, "width": 480}, {"height": 800, "width": 480}, {"height": 800, "width": 600}, {"height": 640, "width": 360}, {"height": 960, "width": 540} ]
     property int currentResolution: 3
-    property int dpi: Screen.pixelDensity * 25.4
+    property int dpi: musicStreamer.dpi ? musicStreamer.dpi : Screen.pixelDensity * 25.4
+    property real dpMultiplier: dpi / 160
+    property bool isScreenPortrait: height >= width
 
     function next() {
         if (audio.index + 1 < playlist.count)
@@ -82,9 +84,11 @@ ApplicationWindow {
         onRowsInserted: {
             // If new item is first on list, play it
             if (count === 1) {
-                playbackControls.song = playlist.get(0).name + " - <i>" + playlist.get(0).group + "</i>"
-                audio.source = playlist.get(0).url
+                playbackControls.song = playlist.get(audio.index).name + " - <i>" + playlist.get(audio.index).group + "</i>"
+                audio.source = playlist.get(audio.index).url
                 audio.play()
+            } else if (audio.status == Audio.EndOfMedia) {
+                next()
             }
         }
 

@@ -3,10 +3,9 @@ import "style.js" as Style
 
 Rectangle {
     property bool horizontal: true
-    property real multiplayer: 0.95
 
-    width: horizontal ? parent.width * multiplayer: dpi * 0.01
-    height: horizontal ? dpi * 0.01 : parent.height * multiplayer
+    width: horizontal ? parent.width : Math.max(1, 1 * dpMultiplier)
+    height: horizontal ? Math.max(1, 1 * dpMultiplier) : parent.height
 
     color: Style.DIVIDER_DARK
 }

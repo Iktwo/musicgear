@@ -9,59 +9,65 @@ Item {
     signal addToPlaylist()
     signal download()
 
-    height: column.height + (0.08 * dpi)
+    height: 64 * dpMultiplier + 1 * dpMultiplier
     width: parent.width
 
-    Column {
-        id: column
+    Label {
+        id: songName
 
         anchors {
-            left: parent.left; leftMargin: 10
-            right: row.left; rightMargin: 10
-            //            top: parent.top
-            verticalCenter: parent.verticalCenter
+            top: parent.top; topMargin: 12 * dpMultiplier
+            right: row.left; rightMargin: 8 * dpMultiplier
+            left: parent.left; leftMargin: 16 * dpMultiplier
         }
 
-        spacing: 0.02 * dpi
-
-        Label {
-            font {
-                pointSize: 17
-                weight: Font.Light
-            }
-
-            color: Style.TEXT_COLOR_DARK
-            elide: Text.ElideRight
-            text: model.name + " - <i>" + model.group + "</i>"
-            width: parent.width
-            // TODO: add a dialog to show full name in case it's too long
+        font {
+            pixelSize: 18 * dpMultiplier
+            weight: Font.Light
         }
 
-        Label {
-            font {
-                pointSize: 14
-                weight: Font.Light
-            }
+        color: Style.TEXT_COLOR_DARK
+        elide: Text.ElideRight
+        text: model.name + " - <i>" + model.group + "</i>"
+        width: parent.width
+        // TODO: add a dialog to show full name in case it's too long ???
+    }
 
-            elide: Text.ElideRight
-            color: Style.TEXT_SECONDARY_COLOR_DARK
-            text: model.length + " - <i>" + model.comment + "</i>"
-            width: parent.width
+    Label {
+        anchors {
+            bottom: divider.top; bottomMargin:  12 * dpMultiplier
+            right: row.left; rightMargin: 8 * dpMultiplier
+            left: parent.left; leftMargin: 16 * dpMultiplier
         }
+
+        font {
+            pixelSize: 12 * dpMultiplier
+            weight: Font.Light
+        }
+
+        elide: Text.ElideRight
+        color: Style.TEXT_SECONDARY_COLOR_DARK
+        text: model.length + " - <i>" + model.comment + "</i>"
+        width: parent.width
+    }
+
+    BusyIndicator {
+        anchors { fill: row; margins: 0.02 * dpi }
+        running: model.url === ""
+        opacity: 0.2
     }
 
     RowLayout {
         id: row
 
         anchors {
-            //            top: column.top; topMargin: 10
-            //            bottom: column.bottom; bottomMargin: 10
             top: parent.top
             bottom: parent.bottom
-            right: parent.right; rightMargin: 15
+            right: parent.right; rightMargin: 16 * dpMultiplier
         }
 
         spacing: 0.02 * dpi
+        width: spacing + (48 * dpMultiplier * 2)
 
         TitleBarImageButton {
             anchors {
@@ -69,7 +75,7 @@ Item {
                 bottom: parent.bottom
             }
 
-            width: 0.35 * dpi
+            width: 48 * dpMultiplier
             source: "qrc:/images/" + getBestIconSize(Math.min(icon.height, icon.width)) + "add_to_playlist"
             visible: model.url === "" ? false : true
 
@@ -82,7 +88,7 @@ Item {
                 bottom: parent.bottom
             }
 
-            width: 0.35 * dpi
+            width: 48 * dpMultiplier
 
             source: "qrc:/images/" + getBestIconSize(Math.min(icon.height, icon.width)) + "download"
             visible: model.url === "" ? false : true
@@ -91,5 +97,5 @@ Item {
         }
     }
 
-    Divider { anchors.bottom: parent.bottom }
+    Divider { id: divider; anchors.bottom: parent.bottom }
 }

@@ -2,10 +2,10 @@ import QtQuick 2.2
 import QtQuick.Controls 1.1
 import QtQuick.Layouts 1.1
 
-Dialog {
+Page {
     id: root
 
-    TitleBar {
+    titleBar: TitleBar {
         id: titleBar
 
         enabled: parent.enabled
@@ -14,63 +14,75 @@ Dialog {
             anchors.left: parent.left
             source: "qrc:/images/" + getBestIconSize(Math.min(icon.height, icon.width)) + "back"
 
-            onClicked: aboutDialog.close()
+            onClicked: stackview.pop()
         }
     }
 
-    ScrollView {
-        id: scrollView
+    Rectangle {
+        anchors.fill: parent
+        color: "#e5e5e5"
 
-        anchors {
-            top: titleBar.bottom
-            left: parent.left
-            right: parent.right
-            bottom: parent.bottom
-            margins: dpi * 0.06
-        }
+        ScrollView {
+            id: scrollView
 
-        flickableItem.interactive: true; focus: true
-
-        Column {
-            width: scrollView.width
-
-            spacing: dpi * 0.06
-
-            Label {
-                width: parent.width
-                horizontalAlignment: "AlignHCenter"
-                wrapMode: "Wrap"
-                text: "Musicgear"
+            anchors {
+                fill: parent
+                margins: dpi * 0.06
             }
 
-            Label {
-                width: parent.width
-                textFormat: Text.RichText
-                horizontalAlignment: "AlignHCenter"
-                wrapMode: "Wrap"
-                text: qsTr("Stream your favorite music from <a href=\"http://goear.com\">Goear</a>")
+            flickableItem.interactive: true; focus: true
 
-                onLinkActivated: Qt.openUrlExternally(link)
-            }
+            Flickable {
+                width: scrollView.width
+                contentWidth: scrollView.width
+                contentHeight: column.height
+                flickableDirection: Flickable.VerticalFlick
 
-            Label {
-                width: parent.width
-                textFormat: Text.RichText
-                horizontalAlignment: "AlignHCenter"
-                wrapMode: "Wrap"
-                text: qsTr("Icons under <a href=\"http://creativecommons.org/licenses/by/3.0/legalcode\">CC 3.0</a> by <a href=\"http://www.freepik.com/\">Freepik</a>")
+                Column {
+                    id: column
 
-                onLinkActivated: Qt.openUrlExternally(link)
-            }
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    width: parent.width
 
-            Label {
-                width: parent.width
-                textFormat: Text.RichText
-                horizontalAlignment: "AlignHCenter"
-                wrapMode: "Wrap"
-                text: qsTr("Built on") + " " + buildDate
+                    spacing: dpi * 0.06
 
-                onLinkActivated: Qt.openUrlExternally(link)
+                    Label {
+                        width: parent.width
+                        horizontalAlignment: "AlignHCenter"
+                        wrapMode: "Wrap"
+                        text: "Musicgear"
+                    }
+
+                    Label {
+                        width: parent.width
+                        textFormat: Text.RichText
+                        horizontalAlignment: "AlignHCenter"
+                        wrapMode: "Wrap"
+                        text: qsTr("Stream your favorite music from <a href=\"http://goear.com\">Goear</a>")
+
+                        onLinkActivated: Qt.openUrlExternally(link)
+                    }
+
+                    Label {
+                        width: parent.width
+                        textFormat: Text.RichText
+                        horizontalAlignment: "AlignHCenter"
+                        wrapMode: "Wrap"
+                        text: qsTr("Icons under <a href=\"http://creativecommons.org/licenses/by/3.0/legalcode\">CC 3.0</a> by <a href=\"http://www.freepik.com/\">Freepik</a>")
+
+                        onLinkActivated: Qt.openUrlExternally(link)
+                    }
+
+                    Label {
+                        width: parent.width
+                        textFormat: Text.RichText
+                        horizontalAlignment: "AlignHCenter"
+                        wrapMode: "Wrap"
+                        text: qsTr("Built on") + " " + buildDate
+
+                        onLinkActivated: Qt.openUrlExternally(link)
+                    }
+                }
             }
         }
     }
