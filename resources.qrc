@@ -16,6 +16,8 @@
         <file>qml/PlaybackControls.qml</file>
         <file>qml/AboutDialog.qml</file>
         <file>qml/Page.qml</file>
+        <file>qml/DifferenceBlend.qml</file>
+        <file>qml/TutorialHighlighter.qml</file>
     </qresource>
     <qresource prefix="/images">
         <file alias="search">resources/images/search.svg</file>
