@@ -13,6 +13,7 @@ class MusicStreamer : public QAbstractListModel
     Q_PROPERTY(bool searching READ searching NOTIFY searchingChanged)
     //Q_PROPERTY(bool serverError READ serverError NOTIFY serverErrorChanged)
     Q_PROPERTY(bool downloading READ isDownloading NOTIFY downloadingChanged)
+    Q_PROPERTY(bool firstRun READ firstRun WRITE setFirstRun NOTIFY firstRunChanged)
     Q_PROPERTY(int dpi READ dpi WRITE setDpi NOTIFY dpiChanged)
     Q_PROPERTY(bool isTablet READ isTablet WRITE setIsTablet NOTIFY isTabletChanged)
 
@@ -47,6 +48,9 @@ public:
 
     bool isDownloading() const;
 
+    bool firstRun() const;
+    void setFirstRun(bool firstRun);
+
     int dpi() const;
     void setDpi(int dpi);
 
@@ -60,6 +64,7 @@ signals:
     void serverError();
     void downloadingChanged();
     void progressChanged(float progress, const QString &name);
+    void firstRunChanged();
     void dpiChanged();
     void isTabletChanged();
 
@@ -73,6 +78,7 @@ private:
     bool mServerError;
     QString mLastSearchHasMoreResults;
     int fetched;
+    bool m_firstRun;
     int m_dpi;
     bool m_isTablet;
 

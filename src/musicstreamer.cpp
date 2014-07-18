@@ -6,6 +6,8 @@
 #ifdef Q_OS_ANDROID
 #include <QAndroidJniObject>
 #endif
+
+#include <QSettings>
 #include <QDebug>
 
 MusicStreamer::MusicStreamer(QObject *parent) :
@@ -18,7 +20,8 @@ MusicStreamer::MusicStreamer(QObject *parent) :
 {
     mDownloader = new Downloader(this);
 
-    connect(mDownloader, SIGNAL(songFound(QString, QString, QString, QString, QString)), SLOT(songFound(QString, QString, QString, QString, QString)));
+    connect(mDownloader, SIGNAL(songFound(QString, QString, QString, QString, QString)),
+            SLOT(songFound(QString, QString, QString, QString, QString)));
     connect(mDownloader, SIGNAL(searchEnded()), SLOT(searchEnded()));
     //connect(m_downloader, SIGNAL(serverError()), SLOT(serverErrorOcurred()));
     connect(mDownloader, SIGNAL(decodedUrl(QString,QString)), SLOT(decodedUrl(QString,QString)));
@@ -27,6 +30,9 @@ MusicStreamer::MusicStreamer(QObject *parent) :
     connect(mDownloader, SIGNAL(downloadingChanged()), SLOT(emitDownloadingChanged()));
     connect(mDownloader, SIGNAL(progressChanged(float, QString)), SIGNAL(progressChanged(float, QString)));
     connect(mDownloader, SIGNAL(serverError()), SIGNAL(serverError()));
+
+    QSettings settings;
+    m_firstRun = settings.value("firstRun", true).toBool();
 
 #ifdef Q_OS_ANDROID
     m_dpi = QAndroidJniObject::callStaticMethod<jint>("com/iktwo/utils/QDownloadManager",
@@ -160,6 +166,23 @@ void MusicStreamer::setDpi(int dpi)
 
     m_dpi = dpi;
     emit dpiChanged();
+}
+
+bool MusicStreamer::firstRun() const
+{
+    return m_firstRun;
+}
+
+void MusicStreamer::setFirstRun(bool firstRun)
+{
+    if (m_firstRun == firstRun)
+        return;
+
+    m_firstRun = firstRun;
+    emit firstRunChanged();
+
+    QSettings settings;
+    settings.setValue("firstRun", m_firstRun);
 }
 
 void MusicStreamer::searchEnded()
