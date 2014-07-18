@@ -180,6 +180,17 @@ void MusicStreamer::fetchMore()
     //    fetched++;
 }
 
+void MusicStreamer::showMessage(const QString &message)
+{
+#ifdef Q_OS_ANDROID
+    QAndroidJniObject::callStaticMethod<void>("com/iktwo/utils/QDownloadManager",
+                                              "toast", "(Ljava/lang/String;)V",
+                                              QAndroidJniObject::fromString(message).object<jstring>());
+#else
+    Q_UNUSED(message)
+#endif
+}
+
 bool MusicStreamer::isDownloading() const
 {
     return mDownloader->isDownloading();

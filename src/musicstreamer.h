@@ -29,6 +29,7 @@ public:
     Q_INVOKABLE void downloadSong(const QString &name, const QString &url);
     Q_INVOKABLE void search(const QString &term);
     Q_INVOKABLE void fetchMore();
+    Q_INVOKABLE void showMessage(const QString &message);
 
     QObjectList songs();
 

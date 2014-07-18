@@ -8,6 +8,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Environment;
 import android.util.Log;
+import android.widget.Toast;
 
 public class QDownloadManager extends org.qtproject.qt5.android.bindings.QtActivity
 {
@@ -39,6 +40,15 @@ public class QDownloadManager extends org.qtproject.qt5.android.bindings.QtActiv
         request.setNotificationVisibility(Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
         request.setDestinationInExternalPublicDir(Environment.DIRECTORY_MUSIC, name + ".mp3");
         dm.enqueue(request);
+    }
+
+    public static void toast(final String message)
+    {
+        m_instance.runOnUiThread(new Runnable() {
+            public void run() {
+                Toast.makeText(m_instance.getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public static String connectionType()

@@ -125,8 +125,10 @@ Dialog {
                     onAddToPlaylist: {
 
                         for (var i = 0; i < playlist.count; i++) {
-                            if (playlist.get(i).url === model.url)
+                            if (playlist.get(i).url === model.url) {
+                                musicStreamer.showMessage("Song is already in playlist")
                                 return
+                            }
                         }
 
                         playlist.append({ "name" : model.name,
@@ -137,7 +139,10 @@ Dialog {
                                             "url": model.url })
                     }
 
-                    onDownload: musicStreamer.downloadSong(model.name, model.url)
+                    onDownload: {
+                        musicStreamer.showMessage("Downloading " + model.name)
+                        musicStreamer.downloadSong(model.name, model.url)
+                    }
                 }
 
                 onContentYChanged: {
