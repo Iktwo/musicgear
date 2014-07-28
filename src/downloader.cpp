@@ -5,9 +5,12 @@
 #include <QDir>
 #include <QFile>
 
+#include "uivalues.h"
+
 #define COOKIE_CREATOR_URL "http://www.goear.com/listen/"
 #define TARGET_URL "http://www.goear.com/"
 #define SEARCH_URL "http://www.goear.com/search/"
+
 QString Downloader::DownloadUrl("http://www.goear.com/action/sound/get/");
 
 Downloader::Downloader(QObject *parent) :
@@ -36,12 +39,12 @@ void Downloader::downloadSong(const QString &name, const QString &url)
 
 void Downloader::getDownloadLink(const QString &code)
 {
-//    qDebug() << Q_FUNC_INFO << " - " << code;
-//    QString newUrl = url;
-//    newUrl.replace(DownloadUrl, COOKIE_CREATOR_URL);
+    //    qDebug() << Q_FUNC_INFO << " - " << code;
+    //    QString newUrl = url;
+    //    newUrl.replace(DownloadUrl, COOKIE_CREATOR_URL);
 
     download(COOKIE_CREATOR_URL + code);
-//    setDownloading(true);
+    //    setDownloading(true);
 }
 
 void Downloader::download(const QString &urlString)
@@ -76,24 +79,19 @@ void Downloader::downloadFinished(QNetworkReply *reply)
         return;
     }
 
-    if (reply->url().toString().endsWith(".mp3"))
-        setDownloading(false);
-
-    if (reply->url().toString().startsWith(SEARCH_URL))
-        emit searchEnded();
-
     if (reply->error() != QNetworkReply::NoError) {
         qDebug() << Q_FUNC_INFO << " error downloading "
                  << reply->url().toString() << ":" << reply->errorString();
 
-        if (reply->errorString().contains("Server Error"))
-            emit serverError();
+        emit serverError();
 
         reply->deleteLater();
         return;
     }
 
-    //    qDebug() << reply->url().toString() << " has been dowloaded";
+
+    // if (!reply->url().toString().startsWith("http://www.goear.com/action/sound/get/"))
+       // qDebug() << reply->url().toString() << "Downloaded";
 
     QVariant redir = reply->attribute(QNetworkRequest::RedirectionTargetAttribute);
 
@@ -172,6 +170,8 @@ void Downloader::downloadFinished(QNetworkReply *reply)
         for (int i = 0; i < count; ++i) {
             songs = decodeHtml(songs);
 
+            // qDebug() << "i" << i << "-" << songs;
+
             searchTerm = "listen/";
             closingTerm = "/";
 
@@ -203,44 +203,31 @@ void Downloader::downloadFinished(QNetworkReply *reply)
 
             QString length = songs.mid(termBegins, termEnds - termBegins);
 
+            searchTerm = "<li class=\"kbps radius_3\">";
+            closingTerm = "</abbr></li>";
+
+            termBegins = songs.indexOf(searchTerm) + searchTerm.length();
+            termEnds = songs.indexOf(closingTerm, termBegins);
+
+            QString kbps = songs.mid(termBegins, termEnds - termBegins).remove("<abbr title=\"Kilobit por segundo\">").remove("kbps");
+
             searchTerm = "<li class=\"description\">";
+            closingTerm = "</li>";
 
             termBegins = songs.indexOf(searchTerm) + searchTerm.length();
             termEnds = songs.indexOf(closingTerm, termBegins);
 
             QString comment = songs.mid(termBegins, termEnds - termBegins);
 
-            //            searchTerm = "<p class=\"comment\">";
-            //            closingTerm = "</p>";
-            //            termBegins = songs.indexOf(searchTerm, listenBegins);
-            //            termEnds = songs.indexOf(closingTerm, termBegins);
-
-            //            QString comment = songs.mid(termBegins + searchTerm.length(), termEnds - termBegins
-            //                                        - searchTerm.length()).simplified();
-
-//            qDebug() << "Song found " << title << group << length << comment << code;
-            emit songFound(title, group, length, comment, code);
+            //qDebug() << "ADDDING SONG:" << endl << "TITLE:" << title << "GROUP:" << group
+            //         << "LENGTH:" << length << "COMMENT:" << comment << "KBPS" << kbps
+            //         << "CODE" << code;
+            emit songFound(title, group, length, comment, kbps.toInt(), code);
             getDownloadLink(code);
 
             songs = songs.mid(songs.indexOf("<li>", termEnds));
-            //            download(DOWNLOAD_URL + code);
-
-            //            songs = songs.mid(listenEnds) + 1;
-            //            exit(0);
         }
-    } else if (mimeType == "text/xml") {
-//        qDebug() << "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
-//        qDebug() << "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
-//        qDebug() << "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
-
-//        QString link = reply->readAll();
-
-//        int linkBegins = link.indexOf("path=\"") + 6;
-//        int linkEnds = link.indexOf("\"", linkBegins);
-//        link = link.mid(linkBegins, linkEnds - linkBegins);
-
-//        emit decodedUrl(reply->url().toString().replace(DownloadUrl, ""), link);
-    } else if (mimeType == "audio/mpeg") {
+    }  else if (mimeType == "audio/mpeg") {
         qDebug() << "Writing file";
         QString name(m_songsToDownload.value(reply->url().toString()).toString());
         m_songsToDownload.remove(reply->url().toString());
@@ -263,17 +250,22 @@ void Downloader::downloadFinished(QNetworkReply *reply)
         QFile file(name + reply->url().toString().mid(reply->url().toString().lastIndexOf(".")));
         permission = file.open(QIODevice::WriteOnly);
 
-        /// TODO: do this
-        if (!permission)
-            qDebug() << "TODO: show a dialog to let user know that file can't be writteng to FS";
-
-        qDebug() << "permission for file " << file.fileName() << " " << permission;
+        if (!permission) {
+            UIValues uiValues;
+            uiValues.showMessage("Unable to create file, no permission");
+        }
 
         file.write(reply->readAll());
         file.close();
-    } else
-        qDebug() << reply->url().toString()
-                 << " type is:" << mimeType;
+    } else {
+        qDebug() << reply->url().toString() << " type is:" << mimeType;
+    }
+
+    if (reply->url().toString().endsWith(".mp3"))
+        setDownloading(false);
+
+    if (reply->url().toString().startsWith(SEARCH_URL))
+        emit searchEnded();
 
     reply->deleteLater();
 }

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generator: Adobe Illustrator 17.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.1"
+   id="Capa_1"
+   x="0px"
+   y="0px"
+   width="180"
+   height="180"
+   viewBox="0 0 180 180"
+   enable-background="new 0 0 64 64"
+   xml:space="preserve"
+   inkscape:version="0.48.5 r10040"
+   sodipodi:docname="busy_dark.svg"
+   inkscape:export-filename="/home/iktwo/devel/musicgear/resources/images/drawable-xxxhdpi/busy.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"><metadata
+     id="metadata11"><rdf:RDF><cc:Work
+         rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title /></cc:Work></rdf:RDF></metadata><defs
+     id="defs9" /><sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1272"
+     inkscape:window-height="1013"
+     id="namedview7"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:zoom="2.6074563"
+     inkscape:cx="49.375673"
+     inkscape:cy="103.29544"
+     inkscape:window-x="183"
+     inkscape:window-y="27"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="Capa_1" /><path
+     style="fill:#34495e;fill-opacity:1;stroke:#efeff0;stroke-opacity:1;stroke-linejoin:round;stroke-linecap:round"
+     d="M 87.96875 11.53125 C 74.844093 11.863766 62.543484 15.423058 51.78125 21.4375 C 54.866951 21.834614 57.933102 22.211007 60.8125 22.5625 C 67.279654 19.758214 74.227164 17.870601 81.5 17.03125 C 83.819909 15.28547 86.302047 13.421838 88.78125 11.53125 C 88.511345 11.535353 88.237988 11.524429 87.96875 11.53125 z M 111.5 14.5 C 113.39954 16.960163 115.2783 19.407003 117.0625 21.6875 C 123.76257 24.345885 129.99865 27.971288 135.5625 32.375 C 138.43477 32.780525 141.50429 33.239847 144.59375 33.65625 C 135.42698 24.773116 124.12279 18.087604 111.5 14.5 z M 33.65625 35.40625 C 24.77312 44.573027 18.087602 55.877207 14.5 68.5 C 16.960163 66.600457 19.407003 64.721699 21.6875 62.9375 C 24.345883 56.237429 27.97129 50.00135 32.375 44.4375 C 32.780525 41.565228 33.239847 38.495709 33.65625 35.40625 z M 158.5625 51.78125 C 158.16539 54.866951 157.78899 57.933102 157.4375 60.8125 C 160.24178 67.279657 162.1294 74.22716 162.96875 81.5 C 164.71453 83.819909 166.57816 86.302047 168.46875 88.78125 C 168.26463 75.354154 164.70032 62.764265 158.5625 51.78125 z M 11.53125 91.21875 C 11.735375 104.64584 15.299681 117.23574 21.4375 128.21875 C 21.834614 125.13305 22.211007 122.0669 22.5625 119.1875 C 19.758215 112.72034 17.870601 105.77284 17.03125 98.5 C 15.28547 96.180091 13.421838 93.697953 11.53125 91.21875 z M 165.5 111.5 C 163.03984 113.39954 160.593 115.2783 158.3125 117.0625 C 155.65412 123.76257 152.02871 129.99865 147.625 135.5625 C 147.21947 138.43477 146.76015 141.50429 146.34375 144.59375 C 155.22688 135.42697 161.9124 124.12279 165.5 111.5 z M 35.40625 146.34375 C 44.573023 155.22688 55.877213 161.9124 68.5 165.5 C 66.600457 163.03984 64.721699 160.593 62.9375 158.3125 C 56.237433 155.65412 50.001347 152.02871 44.4375 147.625 C 41.565228 147.21947 38.495709 146.76015 35.40625 146.34375 z M 119.1875 157.4375 C 112.72035 160.24179 105.77284 162.1294 98.5 162.96875 C 96.180091 164.71453 93.697953 166.57816 91.21875 168.46875 C 104.64584 168.26463 117.23574 164.70032 128.21875 158.5625 C 125.13305 158.16539 122.0669 157.78899 119.1875 157.4375 z "
+     id="path3800" /></svg>

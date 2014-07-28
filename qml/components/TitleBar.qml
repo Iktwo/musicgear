@@ -1,5 +1,5 @@
-import QtQuick 2.1
-import QtQuick.Controls 1.1
+import QtQuick 2.2
+import QtQuick.Controls 1.2
 import "style.js" as Style
 
 Item {
@@ -12,7 +12,7 @@ Item {
     objectName: "titleBar"
 
     width: parent.width
-    height: Math.ceil(dpMultiplier * (musicStreamer.isTablet ? 56 : (isScreenPortrait ? 48 : 40)))
+    height: Math.ceil(uiValues.dpMultiplier * (uiValues.isTablet ? 56 : (isScreenPortrait ? 48 : 40)))
 
     anchors.top: parent.top
 
@@ -26,12 +26,12 @@ Item {
             id: titleLabel
 
             anchors {
-                left: parent.left; leftMargin: 8 * dpMultiplier
+                left: parent.left; leftMargin: 8 * uiValues.dpMultiplier
                 verticalCenter: parent.verticalCenter
             }
 
             font {
-                pixelSize: 18 * dpMultiplier
+                pixelSize: 18 * uiValues.dpMultiplier
                 weight: Font.Light
             }
 

@@ -1,14 +1,16 @@
-import QtQuick 2.1
-import QtQuick.Controls 1.1
-import "style.js" as Style
+import QtQuick 2.2
+import QtQuick.Controls 1.2
+import "components" as Components
+import "components/style.js" as Style
 
 Item {
     id: root
 
     signal requestedPlay()
     signal requestedRemove()
+    signal pressAndHold()
 
-    height: 64 * dpMultiplier + 1 * dpMultiplier
+    height: 64 * uiValues.dpMultiplier + 1 * uiValues.dpMultiplier
     width: parent.width
 
     MouseArea {
@@ -16,6 +18,7 @@ Item {
 
         anchors.fill: parent
 
+        onPressAndHold: root.pressAndHold()
         onClicked: root.requestedPlay()
     }
 
@@ -39,13 +42,13 @@ Item {
             id: songName
 
             anchors {
-                top: parent.top; topMargin: 12 * dpMultiplier
-                right: removeButton.left; rightMargin: 8 * dpMultiplier
-                left: parent.left; leftMargin: 16 * dpMultiplier
+                top: parent.top; topMargin: 12 * uiValues.dpMultiplier
+                right: removeButton.left; rightMargin: 8 * uiValues.dpMultiplier
+                left: parent.left; leftMargin: 8 * uiValues.dpMultiplier
             }
 
             font {
-                pixelSize: 18 * dpMultiplier
+                pixelSize: 18 * uiValues.dpMultiplier
                 weight: Font.Light
             }
 
@@ -58,13 +61,13 @@ Item {
 
         Label {
             anchors {
-                bottom: parent.bottom; bottomMargin:  12 * dpMultiplier
-                right: removeButton.left; rightMargin: 8 * dpMultiplier
-                left: parent.left; leftMargin: 16 * dpMultiplier
+                bottom: parent.bottom; bottomMargin:  12 * uiValues.dpMultiplier
+                right: removeButton.left; rightMargin: 8 * uiValues.dpMultiplier
+                left: parent.left; leftMargin: 8 * uiValues.dpMultiplier
             }
 
             font {
-                pixelSize: 12 * dpMultiplier
+                pixelSize: 12 * uiValues.dpMultiplier
                 weight: Font.Light
             }
 
@@ -74,16 +77,15 @@ Item {
             width: parent.width
         }
 
-
-        TitleBarImageButton {
+        Components.TitleBarImageButton {
             id: removeButton
 
-            anchors { right: parent.right; rightMargin: 16 * dpMultiplier }
+            anchors { right: parent.right; rightMargin: 8 * uiValues.dpMultiplier }
 
             height: parent.height
-            width: 48 * dpMultiplier
+            width: 48 * uiValues.dpMultiplier
 
-            source: "qrc:/images/" + getBestIconSize(Math.min(icon.height, icon.width)) + "remove"
+            source: "qrc:/images/" + uiValues.getBestIconSize(Math.min(icon.height, icon.width)) + "remove"
 
             visible: model.url === "" ? false : true
 
@@ -92,7 +94,7 @@ Item {
     }
 
 
-    Divider {
+    Components.Divider {
         id: divider
 
         anchors.bottom: parent.bottom

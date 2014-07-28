@@ -7,12 +7,13 @@ Song::Song(QObject *parent)
 }
 
 Song::Song(const QString &name, const QString &group, const QString &length,
-           const QString &comment, const QString &code, QObject *parent)
+           const QString &comment, int kbps, const QString &code, QObject *parent)
     : QObject(parent),
       m_name(name),
       m_group(group),
       m_length(length),
       m_comment(comment),
+      m_kbps(kbps),
       m_code(code)
 {
 }
@@ -99,4 +100,18 @@ void Song::setUrl(const QString &url)
 
     m_url = url;
     emit urlChanged();
+}
+
+int Song::kbps() const
+{
+    return m_kbps;
+}
+
+void Song::setKbps(int kbps)
+{
+    if (m_kbps == kbps)
+        return;
+
+    m_kbps = kbps;
+    emit kbpsChanged();
 }

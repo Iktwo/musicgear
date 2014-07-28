@@ -14,33 +14,19 @@ MusicStreamer::MusicStreamer(QObject *parent) :
     QAbstractListModel(parent),
     mSearching(false),
     mServerError(false),
-    fetched(0),
-    m_dpi(0),
-    m_isTablet(false)
+    fetched(0)
 {
     mDownloader = new Downloader(this);
 
-    connect(mDownloader, SIGNAL(songFound(QString, QString, QString, QString, QString)),
-            SLOT(songFound(QString, QString, QString, QString, QString)));
+    connect(mDownloader, SIGNAL(songFound(QString, QString, QString, QString, int, QString)),
+            SLOT(songFound(QString, QString, QString, QString, int, QString)));
     connect(mDownloader, SIGNAL(searchEnded()), SLOT(searchEnded()));
-    //connect(m_downloader, SIGNAL(serverError()), SLOT(serverErrorOcurred()));
     connect(mDownloader, SIGNAL(decodedUrl(QString,QString)), SLOT(decodedUrl(QString,QString)));
     connect(mDownloader, SIGNAL(searchHasMoreResults(QString)), SLOT(lastSearchHasMoreResults(QString)));
     connect(mDownloader, SIGNAL(searchHasNoMoreResults()), SLOT(lastSearchHasNoMoreResults()));
     connect(mDownloader, SIGNAL(downloadingChanged()), SLOT(emitDownloadingChanged()));
     connect(mDownloader, SIGNAL(progressChanged(float, QString)), SIGNAL(progressChanged(float, QString)));
     connect(mDownloader, SIGNAL(serverError()), SIGNAL(serverError()));
-
-    QSettings settings;
-    m_firstRun = settings.value("firstRun", true).toBool();
-
-#ifdef Q_OS_ANDROID
-    m_dpi = QAndroidJniObject::callStaticMethod<jint>("com/iktwo/utils/QDownloadManager",
-                                              "getDPI", "()I");
-
-    m_isTablet = QAndroidJniObject::callStaticMethod<jboolean>("com/iktwo/utils/QDownloadManager",
-                                                  "isTablet", "()Z");
-#endif
 }
 
 void MusicStreamer::downloadSong(const QString &name, const QString &url)
@@ -67,14 +53,10 @@ void MusicStreamer::search(const QString &term)
 }
 
 void MusicStreamer::songFound(const QString &title, const QString &group, const QString &length,
-                              const QString &comment, const QString &code)
+                              const QString &comment, int kbps, const QString &code)
 {
-    //    qDebug() << "apending " << title;
-    // m_downloader->download(QString(Downloader::ImageUrl + hash + extension));
-    // m_songs.append(QString(title));
-
     beginInsertRows(QModelIndex(), rowCount(), rowCount());
-    mSongs.append(new Song(title, group, length, comment, code, this));
+    mSongs.append(new Song(title, group, length, comment, kbps, code, this));
     endInsertRows();
 
     emit songsChanged();
@@ -87,7 +69,7 @@ QObjectList MusicStreamer::songs()
 
 void MusicStreamer::decodedUrl(const QString &code, const QString &url)
 {
-//    qDebug() << Q_FUNC_INFO << " URL: " << url;
+    //    qDebug() << Q_FUNC_INFO << " URL: " << url;
     int i = 0;
     foreach (QObject *item, mSongs) {
         Song *song = qobject_cast<Song *>(item);
@@ -115,6 +97,8 @@ QVariant MusicStreamer::data(const QModelIndex & index, int role) const
         return song->length();
     else if (role == CommentRole)
         return song->comment();
+    else if (role == KbpsRole)
+        return song->kbps();
     else if (role == CodeRole)
         return song->code();
     else if (role == UrlRole)
@@ -135,54 +119,10 @@ QHash<int, QByteArray> MusicStreamer::roleNames() const
     roles[GroupRole] = "group";
     roles[LengthRole] = "length";
     roles[CommentRole] = "comment";
+    roles[KbpsRole] = "kbps";
     roles[CodeRole] = "code";
     roles[UrlRole] = "url";
     return roles;
-}
-bool MusicStreamer::isTablet() const
-{
-    return m_isTablet;
-}
-
-void MusicStreamer::setIsTablet(bool isTablet)
-{
-    if (m_isTablet == isTablet)
-        return;
-
-    m_isTablet = isTablet;
-    emit isTabletChanged();
-}
-
-
-int MusicStreamer::dpi() const
-{
-    return m_dpi;
-}
-
-void MusicStreamer::setDpi(int dpi)
-{
-    if (m_dpi == dpi)
-        return;
-
-    m_dpi = dpi;
-    emit dpiChanged();
-}
-
-bool MusicStreamer::firstRun() const
-{
-    return m_firstRun;
-}
-
-void MusicStreamer::setFirstRun(bool firstRun)
-{
-    if (m_firstRun == firstRun)
-        return;
-
-    m_firstRun = firstRun;
-    emit firstRunChanged();
-
-    QSettings settings;
-    settings.setValue("firstRun", m_firstRun);
 }
 
 void MusicStreamer::searchEnded()
@@ -238,20 +178,21 @@ void MusicStreamer::fetchMore()
 {
     //    if (fetched < 3)
     if (!mLastSearchHasMoreResults.isEmpty() && !mSearching) {
-        mDownloader->download(mLastSearchHasMoreResults);
         setSearching(true);
+        mDownloader->download(mLastSearchHasMoreResults);
     }
     //    fetched++;
 }
 
-void MusicStreamer::showMessage(const QString &message)
+void MusicStreamer::share(const QString &name, const QString &url)
 {
 #ifdef Q_OS_ANDROID
-    QAndroidJniObject::callStaticMethod<void>("com/iktwo/utils/QDownloadManager",
-                                              "toast", "(Ljava/lang/String;)V",
-                                              QAndroidJniObject::fromString(message).object<jstring>());
+    QAndroidJniObject::callStaticMethod<void>("com/iktwo/musicgear/MusicGear",
+                                              "share", "(Ljava/lang/String;Ljava/lang/String;)V",
+                                              QAndroidJniObject::fromString(name).object<jstring>(),
+                                              QAndroidJniObject::fromString(url).object<jstring>());
 #else
-    Q_UNUSED(message)
+    qDebug() << Q_FUNC_INFO << " Name:" << name << " Url:" << url;
 #endif
 }
 

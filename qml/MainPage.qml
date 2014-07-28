@@ -2,52 +2,42 @@ import QtQuick 2.2
 import QtQuick.Controls 1.1
 import QtQuick.Layouts 1.1
 import QtMultimedia 5.2
-import "style.js" as Style
+import "components" as Components
+import "components/style.js" as Style
 
-Rectangle {
+Components.Page {
+    id: root
+
     property Audio audioElement: audio
+    property var shareModel
 
-    color: "#e5e5e5"
     focus: true
 
-    Keys.onReleased: {
-        if (event.key === Qt.Key_Back) {
-            if (searchDialog.opened)
-                searchDialog.close()
-
-            event.accepted = true
-        }
-    }
-
-    SearchDialog { id: searchDialog }
-
-    AboutDialog { id: aboutDialog }
-
-    TitleBar {
+    titleBar: Components.TitleBar {
         id: titleBar
 
         title: "MusicGear"
 
-        TitleBarImageButton {
+        Components.TitleBarImageButton {
             anchors.right: searchButton.left
-            source: "qrc:/images/" + getBestIconSize(Math.min(icon.height, icon.width)) + "help"
+            source: "qrc:/images/" + uiValues.getBestIconSize(Math.min(icon.height, icon.width)) + "help"
 
-            onClicked: stackview.push(aboutDialog)
+            onClicked: stackview.push(aboutPage)
         }
 
-        TitleBarImageButton {
+        Components.TitleBarImageButton {
             id: searchButton
 
             anchors.right: parent.right
-            source: "qrc:/images/" + getBestIconSize(Math.min(icon.height, icon.width)) + "search"
+            source: "qrc:/images/" + uiValues.getBestIconSize(Math.min(icon.height, icon.width)) + "search"
 
-            onClicked: searchDialog.open()
+            onClicked: stackview.push(searchPage)
         }
     }
 
     ScrollView {
         anchors {
-            top: titleBar.bottom
+            top: parent.top
             left: parent.left
             right: parent.right
             bottom: parent.bottom
@@ -58,12 +48,30 @@ Rectangle {
         ListView {
             id: songList
 
+            Menu {
+                id: menu
+                title: qsTr("Menu")
+
+                MenuItem {
+                    text: qsTr("Share")
+                    enabled: shareModel === undefined ? false : (shareModel.code !== "")
+                    onTriggered: musicStreamer.share(shareModel.name, "http://www.goear.com/listen/" + shareModel.code)
+                }
+            }
+
             anchors.fill: parent
 
             model: playlist
             clip: true
 
             delegate: PlaylistDelegate {
+                onPressAndHold: {
+                    if (Q_OS === "ANDROID") {
+                        root.shareModel = model
+                        menu.popup()
+                    }
+                }
+
                 onRequestedPlay: {
                     if (playlist.count >= index) {
                         playbackControls.song = playlist.get(index).name + " - <i>" + playlist.get(index).group + "</i>"
@@ -94,10 +102,14 @@ Rectangle {
                     playlist.remove(index)
                 }
             }
+
+            Timer {
+                running: true
+                interval: 100
+                onTriggered: stackview.push(searchPage)
+            }
         }
     }
-
-    Component.onCompleted: searchDialog.open()
 
     //Component.onCompleted: playlist.append({"name" : "First Song",
     //"group" : "First Group", "length" : "3:31", "comment" : "this is a test",

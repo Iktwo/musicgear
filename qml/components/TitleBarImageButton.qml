@@ -1,4 +1,4 @@
-import QtQuick 2.1
+import QtQuick 2.2
 
 Item {
     id: root
@@ -9,8 +9,8 @@ Item {
 
     signal clicked
 
-    height: parent.objectName === "titleBar" ? parent.height : 48 * dpMultiplier
-    width: parent.objectName === "titleBar" ? parent.height : 48 * dpMultiplier
+    height: parent.objectName === "titleBar" ? parent.height : 48 * uiValues.dpMultiplier
+    width: parent.objectName === "titleBar" ? parent.height : 48 * uiValues.dpMultiplier
 
     Rectangle {
         id: container
@@ -24,8 +24,8 @@ Item {
 
         anchors.centerIn: parent
 
-        height: 32 * dpMultiplier
-        width: 32 * dpMultiplier
+        height: 32 * uiValues.dpMultiplier
+        width: 32 * uiValues.dpMultiplier
 
         fillMode: Image.PreserveAspectFit
         antialiasing: true

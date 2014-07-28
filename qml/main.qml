@@ -1,17 +1,23 @@
 import QtQuick 2.2
-import QtQuick.Controls 1.1
+import QtQuick.Controls 1.2
 import QtQuick.Window 2.1
 import QtMultimedia 5.1
+import "components/style.js" as Style
 import "."
 
 ApplicationWindow {
     id: applicationWindow
 
-    // HVGA, VGA, WVGA, SVGA, nHD, qHD
-    property var resolutions: [ {"height": 480, "width": 320}, {"height": 640, "width": 480}, {"height": 800, "width": 480}, {"height": 800, "width": 600}, {"height": 640, "width": 360}, {"height": 960, "width": 540} ]
+    property var resolutions: [
+        {"height": 480, "width": 320}, // HVGA
+        {"height": 640, "width": 480}, // VGA
+        {"height": 800, "width": 480}, // WVGA
+        {"height": 800, "width": 600}, // SVGA
+        {"height": 640, "width": 360}, // nHD
+        {"height": 960, "width": 540}  // qHD
+    ]
+
     property int currentResolution: 3
-    property int dpi: musicStreamer.dpi ? musicStreamer.dpi : Screen.pixelDensity * 25.4
-    property real dpMultiplier: dpi / 160
     property bool isScreenPortrait: height >= width
 
     function next() {
@@ -36,29 +42,14 @@ ApplicationWindow {
         audio.play()
     }
 
-    /// TODO: think of a better way to handle this, as this considers square icons
-    function getBestIconSize(height) {
-        // 36,  48,  72,  96, 144, 192
-        // 42,  60,  84, 120, 168
-        if (height < 42)
-            return "ldpi/"
-        else if (height < 60)
-            return "mdpi/"
-        else if (height < 84)
-            return "hdpi/"
-        else if (height < 120)
-            return "xhdpi/"
-        else if (height < 168)
-            return "xxhdpi/"
-        else if (height < 216)
-            return "xxxhdpi/"
-        else
-            return ""
-    }
-
     visible: true
     width: resolutions[currentResolution]["width"]
     height: resolutions[currentResolution]["height"]
+
+    Rectangle {
+        anchors.fill: parent
+        color: Style.BACKGROUND
+    }
 
     StackView {
         id: stackview
@@ -76,6 +67,21 @@ ApplicationWindow {
     Component {
         id: mainPage
         MainPage { audioElement: audio }
+    }
+
+    Component {
+        id: aboutPage
+        AboutPage { }
+    }
+
+    Component {
+        id: searchPage
+        SearchPage { }
+    }
+
+    Connections {
+        target: musicStreamer
+        onServerError: uiValues.showMessage("Error, do you have internet connection? Please try again..")
     }
 
     ListModel {

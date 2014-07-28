@@ -1,18 +1,19 @@
 import QtQuick 2.2
-import QtQuick.Controls 1.1
+import QtQuick.Controls 1.2
 import QtQuick.Layouts 1.1
+import "components" as Components
 
-Page {
+Components.Page {
     id: root
 
-    titleBar: TitleBar {
+    titleBar: Components.TitleBar {
         id: titleBar
 
         enabled: parent.enabled
 
-        TitleBarImageButton {
+        Components.TitleBarImageButton {
             anchors.left: parent.left
-            source: "qrc:/images/" + getBestIconSize(Math.min(icon.height, icon.width)) + "back"
+            source: "qrc:/images/" + uiValues.getBestIconSize(Math.min(icon.height, icon.width)) + "back"
 
             onClicked: stackview.pop()
         }
@@ -27,7 +28,7 @@ Page {
 
             anchors {
                 fill: parent
-                margins: dpi * 0.06
+                margins: 4 * uiValues.dpMultiplier
             }
 
             flickableItem.interactive: true; focus: true
@@ -44,7 +45,7 @@ Page {
                     anchors.horizontalCenter: parent.horizontalCenter
                     width: parent.width
 
-                    spacing: dpi * 0.06
+                    spacing: 4 * uiValues.dpMultiplier
 
                     Label {
                         width: parent.width

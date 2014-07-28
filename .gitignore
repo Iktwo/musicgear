@@ -25,6 +25,7 @@ Makefile
 android/assets/--Managed_by_Qt_Creator--/*
 android/bin/*.apk
 android/local.properties
+android/ant.properties
 *.class
 *.d
 *.keystore

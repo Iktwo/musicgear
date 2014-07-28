@@ -4,16 +4,7 @@
 #include <QtQml>
 
 #include "musicstreamer.h"
-#include "styler.h"
-
-static QObject *stylerProvider(QQmlEngine *engine, QJSEngine *scriptEngine)
-{
-    Q_UNUSED(engine)
-    Q_UNUSED(scriptEngine)
-
-    Styler *styler = new Styler();
-    return styler;
-}
+#include "uivalues.h"
 
 int main(int argc, char *argv[])
 {
@@ -23,7 +14,6 @@ int main(int argc, char *argv[])
 
     QScopedPointer<QGuiApplication> app(new QGuiApplication(argc, argv));
 
-    qmlRegisterSingletonType<Styler>("Styler", 1, 0, "Styler", stylerProvider);
     qRegisterMetaType<QObjectList>("QObjectList");
 
     QQmlApplicationEngine engine;
@@ -31,6 +21,9 @@ int main(int argc, char *argv[])
     MusicStreamer musicStreamer;
     engine.rootContext()->setContextProperty(QStringLiteral("musicStreamer"), &musicStreamer);
     engine.rootContext()->setContextProperty(QStringLiteral("buildDate"), QString(BUILD_DATE));
+
+    UIValues uiValues;
+    engine.rootContext()->setContextProperty(QStringLiteral("uiValues"), &uiValues);
 
 #if defined(Q_OS_ANDROID)
     engine.rootContext()->setContextProperty("Q_OS", "ANDROID");

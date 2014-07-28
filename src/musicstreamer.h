@@ -13,9 +13,6 @@ class MusicStreamer : public QAbstractListModel
     Q_PROPERTY(bool searching READ searching NOTIFY searchingChanged)
     //Q_PROPERTY(bool serverError READ serverError NOTIFY serverErrorChanged)
     Q_PROPERTY(bool downloading READ isDownloading NOTIFY downloadingChanged)
-    Q_PROPERTY(bool firstRun READ firstRun WRITE setFirstRun NOTIFY firstRunChanged)
-    Q_PROPERTY(int dpi READ dpi WRITE setDpi NOTIFY dpiChanged)
-    Q_PROPERTY(bool isTablet READ isTablet WRITE setIsTablet NOTIFY isTabletChanged)
 
 public:
     enum DownloaderRoles {
@@ -23,6 +20,7 @@ public:
         GroupRole,
         LengthRole,
         CommentRole,
+        KbpsRole,
         CodeRole,
         UrlRole
     };
@@ -32,7 +30,7 @@ public:
     Q_INVOKABLE void downloadSong(const QString &name, const QString &url);
     Q_INVOKABLE void search(const QString &term);
     Q_INVOKABLE void fetchMore();
-    Q_INVOKABLE void showMessage(const QString &message);
+    Q_INVOKABLE void share(const QString &name, const QString &url);
 
     QObjectList songs();
 
@@ -48,15 +46,6 @@ public:
 
     bool isDownloading() const;
 
-    bool firstRun() const;
-    void setFirstRun(bool firstRun);
-
-    int dpi() const;
-    void setDpi(int dpi);
-
-    bool isTablet() const;
-    void setIsTablet(bool isTablet);
-
 signals:
     void songsChanged();
     void searchingChanged();
@@ -64,9 +53,6 @@ signals:
     void serverError();
     void downloadingChanged();
     void progressChanged(float progress, const QString &name);
-    void firstRunChanged();
-    void dpiChanged();
-    void isTabletChanged();
 
 protected:
     QHash<int, QByteArray> roleNames() const;
@@ -78,15 +64,12 @@ private:
     bool mServerError;
     QString mLastSearchHasMoreResults;
     int fetched;
-    bool m_firstRun;
-    int m_dpi;
-    bool m_isTablet;
 
 private slots:
-    void songFound(const QString &title, const QString &group, const QString &length, const QString &comment, const QString &code);
+    void songFound(const QString &title, const QString &group, const QString &length,
+                   const QString &comment, int kbps, const QString &code);
     void decodedUrl(const QString &code, const QString &url);
     void searchEnded();
-    //void serverErrorOcurred();
     void lastSearchHasMoreResults(const QString &url);
     void lastSearchHasNoMoreResults();
     void emitDownloadingChanged();

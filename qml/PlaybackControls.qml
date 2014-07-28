@@ -1,9 +1,10 @@
 import QtQuick 2.2
-import QtQuick.Controls 1.1
+import QtQuick.Controls 1.2
 import QtQuick.Controls.Styles 1.1
 import QtQuick.Layouts 1.1
 import QtMultimedia 5.1
-import "style.js" as Style
+import "components" as Components
+import "components/style.js" as Style
 
 Rectangle {
     property Audio audioElement
@@ -33,7 +34,7 @@ Rectangle {
     }
 
     color: "#fafafa"
-    height: column.height + dpi * 0.04
+    height: column.height + 1 * uiValues.dpMultiplier
     width: parent.width
 
     ColumnLayout {
@@ -62,7 +63,7 @@ Rectangle {
                 background: Rectangle {
                     color: Style.PROGRESS_BAR_BACKGROUND_LIGHT
                     implicitWidth: control.width
-                    implicitHeight: 4 * dpMultiplier
+                    implicitHeight: 4 * uiValues.dpMultiplier
                 }
                 progress: Rectangle {
                     color: "#0066CC"
@@ -72,7 +73,7 @@ Rectangle {
             MouseArea {
                 anchors {
                     fill: parent
-                    margins: -0.04 * dpi
+                    margins: -0.04 * uiValues.dpi
                 }
 
                 onClicked: {
@@ -88,9 +89,8 @@ Rectangle {
             anchors {
                 left: parent.left
                 right: parent.right
-                margins: dpi * 0.04
+                margins: 1 * uiValues.dpMultiplier
             }
-
 
             RowLayout {
                 anchors.fill: parent
@@ -103,32 +103,32 @@ Rectangle {
                     verticalAlignment: "AlignVCenter"
                     text: formatMilliseconds(audioElement.position)
                     font {
-                        pixelSize: 12 * dpMultiplier
+                        pixelSize: 12 * uiValues.dpMultiplier
                         weight: Font.Light
                     }
                 }
 
                 RowLayout {
-                    spacing: 8 * dpMultiplier
+                    spacing: 8 * uiValues.dpMultiplier
 
-                    TitleBarImageButton {
+                    Components.TitleBarImageButton {
                         id: previousBtn
 
-                        height: 48 * dpMultiplier
-                        width: 48 * dpMultiplier
+                        height: 48 * uiValues.dpMultiplier
+                        width: 48 * uiValues.dpMultiplier
 
-                        source: "qrc:/images/" + getBestIconSize(Math.min(icon.height, icon.width)) + "previous"
+                        source: "qrc:/images/" + uiValues.getBestIconSize(Math.min(icon.height, icon.width)) + "previous"
 
                         onClicked: applicationWindow.previous()
                     }
 
-                    TitleBarImageButton {
+                    Components.TitleBarImageButton {
                         id: playBtn
 
-                        height: 48 * dpMultiplier
-                        width: 48 * dpMultiplier
+                        height: 48 * uiValues.dpMultiplier
+                        width: 48 * uiValues.dpMultiplier
 
-                        source: "qrc:/images/" + getBestIconSize(Math.min(icon.height, icon.width)) + (audioElement.playbackState == Audio.PlayingState || (audioElement.status == Audio.Buffering || audioElement.status == Audio.Stalled) && audioElement.playbackState != Audio.PausedState ? "pause" : "play")
+                        source: "qrc:/images/" + uiValues.getBestIconSize(Math.min(icon.height, icon.width)) + (audioElement.playbackState == Audio.PlayingState || (audioElement.status == Audio.Buffering || audioElement.status == Audio.Stalled) && audioElement.playbackState != Audio.PausedState ? "pause" : "play")
 
                         onClicked: {
                             if (audioElement.playbackState == Audio.PlayingState)
@@ -138,13 +138,13 @@ Rectangle {
                         }
                     }
 
-                    TitleBarImageButton {
+                    Components.TitleBarImageButton {
                         id: nextBtn
 
-                        height: 48 * dpMultiplier
-                        width: 48 * dpMultiplier
+                        height: 48 * uiValues.dpMultiplier
+                        width: 48 * uiValues.dpMultiplier
 
-                        source: "qrc:/images/" + getBestIconSize(Math.min(icon.height, icon.width)) + "next"
+                        source: "qrc:/images/" + uiValues.getBestIconSize(Math.min(icon.height, icon.width)) + "next"
 
                         onClicked: applicationWindow.next()
                     }
@@ -157,7 +157,7 @@ Rectangle {
                     text: formatMilliseconds(audioElement.duration)
                     horizontalAlignment: "AlignRight"
                     font {
-                        pixelSize: 12 * dpMultiplier
+                        pixelSize: 12 * uiValues.dpMultiplier
                         weight: Font.Light
                     }
                 }
@@ -170,12 +170,12 @@ Rectangle {
             anchors {
                 left: parent.left
                 right: parent.right
-                margins: dpi * 0.04
+                margins: 1 * uiValues.dpMultiplier
             }
 
             color: Style.TEXT_COLOR_DARK
             font {
-                pixelSize: 14 * dpMultiplier
+                pixelSize: 14 * uiValues.dpMultiplier
                 weight: Font.Light
             }
         }
