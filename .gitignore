@@ -28,3 +28,4 @@ android/local.properties
 *.class
 *.d
 *.keystore
+ant.properties
