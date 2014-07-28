@@ -46,6 +46,10 @@ int main(int argc, char *argv[])
 #endif
 #endif
 
+#ifdef Q_OS_BLACKBERRY
+    view->rootContext()->setContextProperty("Q_OS", "BLACKBERRY");
+#endif
+
     VirtualKeyboardControl vkc(*app.data(), *view.data());
     view->rootContext()->setContextProperty("vkControl", &vkc);
 

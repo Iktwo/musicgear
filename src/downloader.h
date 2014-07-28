@@ -6,6 +6,12 @@
 #include <QMap>
 #include <QVariantMap>
 
+//! Downloader class.
+
+/*!
+Downloader class provides functions to download files using http.
+*/
+
 class QNetworkReply;
 class QNetworkAccessManager;
 class Downloader : public QObject
