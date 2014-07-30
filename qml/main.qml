@@ -62,6 +62,12 @@ ApplicationWindow {
         }
 
         initialItem: mainPage
+
+        focus: true
+        Keys.onBackPressed: {
+            if (stackview.depth > 1)
+                stackview.pop()
+        }
     }
 
     Component {
