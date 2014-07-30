@@ -51,7 +51,14 @@ Components.Page {
                         width: parent.width
                         horizontalAlignment: "AlignHCenter"
                         wrapMode: "Wrap"
-                        text: "Musicgear"
+                        text: "Musicgear by <a href=\"http://iktwo.com\">Iktwo</a>"
+
+                        onLinkActivated: Qt.openUrlExternally(link)
+                    }
+
+                    Item {
+                        height: uiValues.dpMultiplier * 8
+                        width: 1
                     }
 
                     Label {
@@ -80,6 +87,21 @@ Components.Page {
                         horizontalAlignment: "AlignHCenter"
                         wrapMode: "Wrap"
                         text: qsTr("Built on") + " " + buildDate
+
+                        onLinkActivated: Qt.openUrlExternally(link)
+                    }
+
+                    Item {
+                        height: uiValues.dpMultiplier * 8
+                        width: 1
+                    }
+
+                    Label {
+                        width: parent.width
+                        textFormat: Text.RichText
+                        horizontalAlignment: "AlignHCenter"
+                        wrapMode: "Wrap"
+                        text: qsTr("Source code is available at <a href=\"http://github.com/iktwo/musicgear\">Github</a>")
 
                         onLinkActivated: Qt.openUrlExternally(link)
                     }
