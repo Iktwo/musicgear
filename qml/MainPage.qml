@@ -20,7 +20,7 @@ Components.Page {
 
         Components.TitleBarImageButton {
             anchors.right: searchButton.left
-            source: "qrc:/images/" + uiValues.getBestIconSize(Math.min(icon.height, icon.width)) + "help"
+            source: "qrc:/images/" + ui.getBestIconSize(Math.min(icon.height, icon.width)) + "help"
 
             onClicked: stackview.push(aboutPage)
         }
@@ -29,7 +29,7 @@ Components.Page {
             id: searchButton
 
             anchors.right: parent.right
-            source: "qrc:/images/" + uiValues.getBestIconSize(Math.min(icon.height, icon.width)) + "search"
+            source: "qrc:/images/" + ui.getBestIconSize(Math.min(icon.height, icon.width)) + "search"
 
             onClicked: stackview.push(searchPage)
         }

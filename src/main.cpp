@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty(QStringLiteral("buildDate"), QString(BUILD_DATE));
 
     UIValues uiValues;
-    engine.rootContext()->setContextProperty(QStringLiteral("uiValues"), &uiValues);
+    engine.rootContext()->setContextProperty(QStringLiteral("ui"), &uiValues);
 
 #if defined(Q_OS_ANDROID)
     engine.rootContext()->setContextProperty("Q_OS", "ANDROID");

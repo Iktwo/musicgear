@@ -48,7 +48,7 @@ Item {
         radius: height / 2
         color: "transparent"
         border {
-            width: 3 * uiValues.dpMultiplier
+            width: 3 * ui.dpMultiplier
             color: borderColor
         }
     }

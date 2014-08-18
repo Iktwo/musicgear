@@ -34,7 +34,7 @@ Rectangle {
     }
 
     color: "#fafafa"
-    height: column.height + 1 * uiValues.dpMultiplier
+    height: column.height + 1 * ui.dpMultiplier
     width: parent.width
 
     ColumnLayout {
@@ -63,7 +63,7 @@ Rectangle {
                 background: Rectangle {
                     color: Style.PROGRESS_BAR_BACKGROUND_LIGHT
                     implicitWidth: control.width
-                    implicitHeight: 4 * uiValues.dpMultiplier
+                    implicitHeight: 4 * ui.dpMultiplier
                 }
                 progress: Rectangle {
                     color: "#0066CC"
@@ -73,7 +73,7 @@ Rectangle {
             MouseArea {
                 anchors {
                     fill: parent
-                    margins: -0.04 * uiValues.dpi
+                    margins: -0.04 * ui.dpi
                 }
 
                 onClicked: {
@@ -89,7 +89,7 @@ Rectangle {
             anchors {
                 left: parent.left
                 right: parent.right
-                margins: 1 * uiValues.dpMultiplier
+                margins: 1 * ui.dpMultiplier
             }
 
             RowLayout {
@@ -103,21 +103,21 @@ Rectangle {
                     verticalAlignment: "AlignVCenter"
                     text: formatMilliseconds(audioElement.position)
                     font {
-                        pixelSize: 12 * uiValues.dpMultiplier
+                        pixelSize: 12 * ui.dpMultiplier
                         weight: Font.Light
                     }
                 }
 
                 RowLayout {
-                    spacing: 8 * uiValues.dpMultiplier
+                    spacing: 8 * ui.dpMultiplier
 
                     Components.TitleBarImageButton {
                         id: previousBtn
 
-                        height: 48 * uiValues.dpMultiplier
-                        width: 48 * uiValues.dpMultiplier
+                        height: 48 * ui.dpMultiplier
+                        width: 48 * ui.dpMultiplier
 
-                        source: "qrc:/images/" + uiValues.getBestIconSize(Math.min(icon.height, icon.width)) + "previous"
+                        source: "qrc:/images/" + ui.getBestIconSize(Math.min(icon.height, icon.width)) + "previous"
 
                         onClicked: applicationWindow.previous()
                     }
@@ -125,10 +125,10 @@ Rectangle {
                     Components.TitleBarImageButton {
                         id: playBtn
 
-                        height: 48 * uiValues.dpMultiplier
-                        width: 48 * uiValues.dpMultiplier
+                        height: 48 * ui.dpMultiplier
+                        width: 48 * ui.dpMultiplier
 
-                        source: "qrc:/images/" + uiValues.getBestIconSize(Math.min(icon.height, icon.width)) + (audioElement.playbackState == Audio.PlayingState || (audioElement.status == Audio.Buffering || audioElement.status == Audio.Stalled) && audioElement.playbackState != Audio.PausedState ? "pause" : "play")
+                        source: "qrc:/images/" + ui.getBestIconSize(Math.min(icon.height, icon.width)) + (audioElement.playbackState == Audio.PlayingState || (audioElement.status == Audio.Buffering || audioElement.status == Audio.Stalled) && audioElement.playbackState != Audio.PausedState ? "pause" : "play")
 
                         onClicked: {
                             if (audioElement.playbackState == Audio.PlayingState)
@@ -141,10 +141,10 @@ Rectangle {
                     Components.TitleBarImageButton {
                         id: nextBtn
 
-                        height: 48 * uiValues.dpMultiplier
-                        width: 48 * uiValues.dpMultiplier
+                        height: 48 * ui.dpMultiplier
+                        width: 48 * ui.dpMultiplier
 
-                        source: "qrc:/images/" + uiValues.getBestIconSize(Math.min(icon.height, icon.width)) + "next"
+                        source: "qrc:/images/" + ui.getBestIconSize(Math.min(icon.height, icon.width)) + "next"
 
                         onClicked: applicationWindow.next()
                     }
@@ -157,7 +157,7 @@ Rectangle {
                     text: formatMilliseconds(audioElement.duration)
                     horizontalAlignment: "AlignRight"
                     font {
-                        pixelSize: 12 * uiValues.dpMultiplier
+                        pixelSize: 12 * ui.dpMultiplier
                         weight: Font.Light
                     }
                 }
@@ -170,12 +170,12 @@ Rectangle {
             anchors {
                 left: parent.left
                 right: parent.right
-                margins: 1 * uiValues.dpMultiplier
+                margins: 1 * ui.dpMultiplier
             }
 
             color: Style.TEXT_COLOR_DARK
             font {
-                pixelSize: 14 * uiValues.dpMultiplier
+                pixelSize: 14 * ui.dpMultiplier
                 weight: Font.Light
             }
         }

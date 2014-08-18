@@ -37,6 +37,7 @@ void UIValues::showMessage(const QString &message)
                                               "toast", "(Ljava/lang/String;)V",
                                               QAndroidJniObject::fromString(message).object<jstring>());
 #else
+    qDebug() << Q_FUNC_INFO << "not implemented yet";
     qDebug() << message;
 #endif
 }

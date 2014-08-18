@@ -13,7 +13,7 @@ Components.Page {
 
         Components.TitleBarImageButton {
             anchors.left: parent.left
-            source: "qrc:/images/" + uiValues.getBestIconSize(Math.min(icon.height, icon.width)) + "back"
+            source: "qrc:/images/" + ui.getBestIconSize(Math.min(icon.height, icon.width)) + "back"
 
             onClicked: stackview.pop()
         }
@@ -28,7 +28,7 @@ Components.Page {
 
             anchors {
                 fill: parent
-                margins: 4 * uiValues.dpMultiplier
+                margins: 4 * ui.dpMultiplier
             }
 
             flickableItem.interactive: true; focus: true
@@ -45,7 +45,7 @@ Components.Page {
                     anchors.horizontalCenter: parent.horizontalCenter
                     width: parent.width
 
-                    spacing: 4 * uiValues.dpMultiplier
+                    spacing: 4 * ui.dpMultiplier
 
                     Label {
                         width: parent.width
@@ -57,7 +57,7 @@ Components.Page {
                     }
 
                     Item {
-                        height: uiValues.dpMultiplier * 8
+                        height: ui.dpMultiplier * 8
                         width: 1
                     }
 
@@ -92,7 +92,7 @@ Components.Page {
                     }
 
                     Item {
-                        height: uiValues.dpMultiplier * 8
+                        height: ui.dpMultiplier * 8
                         width: 1
                     }
 

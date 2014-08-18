@@ -32,7 +32,7 @@ Item {
             return "#2ecc71"
     }
 
-    height: 64 * uiValues.dpMultiplier + 1 * uiValues.dpMultiplier
+    height: 64 * ui.dpMultiplier + 1 * ui.dpMultiplier
     width: parent.width
 
     MouseArea {
@@ -44,13 +44,13 @@ Item {
         id: songName
 
         anchors {
-            top: parent.top; topMargin: 12 * uiValues.dpMultiplier
-            right: labelKbps.left; rightMargin: 4 * uiValues.dpMultiplier
-            left: parent.left; leftMargin: 8 * uiValues.dpMultiplier
+            top: parent.top; topMargin: 12 * ui.dpMultiplier
+            right: labelKbps.left; rightMargin: 4 * ui.dpMultiplier
+            left: parent.left; leftMargin: 8 * ui.dpMultiplier
         }
 
         font {
-            pixelSize: 18 * uiValues.dpMultiplier
+            pixelSize: 18 * ui.dpMultiplier
             weight: Font.Light
         }
 
@@ -78,11 +78,11 @@ Item {
 
         anchors {
             verticalCenter: songName.verticalCenter
-            right: row.left; rightMargin: 4 * uiValues.dpMultiplier
+            right: row.left; rightMargin: 4 * ui.dpMultiplier
         }
 
         font {
-            pixelSize: 12 * uiValues.dpMultiplier
+            pixelSize: 12 * ui.dpMultiplier
             weight: Font.Light
         }
 
@@ -95,13 +95,13 @@ Item {
 
     Label {
         anchors {
-            bottom: divider.top; bottomMargin:  12 * uiValues.dpMultiplier
-            right: row.left; rightMargin: 4 * uiValues.dpMultiplier
-            left: parent.left; leftMargin: 8 * uiValues.dpMultiplier
+            bottom: divider.top; bottomMargin:  12 * ui.dpMultiplier
+            right: row.left; rightMargin: 4 * ui.dpMultiplier
+            left: parent.left; leftMargin: 8 * ui.dpMultiplier
         }
 
         font {
-            pixelSize: 12 * uiValues.dpMultiplier
+            pixelSize: 12 * ui.dpMultiplier
             weight: Font.Light
         }
 
@@ -116,7 +116,7 @@ Item {
             top: row.top
             bottom: row.bottom
             right: row.right
-            margins: 4 * uiValues.dpMultiplier
+            margins: 4 * ui.dpMultiplier
         }
         running: model.url === ""
         width: height
@@ -127,7 +127,7 @@ Item {
                 visible: control.running
                 height: control.height
                 width: control.width
-                source: "qrc:/images/" + uiValues.getBestIconSize(height) + "busy_dark"
+                source: "qrc:/images/" + ui.getBestIconSize(height) + "busy_dark"
                 antialiasing: true
                 RotationAnimator {
                     target: busyIndicator
@@ -146,11 +146,11 @@ Item {
         anchors {
             top: parent.top
             bottom: parent.bottom
-            right: parent.right; rightMargin: 8 * uiValues.dpMultiplier
+            right: parent.right; rightMargin: 8 * ui.dpMultiplier
         }
 
-        spacing: 4 * uiValues.dpMultiplier
-        width: spacing + (48 * uiValues.dpMultiplier * 2)
+        spacing: 4 * ui.dpMultiplier
+        width: spacing + (48 * ui.dpMultiplier * 2)
 
         Components.TitleBarImageButton {
             anchors {
@@ -158,8 +158,8 @@ Item {
                 bottom: parent.bottom
             }
 
-            width: 48 * uiValues.dpMultiplier
-            source: "qrc:/images/" + uiValues.getBestIconSize(Math.min(icon.height, icon.width)) + "add_to_playlist"
+            width: 48 * ui.dpMultiplier
+            source: "qrc:/images/" + ui.getBestIconSize(Math.min(icon.height, icon.width)) + "add_to_playlist"
             visible: model.url === "" ? false : true
 
             onClicked: root.addToPlaylist()
@@ -171,9 +171,9 @@ Item {
                 bottom: parent.bottom
             }
 
-            width: 48 * uiValues.dpMultiplier
+            width: 48 * ui.dpMultiplier
 
-            source: "qrc:/images/" + uiValues.getBestIconSize(Math.min(icon.height, icon.width)) + "download"
+            source: "qrc:/images/" + ui.getBestIconSize(Math.min(icon.height, icon.width)) + "download"
             visible: model.url === "" ? false : true
 
             onClicked: root.download()

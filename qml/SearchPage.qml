@@ -25,7 +25,7 @@ Components.Page {
 
         Components.TitleBarImageButton {
             anchors.left: parent.left
-            source: "qrc:/images/" + uiValues.getBestIconSize(Math.min(icon.height, icon.width)) + "back"
+            source: "qrc:/images/" + ui.getBestIconSize(Math.min(icon.height, icon.width)) + "back"
 
             onClicked: stackview.pop()
         }
@@ -48,8 +48,8 @@ Components.Page {
                 placeholderTextColor: "#ccdedede"
                 textColor: "#ddefefef"
                 background: Item {
-                    implicitWidth: uiValues.dpi * 1.3
-                    implicitHeight: uiValues.dpi * 0.20
+                    implicitWidth: ui.dpi * 1.3
+                    implicitHeight: ui.dpi * 0.20
 
                     Rectangle {
                         id: bottomBorder
@@ -61,7 +61,7 @@ Components.Page {
                         }
 
                         color: "#ddefefef"
-                        height: 1 * uiValues.dpMultiplier
+                        height: 1 * ui.dpMultiplier
                     }
 
                     Rectangle {
@@ -71,7 +71,7 @@ Components.Page {
                         }
 
                         color: "#ddefefef"
-                        width: 1 * uiValues.dpMultiplier
+                        width: 1 * ui.dpMultiplier
                         height: width * 5
                     }
 
@@ -82,7 +82,7 @@ Components.Page {
                         }
 
                         color: "#ddefefef"
-                        width: 1 * uiValues.dpMultiplier
+                        width: 1 * ui.dpMultiplier
                         height: width * 5
                     }
                 }
@@ -91,7 +91,7 @@ Components.Page {
 
         Components.TitleBarImageButton {
             anchors.right: parent.right
-            source: "qrc:/images/" + uiValues.getBestIconSize(Math.min(icon.height, icon.width)) + "search"
+            source: "qrc:/images/" + ui.getBestIconSize(Math.min(icon.height, icon.width)) + "search"
 
             onClicked: root.search()
         }
@@ -116,13 +116,13 @@ Components.Page {
             Item {
                 id: busyFooterContainer
                 width: resultsList.width
-                height: musicStreamer.searching && resultsList.count > 0 ? 48 * uiValues.dpMultiplier : 0
+                height: musicStreamer.searching && resultsList.count > 0 ? 48 * ui.dpMultiplier : 0
 
                 Connections {
                     target: musicStreamer
                     onSearchingChanged: {
                         if (musicStreamer.searching && resultsList.count > 0)
-                            busyFooterContainer.height = 48 * uiValues.dpMultiplier
+                            busyFooterContainer.height = 48 * ui.dpMultiplier
                         else
                             busyFooterContainer.height = 0
                     }
@@ -132,7 +132,7 @@ Components.Page {
                     target: resultsList
                     onCountChanged: {
                         if (musicStreamer.searching && resultsList.count > 0)
-                            busyFooterContainer.height = 48 * uiValues.dpMultiplier
+                            busyFooterContainer.height = 48 * ui.dpMultiplier
                         else
                             busyFooterContainer.height = 0
                     }
@@ -140,7 +140,7 @@ Components.Page {
 
                 BusyIndicator {
                     anchors.centerIn: parent
-                    height: parent.height - 8 * uiValues.dpMultiplier
+                    height: parent.height - 8 * ui.dpMultiplier
                     width: height
                     running: parent.height > 0
                     style: BusyIndicatorStyle {
@@ -149,7 +149,7 @@ Components.Page {
                             visible: control.running
                             height: control.height
                             width: control.width
-                            source: "qrc:/images/" + uiValues.getBestIconSize(height) + "busy_dark"
+                            source: "qrc:/images/" + ui.getBestIconSize(height) + "busy_dark"
                             antialiasing: true
                             RotationAnimator {
                                 target: busyIndicator
@@ -189,7 +189,7 @@ Components.Page {
                     onAddToPlaylist: {
                         for (var i = 0; i < playlist.count; i++) {
                             if (playlist.get(i).url === model.url) {
-                                uiValues.showMessage("Song is already in playlist")
+                                ui.showMessage("Song is already in playlist")
                                 return
                             }
                         }
@@ -203,7 +203,7 @@ Components.Page {
                     }
 
                     onDownload: {
-                        uiValues.showMessage("Downloading " + model.name)
+                        ui.showMessage("Downloading " + model.name)
                         musicStreamer.downloadSong(model.name, model.url)
                     }
                 }
@@ -237,7 +237,7 @@ Components.Page {
                     indicator: Image {
                         id: busyIndicator
                         visible: control.running
-                        source: "qrc:/images/" + uiValues.getBestIconSize(height) + "busy"
+                        source: "qrc:/images/" + ui.getBestIconSize(height) + "busy"
                         antialiasing: true
                         RotationAnimator {
                             target: busyIndicator

@@ -10,7 +10,7 @@ Item {
     signal requestedRemove()
     signal pressAndHold()
 
-    height: 64 * uiValues.dpMultiplier + 1 * uiValues.dpMultiplier
+    height: 64 * ui.dpMultiplier + 1 * ui.dpMultiplier
     width: parent.width
 
     MouseArea {
@@ -42,13 +42,13 @@ Item {
             id: songName
 
             anchors {
-                top: parent.top; topMargin: 12 * uiValues.dpMultiplier
-                right: removeButton.left; rightMargin: 8 * uiValues.dpMultiplier
-                left: parent.left; leftMargin: 8 * uiValues.dpMultiplier
+                top: parent.top; topMargin: 12 * ui.dpMultiplier
+                right: removeButton.left; rightMargin: 8 * ui.dpMultiplier
+                left: parent.left; leftMargin: 8 * ui.dpMultiplier
             }
 
             font {
-                pixelSize: 18 * uiValues.dpMultiplier
+                pixelSize: 18 * ui.dpMultiplier
                 weight: Font.Light
             }
 
@@ -61,13 +61,13 @@ Item {
 
         Label {
             anchors {
-                bottom: parent.bottom; bottomMargin:  12 * uiValues.dpMultiplier
-                right: removeButton.left; rightMargin: 8 * uiValues.dpMultiplier
-                left: parent.left; leftMargin: 8 * uiValues.dpMultiplier
+                bottom: parent.bottom; bottomMargin:  12 * ui.dpMultiplier
+                right: removeButton.left; rightMargin: 8 * ui.dpMultiplier
+                left: parent.left; leftMargin: 8 * ui.dpMultiplier
             }
 
             font {
-                pixelSize: 12 * uiValues.dpMultiplier
+                pixelSize: 12 * ui.dpMultiplier
                 weight: Font.Light
             }
 
@@ -80,12 +80,12 @@ Item {
         Components.TitleBarImageButton {
             id: removeButton
 
-            anchors { right: parent.right; rightMargin: 8 * uiValues.dpMultiplier }
+            anchors { right: parent.right; rightMargin: 8 * ui.dpMultiplier }
 
             height: parent.height
-            width: 48 * uiValues.dpMultiplier
+            width: 48 * ui.dpMultiplier
 
-            source: "qrc:/images/" + uiValues.getBestIconSize(Math.min(icon.height, icon.width)) + "remove"
+            source: "qrc:/images/" + ui.getBestIconSize(Math.min(icon.height, icon.width)) + "remove"
 
             visible: model.url === "" ? false : true
 
