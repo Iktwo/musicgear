@@ -24,7 +24,7 @@ Item {
         else if (kbps < 128)
             return "#f39c12"
         else if (kbps < 192)
-            return "#3498db"
+            return "#e67e22"
         else if (kbps < 256)
             return "#48C9B0"
         else if (kbps < 320)

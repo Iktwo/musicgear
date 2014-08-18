@@ -23,12 +23,12 @@
    inkscape:version="0.48.4 r9939"
    sodipodi:docname="icon.svg"
    style="display:inline"
-   inkscape:export-filename="/home/iktwo/devel/musicgear/resources/images/icon/musicgear_114.png"
-   inkscape:export-xdpi="20.039062"
-   inkscape:export-ydpi="20.039062"><metadata
+   inkscape:export-filename="/home/iktwo/devel/musicgear/resources/images/icon_512.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90"><metadata
      id="metadata3069"><rdf:RDF><cc:Work
          rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title /></cc:Work></rdf:RDF></metadata><defs
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><defs
      id="defs3067"><linearGradient
        id="linearGradient5113"><stop
          style="stop-color:#64af2d;stop-opacity:1;"
@@ -1546,7 +1546,7 @@
      id="namedview3065"
      showgrid="false"
      inkscape:zoom="1"
-     inkscape:cx="495.55518"
+     inkscape:cx="497.55518"
      inkscape:cy="308.42278"
      inkscape:window-x="0"
      inkscape:window-y="27"
@@ -1612,7 +1612,7 @@
        sodipodi:cy="45.75"
        sodipodi:rx="31.375002"
        sodipodi:ry="31.375002"
-       d="m 74.000002,45.75 a 31.375002,31.375002 0 1 1 -62.750004,0 31.375002,31.375002 0 1 1 62.750004,0 z"
+       d="m 74.000002,45.75 c 0,17.327935 -14.047067,31.375002 -31.375002,31.375002 -17.327935,0 -31.375002,-14.047067 -31.375002,-31.375002 0,-17.327935 14.047067,-31.375002 31.375002,-31.375002 17.327935,0 31.375002,14.047067 31.375002,31.375002 z"
        transform="matrix(7.6494019,0,0,7.6494019,-69.855755,-526.16014)" /></g><g
      inkscape:groupmode="layer"
      id="layer3"
