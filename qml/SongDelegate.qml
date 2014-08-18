@@ -17,19 +17,19 @@ Item {
         // 320, 256, 192, 128, 64
         if (kbps === 0)
             return "#2c3e50"
-        else if (kbps > 0 && kbps < 64)
+        else if (kbps < 64)
             return "#e74c3c"
-        else if (kbps >= 64 && kbps < 112)
+        else if (kbps < 112)
             return "#d35400"
-        else if (kbps >= 112 && kbps < 128)
+        else if (kbps < 128)
             return "#f39c12"
-        else if (kbps >= 128 && kbps < 192)
-            return "#f39c12"
-        else if (kbps >= 192 && kbps < 256)
-            return "#1abc9c"
-        else if (kbps >= 256 && kbps < 320)
+        else if (kbps < 192)
+            return "#3498db"
+        else if (kbps < 256)
+            return "#48C9B0"
+        else if (kbps < 320)
             return "#27ae60"
-        else if (kbps === 320)
+        else
             return "#2ecc71"
     }
 
@@ -181,5 +181,5 @@ Item {
         }
     }
 
-    Components.Divider { id: divider; anchors.bottom: parent.bottom }
+    ThisComponents.Divider { id: divider; anchors.bottom: parent.bottom }
 }

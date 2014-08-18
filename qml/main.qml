@@ -88,7 +88,8 @@ ApplicationWindow {
 
     Connections {
         target: musicStreamer
-        onServerError: uiValues.showMessage("Error, do you have internet connection? Please try again..")
+        /// TODO: handle errors that end with "server replied: Not Found"
+        onServerError: ui.showMessage("Error, do you have internet connection? Please try again..")
     }
 
     ListModel {
@@ -151,6 +152,7 @@ ApplicationWindow {
                 break
             case Audio.InvalidMedia:
                 console.log("InvalidMedia")
+                ui.showMessage("Invalid media")
                 break
             case Audio.UnknownStatus:
                 console.log("UnkownStatus")
@@ -162,8 +164,9 @@ ApplicationWindow {
     PlaybackControls {
         id: playbackControls
 
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: -playbackControls.height
+        anchors {
+            bottom: parent.bottom; bottomMargin: -playbackControls.height
+        }
 
         audioElement: audio
     }
