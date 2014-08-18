@@ -2,6 +2,7 @@ import QtQuick 2.2
 import QtQuick.Controls 1.2
 import QtQuick.Window 2.1
 import QtMultimedia 5.1
+import com.iktwo.components 1.0
 import "components/style.js" as Style
 import "."
 
@@ -165,5 +166,18 @@ ApplicationWindow {
         anchors.bottomMargin: -playbackControls.height
 
         audioElement: audio
+    }
+
+    Connections {
+        target: ui
+        onDpiChanged: ScreenValues.dpi = ui.dpi
+        onDpMultiplierChanged: ScreenValues.dpMultiplier = ui.dpMultiplier
+    }
+
+    Component.onCompleted: {
+        ScreenValues.dpi = ui.dpi
+        ScreenValues.dpMultiplier = ui.dpMultiplier
+
+        Theme.titleBarColor = "#0066CC"
     }
 }

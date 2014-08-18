@@ -1,11 +1,9 @@
 import QtQuick 2.2
 import QtQuick.Controls 1.1
 import QtQuick.Controls.Styles 1.1
-import "components" as Components
-import "components/style.js" as Style
-import "." 1.0
+import com.iktwo.components 1.0
 
-Components.Page {
+Page {
     id: root
 
     property var shareModel
@@ -20,10 +18,10 @@ Components.Page {
 
     onActivated: Qt.inputMethod.hide()
 
-    titleBar: Components.TitleBar {
+    titleBar: TitleBar {
         enabled: parent.enabled
 
-        Components.TitleBarImageButton {
+        ImageButton {
             anchors.left: parent.left
             source: "qrc:/images/" + ui.getBestIconSize(Math.min(icon.height, icon.width)) + "back"
 
@@ -89,7 +87,7 @@ Components.Page {
             }
         }
 
-        Components.TitleBarImageButton {
+        ImageButton {
             anchors.right: parent.right
             source: "qrc:/images/" + ui.getBestIconSize(Math.min(icon.height, icon.width)) + "search"
 

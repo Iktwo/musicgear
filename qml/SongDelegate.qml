@@ -2,7 +2,8 @@ import QtQuick 2.2
 import QtQuick.Controls 1.2
 import QtQuick.Controls.Styles 1.1
 import QtQuick.Layouts 1.1
-import "components" as Components
+import com.iktwo.components 1.0
+import "components" as ThisComponents
 import "components/style.js" as Style
 
 Item {
@@ -152,7 +153,7 @@ Item {
         spacing: 4 * ui.dpMultiplier
         width: spacing + (48 * ui.dpMultiplier * 2)
 
-        Components.TitleBarImageButton {
+        ImageButton {
             anchors {
                 top: parent.top
                 bottom: parent.bottom
@@ -165,7 +166,7 @@ Item {
             onClicked: root.addToPlaylist()
         }
 
-        Components.TitleBarImageButton {
+        ImageButton {
             anchors {
                 top: parent.top
                 bottom: parent.bottom

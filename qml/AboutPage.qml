@@ -1,17 +1,17 @@
 import QtQuick 2.2
 import QtQuick.Controls 1.2
 import QtQuick.Layouts 1.1
-import "components" as Components
+import com.iktwo.components 1.0
 
-Components.Page {
+Page {
     id: root
 
-    titleBar: Components.TitleBar {
+    titleBar: TitleBar {
         id: titleBar
 
         enabled: parent.enabled
 
-        Components.TitleBarImageButton {
+        ImageButton {
             anchors.left: parent.left
             source: "qrc:/images/" + ui.getBestIconSize(Math.min(icon.height, icon.width)) + "back"
 

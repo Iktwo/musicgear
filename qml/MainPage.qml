@@ -2,10 +2,9 @@ import QtQuick 2.2
 import QtQuick.Controls 1.1
 import QtQuick.Layouts 1.1
 import QtMultimedia 5.2
-import "components" as Components
-import "components/style.js" as Style
+import com.iktwo.components 1.0
 
-Components.Page {
+Page {
     id: root
 
     property Audio audioElement: audio
@@ -13,19 +12,19 @@ Components.Page {
 
     focus: true
 
-    titleBar: Components.TitleBar {
+    titleBar: TitleBar {
         id: titleBar
 
         title: "MusicGear"
 
-        Components.TitleBarImageButton {
+        ImageButton {
             anchors.right: searchButton.left
             source: "qrc:/images/" + ui.getBestIconSize(Math.min(icon.height, icon.width)) + "help"
 
             onClicked: stackview.push(aboutPage)
         }
 
-        Components.TitleBarImageButton {
+        ImageButton {
             id: searchButton
 
             anchors.right: parent.right

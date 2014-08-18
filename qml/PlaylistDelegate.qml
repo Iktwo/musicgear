@@ -1,6 +1,7 @@
 import QtQuick 2.2
 import QtQuick.Controls 1.2
-import "components" as Components
+import com.iktwo.components 1.0
+import "components" as ThisComponents
 import "components/style.js" as Style
 
 Item {
@@ -77,7 +78,7 @@ Item {
             width: parent.width
         }
 
-        Components.TitleBarImageButton {
+        ImageButton {
             id: removeButton
 
             anchors { right: parent.right; rightMargin: 8 * ui.dpMultiplier }
@@ -94,7 +95,7 @@ Item {
     }
 
 
-    Components.Divider {
+    ThisComponents.Divider {
         id: divider
 
         anchors.bottom: parent.bottom

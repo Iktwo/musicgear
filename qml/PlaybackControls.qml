@@ -3,7 +3,7 @@ import QtQuick.Controls 1.2
 import QtQuick.Controls.Styles 1.1
 import QtQuick.Layouts 1.1
 import QtMultimedia 5.1
-import "components" as Components
+import com.iktwo.components 1.0
 import "components/style.js" as Style
 
 Rectangle {
@@ -111,7 +111,7 @@ Rectangle {
                 RowLayout {
                     spacing: 8 * ui.dpMultiplier
 
-                    Components.TitleBarImageButton {
+                    ImageButton {
                         id: previousBtn
 
                         height: 48 * ui.dpMultiplier
@@ -122,7 +122,7 @@ Rectangle {
                         onClicked: applicationWindow.previous()
                     }
 
-                    Components.TitleBarImageButton {
+                    ImageButton {
                         id: playBtn
 
                         height: 48 * ui.dpMultiplier
@@ -138,7 +138,7 @@ Rectangle {
                         }
                     }
 
-                    Components.TitleBarImageButton {
+                    ImageButton {
                         id: nextBtn
 
                         height: 48 * ui.dpMultiplier
