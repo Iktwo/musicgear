@@ -1,4 +1,4 @@
-import QtQuick 2.2
+import QtQuick 2.3
 import QtQuick.Controls 1.2
 import com.iktwo.components 1.0
 import "components" as ThisComponents
