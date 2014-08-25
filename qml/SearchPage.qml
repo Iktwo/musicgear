@@ -25,7 +25,7 @@ Page {
             anchors.left: parent.left
             source: "qrc:/images/" + ui.getBestIconSize(Math.min(icon.height, icon.width)) + "back"
 
-            onClicked: stackview.pop()
+            onClicked: stackView.pop()
         }
 
         TextField {

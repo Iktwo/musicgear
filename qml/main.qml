@@ -53,7 +53,7 @@ ApplicationWindow {
     }
 
     StackView {
-        id: stackview
+        id: stackView
 
         anchors {
             top: parent.top
@@ -66,8 +66,8 @@ ApplicationWindow {
 
         focus: true
         Keys.onBackPressed: {
-            if (stackview.depth > 1)
-                stackview.pop()
+            if (stackView.depth > 1)
+                stackView.pop()
         }
     }
 

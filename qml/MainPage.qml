@@ -21,7 +21,7 @@ Page {
             anchors.right: searchButton.left
             source: "qrc:/images/" + ui.getBestIconSize(Math.min(icon.height, icon.width)) + "help"
 
-            onClicked: stackview.push(aboutPage)
+            onClicked: stackView.push(aboutPage)
         }
 
         ImageButton {
@@ -30,7 +30,7 @@ Page {
             anchors.right: parent.right
             source: "qrc:/images/" + ui.getBestIconSize(Math.min(icon.height, icon.width)) + "search"
 
-            onClicked: stackview.push(searchPage)
+            onClicked: stackView.push(searchPage)
         }
     }
 
@@ -105,7 +105,7 @@ Page {
             Timer {
                 running: true
                 interval: 100
-                onTriggered: stackview.push(searchPage)
+                onTriggered: stackView.push(searchPage)
             }
         }
     }
