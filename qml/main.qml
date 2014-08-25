@@ -3,7 +3,6 @@ import QtQuick.Controls 1.2
 import QtQuick.Window 2.1
 import QtMultimedia 5.1
 import com.iktwo.components 1.0
-import "components/style.js" as Style
 import "."
 
 ApplicationWindow {
@@ -49,7 +48,7 @@ ApplicationWindow {
 
     Rectangle {
         anchors.fill: parent
-        color: Style.BACKGROUND
+        color: Theme.backgroundColor
     }
 
     StackView {
