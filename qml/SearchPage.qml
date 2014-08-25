@@ -279,6 +279,7 @@ Page {
 
             wrapMode: Text.Wrap
             horizontalAlignment: Text.AlignHCenter
+            renderType: Text.NativeRendering
         }
 
         // TODO: add cancel button

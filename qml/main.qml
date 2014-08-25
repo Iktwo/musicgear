@@ -71,6 +71,11 @@ ApplicationWindow {
     }
 
     Component {
+        id: tutorialPage
+        TutorialPage { }
+    }
+
+    Component {
         id: mainPage
         MainPage { audioElement: audio }
     }

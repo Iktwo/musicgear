@@ -57,6 +57,7 @@ Item {
             elide: Text.ElideRight
             text: model.name + " - <i>" + model.group + "</i>"
             width: parent.width
+            renderType: Text.NativeRendering
             // TODO: add a dialog to show full name in case it's too long ???
         }
 
@@ -76,6 +77,7 @@ Item {
             color: Style.TEXT_SECONDARY_COLOR_DARK
             text: model.length + " - <i>" + model.comment + "</i>"
             width: parent.width
+            renderType: Text.NativeRendering
         }
 
         ImageButton {

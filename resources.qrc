@@ -12,6 +12,10 @@
         <file>qml/AboutPage.qml</file>
         <file>qml/DifferenceBlend.qml</file>
         <file>qml/TutorialHighlighter.qml</file>
+        <file>qml/TutorialPage.qml</file>
+        <file>qml/Arrow.qml</file>
+        <file>qml/FakeMainPage.qml</file>
+        <file>qml/FakePlaybackControls.qml</file>
     </qresource>
     <qresource prefix="/images">
         <file alias="search">resources/images/search.svg</file>

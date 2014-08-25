@@ -7,43 +7,13 @@ import com.iktwo.components 1.0
 import "components/style.js" as Style
 
 Rectangle {
-    property Audio audioElement
     property alias song: songLabel.text
-
-    function formatMilliseconds(ms) {
-        var hours = Math.floor((((ms / 1000) / 60) / 60) % 60).toString()
-        var minutes = Math.floor(((ms / 1000) / 60) % 60).toString()
-        var seconds = Math.floor((ms / 1000) % 60).toString()
-
-        var time = ""
-
-        if (hours > 0)
-            time += hours + ":"
-
-        if (minutes < 10)
-            time += "0" + minutes + ":"
-        else
-            time += minutes + ":"
-
-        if (seconds < 10)
-            time += "0" + seconds
-        else
-            time += seconds
-
-        return time
-    }
 
     color: "#fafafa"
     height: column.height + 1 * ui.dpMultiplier
     width: parent.width
 
     ColumnLayout {
-        Connections {
-            target: audioElement
-            onDurationChanged: progressBar.maximumValue = audioElement.duration
-            onPositionChanged: progressBar.value = audioElement.position
-        }
-
         id: column
 
         anchors {
@@ -54,9 +24,9 @@ Rectangle {
         ProgressBar {
             id: progressBar
 
-            maximumValue: audioElement.duration
+            maximumValue: 414
             minimumValue: 0
-            value: audioElement.position
+            value: 210
             width: parent.width
 
             style: ProgressBarStyle {
@@ -67,18 +37,6 @@ Rectangle {
                 }
                 progress: Rectangle {
                     color: "#0066CC"
-                }
-            }
-
-            MouseArea {
-                anchors {
-                    fill: parent
-                    margins: -0.04 * ui.dpi
-                }
-
-                onClicked: {
-                    if (audioElement.seekable)
-                        audioElement.seek((mouseX / parent.width) * audioElement.duration)
                 }
             }
         }
@@ -96,12 +54,11 @@ Rectangle {
                 anchors.fill: parent
 
                 Label {
-                    /// TODO: add animation where this flashes if paused
                     Layout.fillWidth: true
                     color: Style.TEXT_SECONDARY_COLOR_DARK
                     height: parent.height
                     verticalAlignment: "AlignVCenter"
-                    text: formatMilliseconds(audioElement.position)
+                    text: "02:10"
                     renderType: Text.NativeRendering
                     font {
                         pixelSize: 12 * ui.dpMultiplier
@@ -119,8 +76,7 @@ Rectangle {
                         width: 48 * ui.dpMultiplier
 
                         source: "qrc:/images/" + ui.getBestIconSize(Math.min(icon.height, icon.width)) + "previous"
-
-                        onClicked: applicationWindow.previous()
+                        enabled: false
                     }
 
                     ImageButton {
@@ -129,14 +85,8 @@ Rectangle {
                         height: 48 * ui.dpMultiplier
                         width: 48 * ui.dpMultiplier
 
-                        source: "qrc:/images/" + ui.getBestIconSize(Math.min(icon.height, icon.width)) + (audioElement.playbackState == Audio.PlayingState || (audioElement.status == Audio.Buffering || audioElement.status == Audio.Stalled) && audioElement.playbackState != Audio.PausedState ? "pause" : "play")
-
-                        onClicked: {
-                            if (audioElement.playbackState == Audio.PlayingState)
-                                audioElement.pause();
-                            else if (audioElement.source != "")
-                                audioElement.play();
-                        }
+                        source: "qrc:/images/" + ui.getBestIconSize(Math.min(icon.height, icon.width)) + "pause"
+                        enabled: false
                     }
 
                     ImageButton {
@@ -146,8 +96,7 @@ Rectangle {
                         width: 48 * ui.dpMultiplier
 
                         source: "qrc:/images/" + ui.getBestIconSize(Math.min(icon.height, icon.width)) + "next"
-
-                        onClicked: applicationWindow.next()
+                        enabled: false
                     }
                 }
 
@@ -155,7 +104,7 @@ Rectangle {
                     Layout.fillWidth: true
 
                     color: Style.TEXT_SECONDARY_COLOR_DARK
-                    text: formatMilliseconds(audioElement.duration)
+                    text: "04:14"
                     horizontalAlignment: "AlignRight"
                     renderType: Text.NativeRendering
                     font {
