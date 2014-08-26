@@ -53,7 +53,7 @@ Page {
 
                 MenuItem {
                     text: qsTr("Share")
-                    enabled: shareModel === undefined ? false : (shareModel.code !== "")
+                    enabled: shareModel !== undefined && shareModel.code !== ""
                     onTriggered: musicStreamer.share(shareModel.name, "http://www.goear.com/listen/" + shareModel.code)
                 }
             }
@@ -68,6 +68,8 @@ Page {
                     if (Q_OS === "ANDROID") {
                         root.shareModel = model
                         menu.popup()
+                    } else {
+                        console.log("Menu only implemented for Android")
                     }
                 }
 

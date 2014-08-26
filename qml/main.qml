@@ -47,6 +47,8 @@ ApplicationWindow {
     height: resolutions[currentResolution]["height"]
 
     Rectangle {
+        id: background
+
         anchors.fill: parent
         color: Theme.backgroundColor
     }
