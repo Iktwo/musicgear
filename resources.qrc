@@ -16,6 +16,7 @@
         <file>qml/Arrow.qml</file>
         <file>qml/FakeMainPage.qml</file>
         <file>qml/FakePlaybackControls.qml</file>
+        <file>qml/FlatButtonStyle.qml</file>
     </qresource>
     <qresource prefix="/images">
         <file alias="search">resources/images/search.svg</file>
