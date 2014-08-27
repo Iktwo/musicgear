@@ -206,7 +206,7 @@ Item {
             horizontalCenter: parent.horizontalCenter
         }
 
-        width: isScreenPortrait ? root.width * 0.8 : root.height * 0.8
+        width: isScreenPortrait ? root.width * 0.9 : root.height * 0.9
         opacity: messageBackgroundDettached.opacity
 
         Item { width: 1; Layout.fillHeight: true }
