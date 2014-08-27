@@ -184,7 +184,7 @@ Item {
         mapFrom: background
         highlightedItem: songList.currentItem
         borderColor: Qt.lighter(Theme.titleBarColor)
-//        blockMouseInput: opacity === 1
+        blockMouseInput: opacity === 1
     }
 
     Rectangle {
