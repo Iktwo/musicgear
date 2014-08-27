@@ -273,9 +273,19 @@ Item {
             }
         }, State {
             name: "2"
+            extend: "1"
+            PropertyChanges {
+                target: buttonDoneDettached
+                opacity: 0
+            }
             PropertyChanges {
                 target: searchButton
                 enabled: true
+            }
+            PropertyChanges { target: tutorialHighlighter; highlightedItem: searchButton }
+            PropertyChanges {
+                target: labelMessageDettached
+                text: qsTr("This is the search button, press it!")
             }
         }
     ]
