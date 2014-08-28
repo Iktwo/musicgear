@@ -1,6 +1,6 @@
 import QtQuick 2.3
-import QtQuick.Controls 1.1
-import QtQuick.Controls.Styles 1.1
+import QtQuick.Controls 1.2
+import QtQuick.Controls.Styles 1.2
 import com.iktwo.components 1.0
 
 Page {
@@ -197,7 +197,8 @@ Page {
                                             "length" : model.length,
                                             "comment" : model.comment,
                                             "code" : model.code,
-                                            "url": model.url })
+                                            "url": model.url,
+                                            "picture": model.picture })
                     }
 
                     onDownload: {
@@ -272,10 +273,7 @@ Page {
 
             text: qsTr("Downloading") + "\n" + (name.length > 20 ? name.substring(0, 20) + "..." : name) + "\n" + Math.floor(progress * 100) + "%"
 
-            font {
-                pointSize: 22
-                weight: Font.Light
-            }
+            font.pointSize: 22
 
             wrapMode: Text.Wrap
             horizontalAlignment: Text.AlignHCenter

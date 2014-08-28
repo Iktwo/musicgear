@@ -38,13 +38,13 @@ Rectangle {
     width: parent.width
 
     ColumnLayout {
+        id: column
+
         Connections {
             target: audioElement
             onDurationChanged: progressBar.maximumValue = audioElement.duration
             onPositionChanged: progressBar.value = audioElement.position
         }
-
-        id: column
 
         anchors {
             left: parent.left
@@ -103,10 +103,7 @@ Rectangle {
                     verticalAlignment: "AlignVCenter"
                     text: formatMilliseconds(audioElement.position)
                     renderType: Text.NativeRendering
-                    font {
-                        pixelSize: 12 * ui.dpMultiplier
-                        weight: Font.Light
-                    }
+                    font.pixelSize: 12 * ui.dpMultiplier
                 }
 
                 RowLayout {
@@ -158,10 +155,7 @@ Rectangle {
                     text: formatMilliseconds(audioElement.duration)
                     horizontalAlignment: "AlignRight"
                     renderType: Text.NativeRendering
-                    font {
-                        pixelSize: 12 * ui.dpMultiplier
-                        weight: Font.Light
-                    }
+                    font.pixelSize: 12 * ui.dpMultiplier
                 }
             }
         }
@@ -177,10 +171,7 @@ Rectangle {
 
             color: Style.TEXT_COLOR_DARK
             renderType: Text.NativeRendering
-            font {
-                pixelSize: 14 * ui.dpMultiplier
-                weight: Font.Light
-            }
+            font.pixelSize: 14 * ui.dpMultiplier
         }
     }
 }

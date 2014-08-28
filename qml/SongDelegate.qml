@@ -50,10 +50,7 @@ Item {
             left: parent.left; leftMargin: 8 * ui.dpMultiplier
         }
 
-        font {
-            pixelSize: 18 * ui.dpMultiplier
-            weight: Font.Light
-        }
+        font.pixelSize: 18 * ui.dpMultiplier
 
         color: Style.TEXT_COLOR_DARK
         elide: Text.ElideRight
@@ -83,10 +80,7 @@ Item {
             right: row.left; rightMargin: 4 * ui.dpMultiplier
         }
 
-        font {
-            pixelSize: 12 * ui.dpMultiplier
-            weight: Font.Light
-        }
+        font.pixelSize: 12 * ui.dpMultiplier
 
         color: Style.TEXT_COLOR_LIGHT
         elide: Text.ElideRight
@@ -103,10 +97,7 @@ Item {
             left: parent.left; leftMargin: 8 * ui.dpMultiplier
         }
 
-        font {
-            pixelSize: 12 * ui.dpMultiplier
-            weight: Font.Light
-        }
+        font.pixelSize: 12 * ui.dpMultiplier
 
         elide: Text.ElideRight
         color: Style.TEXT_SECONDARY_COLOR_DARK

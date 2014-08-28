@@ -114,5 +114,5 @@ Page {
 
     //Component.onCompleted: playlist.append({"name" : "First Song",
     //"group" : "First Group", "length" : "3:31", "comment" : "this is a test",
-    //"code" : "XASDDASD", "url": "invalid"})
+    //"code" : "XASDDASD", "url": "invalid", "picture": "crazytest"})
 }
