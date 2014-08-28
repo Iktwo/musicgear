@@ -234,9 +234,10 @@ void Downloader::downloadFinished(QNetworkReply *reply)
 
             QString comment = songs.mid(termBegins, termEnds - termBegins);
 
-            //qDebug() << "ADDDING SONG:" << endl << "TITLE:" << title << "GROUP:" << group
-            //         << "LENGTH:" << length << "COMMENT:" << comment << "KBPS" << kbps
-            //         << "CODE" << code;
+            // qDebug() << "ADDDING SONG:";
+            // qDebug() << "TITLE:" << title << "GROUP:" << group << "LENGTH:" << length
+            //          << "COMMENT:" << comment << "KBPS:" << kbps << "CODE:" << code
+            //          << "PICTURE:" << picture;
 
             songs = songs.mid(songs.indexOf("<li class=\"group board_item item_pict sound_item\">"));
 
