@@ -123,10 +123,10 @@ void Downloader::downloadFinished(QNetworkReply *reply)
     if (mimeType.contains("text/html")) {
         QString songs(reply->readAll());
 
-        int count = songs.count("listen/");
+        int count = qMin(songs.count("listen/") / 2, 10);
 
         QString hasMore = "";
-        QString searchTerm = "<ol id=\"new_pagination\">";
+        QString searchTerm = "<ol class=\"pagination group\">";
         QString closingTerm = "</ol>";
 
         int termBegins = songs.indexOf(searchTerm);
@@ -159,7 +159,7 @@ void Downloader::downloadFinished(QNetworkReply *reply)
         if (!foundMore)
             emit searchHasNoMoreResults();
 
-        searchTerm = "<ol id=\"search_results\">";
+        searchTerm = "<ol class=\"board_list results_list\">";
         closingTerm = "</ol>";
 
         termBegins = songs.indexOf(searchTerm);
@@ -168,11 +168,9 @@ void Downloader::downloadFinished(QNetworkReply *reply)
         songs = songs.mid(termBegins + searchTerm.length(),
                           termEnds - termBegins);
 
+        songs = decodeHtml(songs);
+
         for (int i = 0; i < count; ++i) {
-            songs = decodeHtml(songs);
-
-            // qDebug() << "i" << i << "-" << songs;
-
             searchTerm = "listen/";
             closingTerm = "/";
 
@@ -181,31 +179,47 @@ void Downloader::downloadFinished(QNetworkReply *reply)
 
             QString code = songs.mid(termBegins, termEnds - termBegins);
 
-            searchTerm = "<span class=\"song\">";
-            closingTerm = "</span>";
+            searchTerm = "src=\"http://www.goear.com/band/picture/";
+            closingTerm = "\"";
 
             termBegins = songs.indexOf(searchTerm) + searchTerm.length();
             termEnds = songs.indexOf(closingTerm, termBegins);
 
-            QString title = songs.mid(termBegins, termEnds - termBegins);
+            QString picture = songs.mid(termBegins, termEnds - termBegins);
 
-            searchTerm = "<span class=\"group\">";
+            songs = songs.mid(termEnds);
+
+            searchTerm = "\">";
+            closingTerm = "</a></h4>";
 
             termBegins = songs.indexOf(searchTerm) + searchTerm.length();
             termEnds = songs.indexOf(closingTerm, termBegins);
 
-            QString group = songs.mid(termBegins, termEnds - termBegins);
+            QString tmp = songs.mid(termBegins, termEnds - termBegins);
+            QString group = tmp.mid(0, tmp.indexOf(" -"));
+            QString title = tmp.mid(tmp.indexOf("- ") + 2);
 
-            searchTerm = "<li class=\"length radius_3\">";
+            if (group == "")
+                group = tmp;
+
+            if (title == "")
+                title = tmp;
+
+
+            searchTerm = "<li class=\"length\"";
             closingTerm = "</li>";
 
             termBegins = songs.indexOf(searchTerm) + searchTerm.length();
             termEnds = songs.indexOf(closingTerm, termBegins);
 
-            QString length = songs.mid(termBegins, termEnds - termBegins);
+            tmp = songs.mid(termBegins, termEnds - termBegins);
+            QString length = tmp.mid(tmp.indexOf(">") + 1);
 
-            searchTerm = "<li class=\"kbps radius_3\">";
-            closingTerm = "</abbr></li>";
+            searchTerm = "title=\"Kbps\">";
+            closingTerm = "<abbr";
+
+            if (songs.indexOf(searchTerm) == -1)
+                searchTerm = "title=\"Kbps\">";
 
             termBegins = songs.indexOf(searchTerm) + searchTerm.length();
             termEnds = songs.indexOf(closingTerm, termBegins);
@@ -223,10 +237,11 @@ void Downloader::downloadFinished(QNetworkReply *reply)
             //qDebug() << "ADDDING SONG:" << endl << "TITLE:" << title << "GROUP:" << group
             //         << "LENGTH:" << length << "COMMENT:" << comment << "KBPS" << kbps
             //         << "CODE" << code;
-            emit songFound(title, group, length, comment, kbps.toInt(), code);
-            getDownloadLink(code);
 
-            songs = songs.mid(songs.indexOf("<li>", termEnds));
+            songs = songs.mid(songs.indexOf("<li class=\"group board_item item_pict sound_item\">"));
+
+            emit songFound(title, group, length, comment, kbps.toInt(), code, picture);
+            getDownloadLink(code);
         }
     }  else if (mimeType == "audio/mpeg") {
         qDebug() << "Writing file";

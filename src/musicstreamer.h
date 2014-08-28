@@ -22,7 +22,8 @@ public:
         CommentRole,
         KbpsRole,
         CodeRole,
-        UrlRole
+        UrlRole,
+        PictureRole
     };
 
     explicit MusicStreamer(QObject *parent = 0);
@@ -67,7 +68,7 @@ private:
 
 private slots:
     void songFound(const QString &title, const QString &group, const QString &length,
-                   const QString &comment, int kbps, const QString &code);
+                   const QString &comment, int kbps, const QString &code, const QString &picture);
     void decodedUrl(const QString &code, const QString &url);
     void searchEnded();
     void lastSearchHasMoreResults(const QString &url);

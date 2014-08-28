@@ -43,7 +43,7 @@ public slots:
 
 signals:
     void songFound(const QString &title, const QString &group, const QString &length,
-                   const QString &comment, int kbps, const QString &code);
+                   const QString &comment, int kbps, const QString &code, const QString &picture);
 
     void decodedUrl(const QString &code, const QString &url);
     void searchEnded();

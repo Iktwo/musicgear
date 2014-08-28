@@ -34,13 +34,13 @@ class Song : public QObject
     Q_PROPERTY(QString code READ code NOTIFY codeChanged)
     Q_PROPERTY(QString url READ url NOTIFY urlChanged)
     Q_PROPERTY(int kbps READ kbps NOTIFY kbpsChanged)
+    Q_PROPERTY(QString picture READ picture NOTIFY pictureChanged)
 
 public:
     Song(QObject *parent = 0);
 
-    Song(const QString &name, const QString &group, const QString &length,
-         const QString &comment, int kbps, const QString &code,
-         QObject *parent = 0);
+    Song(const QString &name, const QString &group, const QString &length, const QString &comment,
+         int kbps, const QString &code, const QString &picture, QObject *parent = 0);
 
     /*!
     Return the name of the song.
@@ -70,6 +70,9 @@ public:
     void setUrl(const QString &url);
     void setKbps(int kbps);
 
+    QString picture() const;
+    void setPicture(const QString &picture);
+
 signals:
     void nameChanged();
     void groupChanged();
@@ -78,6 +81,7 @@ signals:
     void codeChanged();
     void urlChanged();
     void kbpsChanged();
+    void pictureChanged();
 
 private:
     QString m_name;
@@ -87,6 +91,7 @@ private:
     int m_kbps;
     QString m_url;
     QString m_code;
+    QString m_picture;
 };
 
 #endif // SONG_H
