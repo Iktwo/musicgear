@@ -83,19 +83,21 @@ Page {
                 }
 
                 onRequestedRemove: {
-                    console.log("REQUEST REMOVE:", index)
                     if (index < audioElement.index) {
                         audioElement.index = audioElement.index - 1
-                        if (audioElement.index >= 0) {
-                            playbackControls.song = playlist.get(audioElement.index).name + " - <i>" + playlist.get(audioElement.index).group + "</i>"
-                            audioElement.source = playlist.get(audioElement.index).url
-                            audioElement.play()
-                        }
                     } else if (audioElement.index === index) {
                         audioElement.stop()
-                        if (playlist.count >= index - 1 && playlist.count - 1 > 0) {
+
+                        if (index < playlist.count - 1) {
+                            /// Will copy next item data, no need to change index
                             playbackControls.song = playlist.get(index + 1).name + " - <i>" + playlist.get(index + 1).group + "</i>"
                             audioElement.source = playlist.get(index + 1).url
+                            audioElement.play()
+                        } else if (index - 1 >= 0) {
+                            /// Will copy previous item data, update index to -1
+                            playbackControls.song = playlist.get(index - 1).name + " - <i>" + playlist.get(index - 1).group + "</i>"
+                            audioElement.source = playlist.get(index - 1).url
+                            audioElement.index = audioElement.index - 1
                             audioElement.play()
                         }
                     }
