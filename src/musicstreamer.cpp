@@ -18,8 +18,8 @@ MusicStreamer::MusicStreamer(QObject *parent) :
 {
     mDownloader = new Downloader(this);
 
-    connect(mDownloader, SIGNAL(songFound(QString, QString, QString, QString, int, QString, QString)),
-            SLOT(songFound(QString, QString, QString, QString, int, QString, QString)));
+    connect(mDownloader, SIGNAL(songFound(QString, QString, QString, QString, int, QString, QString, long long)),
+            SLOT(songFound(QString, QString, QString, QString, int, QString, QString, long long)));
     connect(mDownloader, SIGNAL(searchEnded()), SLOT(searchEnded()));
     connect(mDownloader, SIGNAL(decodedUrl(QString,QString)), SLOT(decodedUrl(QString,QString)));
     connect(mDownloader, SIGNAL(searchHasMoreResults(QString)), SLOT(lastSearchHasMoreResults(QString)));
@@ -53,10 +53,11 @@ void MusicStreamer::search(const QString &term)
 }
 
 void MusicStreamer::songFound(const QString &title, const QString &group, const QString &length,
-                              const QString &comment, int kbps, const QString &code, const QString &picture)
+                              const QString &comment, int kbps, const QString &code,
+                              const QString &picture, long long hits)
 {
     beginInsertRows(QModelIndex(), rowCount(), rowCount());
-    mSongs.append(new Song(title, group, length, comment, kbps, code, picture, this));
+    mSongs.append(new Song(title, group, length, comment, kbps, code, picture, hits, this));
     endInsertRows();
 
     emit songsChanged();
@@ -105,6 +106,8 @@ QVariant MusicStreamer::data(const QModelIndex & index, int role) const
         return song->url();
     else if (role == PictureRole)
         return song->picture();
+    else if (role == HitsRole)
+        return song->hits();
     return QVariant();
 }
 
@@ -125,6 +128,7 @@ QHash<int, QByteArray> MusicStreamer::roleNames() const
     roles[CodeRole] = "code";
     roles[UrlRole] = "url";
     roles[PictureRole] = "picture";
+    roles[HitsRole] = "hits";
     return roles;
 }
 

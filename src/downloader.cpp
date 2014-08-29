@@ -226,6 +226,17 @@ void Downloader::downloadFinished(QNetworkReply *reply)
 
             QString kbps = songs.mid(termBegins, termEnds - termBegins).remove("<abbr title=\"Kilobit por segundo\">").remove("kbps");
 
+            searchTerm = "title=\"Plays\">";
+            closingTerm = "</li>";
+
+            if (songs.indexOf(searchTerm) == -1)
+                searchTerm = "class=\"total_hits\" >";
+
+            termBegins = songs.indexOf(searchTerm) + searchTerm.length();
+            termEnds = songs.indexOf(closingTerm, termBegins);
+
+            QString hits = songs.mid(termBegins, termEnds - termBegins);
+
             searchTerm = "<li class=\"description\">";
             closingTerm = "</li>";
 
@@ -241,7 +252,7 @@ void Downloader::downloadFinished(QNetworkReply *reply)
 
             songs = songs.mid(songs.indexOf("<li class=\"group board_item item_pict sound_item\">"));
 
-            emit songFound(title, group, length, comment, kbps.toInt(), code, picture);
+            emit songFound(title, group, length, comment, kbps.toInt(), code, picture, hits.replace(",", "").toLong());
             getDownloadLink(code);
         }
     }  else if (mimeType == "audio/mpeg") {
