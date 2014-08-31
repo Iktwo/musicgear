@@ -33,147 +33,140 @@ Item {
             return "#2ecc71"
     }
 
-    height: 64 * ui.dpMultiplier + 1 * ui.dpMultiplier
+    height: 84 * ui.dpMultiplier
     width: parent.width
 
-    MouseArea {
+    RowLayout {
         anchors.fill: parent
-        onPressAndHold: root.pressAndHold()
-    }
 
-    Label {
-        id: songName
+        Image {
+            id: imageAlbum
 
-        anchors {
-            top: parent.top; topMargin: 12 * ui.dpMultiplier
-            right: labelKbps.left; rightMargin: 4 * ui.dpMultiplier
-            left: parent.left; leftMargin: 8 * ui.dpMultiplier
+            anchors {
+                verticalCenter: parent.verticalCenter
+                left: parent.left; leftMargin: 8 * ui.dpMultiplier
+            }
+
+            antialiasing: true
+            Layout.preferredHeight: 68 * ui.dpMultiplier
+            Layout.preferredWidth: 68 * ui.dpMultiplier
+            fillMode: Image.PreserveAspectCrop
+            source: "http://www.goear.com/band/picture/" + model.picture
         }
 
-        font.pixelSize: 18 * ui.dpMultiplier
-
-        color: Style.TEXT_COLOR_DARK
-        elide: Text.ElideRight
-        text: model.name + " - <i>" + model.group + "</i>"
-        renderType: Text.NativeRendering
-        // TODO: add a dialog to show full name in case it's too long ???
-    }
-
-    Rectangle {
-        anchors {
-            fill: labelKbps
-            topMargin: -labelKbps.height * 0.05
-            bottomMargin: -labelKbps.height * 0.05
-            leftMargin: -labelKbps.width * 0.05
-            rightMargin: -labelKbps.width * 0.05
+        Item {
+            Layout.preferredWidth: 8 * ui.dpMultiplier
+            Layout.fillHeight: true
         }
 
-        radius: height * 0.1
-        color: colorForKbps(model.kbps)
-    }
+        ColumnLayout {
+            Layout.fillHeight: true
+            Layout.fillWidth: true
 
-    Label {
-        id: labelKbps
+            Label {
+                id: songName
 
-        anchors {
-            verticalCenter: songName.verticalCenter
-            right: row.left; rightMargin: 4 * ui.dpMultiplier
+                font.pixelSize: 14 * ui.dpMultiplier
+
+                Layout.fillWidth: true
+                color: Style.TEXT_COLOR_DARK
+                elide: Text.ElideRight
+                text: model.name + " - <i>" + model.group + "</i>"
+                renderType: Text.NativeRendering
+                maximumLineCount: 1
+            }
+
+            RowLayout {
+                Layout.fillWidth: true
+
+                Label {
+                    Layout.fillWidth: true
+                    font.pixelSize: 12 * ui.dpMultiplier
+
+                    elide: Text.ElideRight
+                    color: Style.TEXT_SECONDARY_COLOR_DARK
+                    text: model.length + (model.comment !== "" && model.length !== "" ? " - "  : "") + model.comment
+                    width: parent.width
+                    renderType: Text.NativeRendering
+                    maximumLineCount: 1
+                }
+
+                Rectangle {
+                    anchors.right: parent.right
+
+                    radius: height * 0.1
+                    color: colorForKbps(model.kbps)
+                    Layout.preferredHeight: labelKbps.height * 1.1
+                    Layout.preferredWidth: labelKbps.width * 1.1
+
+                    Label {
+                        id: labelKbps
+
+                        anchors.centerIn: parent
+
+                        font.pixelSize: 12 * ui.dpMultiplier
+
+                        color: Style.TEXT_COLOR_LIGHT
+                        elide: Text.ElideRight
+                        text: model.kbps + "kbps " //+ model.hits
+                        renderType: Text.NativeRendering
+                        maximumLineCount: 1
+                    }
+                }
+            }
+
+            Label {
+                Layout.fillWidth: true
+                font.pixelSize: 12 * ui.dpMultiplier
+
+                elide: Text.ElideRight
+                color: Style.TEXT_SECONDARY_COLOR_DARK
+                text: "▶ " + model.hits
+                width: parent.width
+                renderType: Text.NativeRendering
+            }
         }
 
-        font.pixelSize: 12 * ui.dpMultiplier
+        RowLayout {
+            id: row
 
-        color: Style.TEXT_COLOR_LIGHT
-        elide: Text.ElideRight
-        text: model.kbps + "kbps"
-        renderType: Text.NativeRendering
-        //width: parent.width
-        // TODO: add a dialog to show full name in case it's too long ???
-    }
+            anchors.right: parent.right
 
-    Label {
-        anchors {
-            bottom: divider.top; bottomMargin:  12 * ui.dpMultiplier
-            right: row.left; rightMargin: 4 * ui.dpMultiplier
-            left: parent.left; leftMargin: 8 * ui.dpMultiplier
-        }
+            spacing: 4 * ui.dpMultiplier
+            Layout.preferredWidth: spacing + (48 * ui.dpMultiplier * 2)
+            Layout.fillHeight: true
 
-        font.pixelSize: 12 * ui.dpMultiplier
+            Item {
+                Layout.fillHeight: true
+                Layout.preferredWidth: 48 * ui.dpMultiplier
 
-        elide: Text.ElideRight
-        color: Style.TEXT_SECONDARY_COLOR_DARK
-        text: model.length + " - <i>" + model.comment + "</i>"
-        width: parent.width
-        renderType: Text.NativeRendering
-    }
+                ImageButton {
+                    anchors.fill: parent
+                    source: "qrc:/images/" + ui.getBestIconSize(Math.min(icon.height, icon.width)) + "add_to_playlist"
+                    visible: model.url === "" ? false : true
 
-    BusyIndicator {
-        anchors {
-            top: row.top
-            bottom: row.bottom
-            right: row.right
-            margins: 4 * ui.dpMultiplier
-        }
-        running: model.url === ""
-        width: height
-        opacity: 0.4
-        style: BusyIndicatorStyle {
-            indicator: Image {
-                id: busyIndicator
-                visible: control.running
-                height: control.height
-                width: control.width
-                source: "qrc:/images/" + ui.getBestIconSize(height) + "busy_dark"
-                antialiasing: true
-                RotationAnimator {
-                    target: busyIndicator
-                    running: control.running
-                    loops: Animation.Infinite
-                    duration: 2000
-                    from: 0; to: 360
+                    onClicked: root.addToPlaylist()
+                }
+            }
+
+            Item {
+                Layout.fillHeight: true
+                Layout.preferredWidth: 48 * ui.dpMultiplier
+
+                ImageButton {
+                    anchors.fill: parent
+                    source: "qrc:/images/" + ui.getBestIconSize(Math.min(icon.height, icon.width)) + "download"
+                    visible: model.url === "" ? false : true
+
+                    onClicked: root.download()
                 }
             }
         }
     }
 
-    RowLayout {
-        id: row
-
-        anchors {
-            top: parent.top
-            bottom: parent.bottom
-            right: parent.right; rightMargin: 8 * ui.dpMultiplier
-        }
-
-        spacing: 4 * ui.dpMultiplier
-        width: spacing + (48 * ui.dpMultiplier * 2)
-
-        ImageButton {
-            anchors {
-                top: parent.top
-                bottom: parent.bottom
-            }
-
-            width: 48 * ui.dpMultiplier
-            source: "qrc:/images/" + ui.getBestIconSize(Math.min(icon.height, icon.width)) + "add_to_playlist"
-            visible: model.url === "" ? false : true
-
-            onClicked: root.addToPlaylist()
-        }
-
-        ImageButton {
-            anchors {
-                top: parent.top
-                bottom: parent.bottom
-            }
-
-            width: 48 * ui.dpMultiplier
-
-            source: "qrc:/images/" + ui.getBestIconSize(Math.min(icon.height, icon.width)) + "download"
-            visible: model.url === "" ? false : true
-
-            onClicked: root.download()
-        }
+    Rectangle {
+        color: "#55bdc3c7"
+        height: 1 * ui.dpMultiplier
+        width: parent.width
     }
-
-    ThisComponents.Divider { id: divider; anchors.bottom: parent.bottom }
 }
