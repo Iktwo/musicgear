@@ -16,6 +16,7 @@
         <file>qml/FakePlaybackControls.qml</file>
         <file>qml/FlatButtonStyle.qml</file>
         <file>qml/FakeSearchPage.qml</file>
+        <file>qml/testModels/TestSearchModel.qml</file>
     </qresource>
     <qresource prefix="/images">
         <file alias="search">resources/images/search.svg</file>
