@@ -60,10 +60,7 @@ Rectangle {
                     verticalAlignment: "AlignVCenter"
                     text: "02:10"
                     renderType: Text.NativeRendering
-                    font {
-                        pixelSize: 12 * ui.dpMultiplier
-                        weight: Font.Light
-                    }
+                    font.pixelSize: 12 * ui.dpMultiplier
                 }
 
                 RowLayout {
@@ -107,10 +104,7 @@ Rectangle {
                     text: "04:14"
                     horizontalAlignment: "AlignRight"
                     renderType: Text.NativeRendering
-                    font {
-                        pixelSize: 12 * ui.dpMultiplier
-                        weight: Font.Light
-                    }
+                    font.pixelSize: 12 * ui.dpMultiplier
                 }
             }
         }
@@ -126,10 +120,7 @@ Rectangle {
 
             color: Style.TEXT_COLOR_DARK
             renderType: Text.NativeRendering
-            font {
-                pixelSize: 14 * ui.dpMultiplier
-                weight: Font.Light
-            }
+            font.pixelSize: 14 * ui.dpMultiplier
         }
     }
 }

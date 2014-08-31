@@ -8,23 +8,12 @@ Item {
 
     property var shareModel
 
-    function nextAnimation(object) {
-        if (object.state === "")
-            object.state = "0"
-        else if (!isNaN(parseInt(object.state, 10)) && parseInt(object.state, 10) < object.states.length - 1)
-            object.state = parseInt(object.state, 10) + 1
-    }
-
-    anchors.fill: parent
-
-    StackView {
-        id: internalStackView
-
-        initialItem: page
-    }
+    signal tutorialPageCompleted
 
     Page {
         id: page
+
+        anchors.fill: parent
 
         titleBar: TitleBar {
             id: titleBar
@@ -158,7 +147,7 @@ Item {
 
                 onClicked: {
                     if (parseInt(root.state, 10) < "2") {
-                        nextAnimation(root)
+                        Theme.nextNumericState(root)
                     } else {
                         stackView.clear()
                         stackView.push(mainPage)
@@ -241,12 +230,10 @@ Item {
             style: FlatButtonStyle { }
 
             onClicked: {
-                if (parseInt(root.state, 10) < "2") {
-                    nextAnimation(root)
-                } else {
-                    stackView.clear()
-                    stackView.push(mainPage)
-                }
+                if (parseInt(root.state, 10) < root.states.length)
+                    Theme.nextNumericState(root)
+                else
+                    root.tutorialPageCompleted()
             }
         }
 
@@ -274,14 +261,7 @@ Item {
         }, State {
             name: "2"
             extend: "1"
-            PropertyChanges {
-                target: buttonDoneDettached
-                opacity: 0
-            }
-            PropertyChanges {
-                target: searchButton
-                enabled: true
-            }
+            PropertyChanges { target: searchButton; enabled: true }
             PropertyChanges { target: tutorialHighlighter; highlightedItem: searchButton }
             PropertyChanges {
                 target: labelMessageDettached

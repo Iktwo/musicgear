@@ -8,19 +8,32 @@ Page {
     property bool readyForAnimation: active && imageIcon.status === Image.Ready
     property bool initialAnimationFinished: false
 
-    function nextAnimation(object) {
-        if (object.state === "")
-            object.state = "0"
-        else if (!isNaN(parseInt(object.state, 10)) && parseInt(object.state, 10) < object.states.length - 1)
-            object.state = parseInt(object.state, 10) + 1
-    }
-
     onReadyForAnimationChanged: {
         if (readyForAnimation)
-            nextAnimation(root)
+            Theme.nextNumericState(root)
     }
 
-    FakeMainPage { }
+    StackView {
+        id: fakeStackView
+
+        anchors.fill: parent
+
+        initialItem: fakeSearchPage /// TODO: set fakeMainPage as default
+    }
+
+    Component {
+        id: fakeMainPage
+        FakeMainPage { onTutorialPageCompleted: fakeStackView.push(fakeSearchPage) }
+    }
+
+    Component {
+        id: fakeSearchPage
+
+        FakeSearchPage {
+            onTutorialPageCompleted: {
+            }
+        }
+    }
 
     Flickable {
         id: flickable
@@ -263,7 +276,7 @@ Page {
             SequentialAnimation {
                 PauseAnimation { duration: 200 }
                 NumberAnimation { properties: "opacity"; duration: 500 }
-                ScriptAction { script: root.nextAnimation(root) }
+                ScriptAction { script: Theme.nextNumericState(root) }
             }
         },
         Transition {
@@ -272,7 +285,7 @@ Page {
             SequentialAnimation {
                 PauseAnimation { duration: 150 }
                 NumberAnimation { properties: "opacity"; duration: 500 }
-                ScriptAction { script: root.nextAnimation(root) }
+                ScriptAction { script: Theme.nextNumericState(root) }
             }
         },
         Transition {
@@ -281,7 +294,7 @@ Page {
             SequentialAnimation {
                 PauseAnimation { duration: 150 }
                 NumberAnimation { properties: "height, width"; duration: 750; easing.type: Easing.OutQuad }
-                ScriptAction { script: root.nextAnimation(root) }
+                ScriptAction { script: Theme.nextNumericState(root) }
             }
         },
         Transition {
