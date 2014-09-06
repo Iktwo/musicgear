@@ -32,7 +32,8 @@ HEADERS += \
     src/uivalues.h
 
 RESOURCES += \
-    resources.qrc
+    resources.qrc \
+    translations.qrc
 
 OTHER_FILES += \
     qml/*.js \
@@ -41,4 +42,11 @@ OTHER_FILES += \
     android/AndroidManifest.xml \
     android/src/com/iktwo/musicgear/MusicGear.java
 
+
 include(deployment.pri)
+
+TRANSLATIONS += translations/translation_es.ts
+
+lupdate_only{
+    SOURCES = qml/*.qml
+}

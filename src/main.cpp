@@ -2,6 +2,7 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QtQml>
+#include <QTranslator>
 
 #include "musicstreamer.h"
 #include "uivalues.h"
@@ -13,6 +14,17 @@ int main(int argc, char *argv[])
     QCoreApplication::setApplicationName("MusicGear");
 
     QScopedPointer<QGuiApplication> app(new QGuiApplication(argc, argv));
+
+    QStringList translations;
+    translations << "es";
+
+    QTranslator translator;
+
+    if (translations.contains(QLocale::system().bcp47Name())) {
+        translator.load("translation_" + QLocale::system().bcp47Name(), ":/translations/");
+    }
+
+    app->installTranslator(&translator);
 
     qRegisterMetaType<QObjectList>("QObjectList");
 
