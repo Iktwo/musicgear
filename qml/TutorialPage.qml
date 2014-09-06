@@ -97,7 +97,7 @@ Page {
                     id: imageIcon
 
                     anchors.horizontalCenter: parent.horizontalCenter
-                    source: "qrc:/images/" + ui.getBestIconSize(imageIcon.height) + "icon" // "qrc:/images/icon"
+                    source: "qrc:/images/" + Theme.getBestIconSize(imageIcon.height) + "icon" // "qrc:/images/icon"
 
                     height: 0.8 * (isScreenPortrait ? parent.width : parent.height)
                     width: height
@@ -116,7 +116,7 @@ Page {
                     width: 0.8 * (isScreenPortrait ? parent.width : parent.height)
 
                     color: "#808080"
-                    font.pixelSize: ui.dpMultiplier * 24
+                    font.pixelSize: ScreenValues.dpMultiplier * 24
                     text: "Welcome to Musicgear"
                     wrapMode: Text.Wrap
                     horizontalAlignment: "AlignHCenter"
@@ -133,7 +133,7 @@ Page {
                     id: column
 
                     anchors {
-                        top: welcomeLabel.bottom; topMargin: ui.dpMultiplier * 16
+                        top: welcomeLabel.bottom; topMargin: ScreenValues.dpMultiplier * 16
                         horizontalCenter: parent.horizontalCenter
                     }
 
@@ -189,13 +189,13 @@ Page {
                     id: swipeLabel
                     anchors {
                         horizontalCenter: imageIcon.horizontalCenter
-                        top: column.bottom; topMargin: ui.dpMultiplier * 16
+                        top: column.bottom; topMargin: ScreenValues.dpMultiplier * 16
                     }
 
                     width: 0.8 * (isScreenPortrait ? parent.width : parent.height)
 
                     color: "#808080"
-                    font.pixelSize: ui.dpMultiplier * 12
+                    font.pixelSize: ScreenValues.dpMultiplier * 12
                     text: "Swipe up to begin"
                     wrapMode: Text.Wrap
                     horizontalAlignment: "AlignHCenter"

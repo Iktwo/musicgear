@@ -34,7 +34,7 @@ Rectangle {
     }
 
     color: "#fafafa"
-    height: column.height + 1 * ui.dpMultiplier
+    height: column.height + 1 * ScreenValues.dpMultiplier
     width: parent.width
 
     ColumnLayout {
@@ -63,7 +63,7 @@ Rectangle {
                 background: Rectangle {
                     color: Style.PROGRESS_BAR_BACKGROUND_LIGHT
                     implicitWidth: control.width
-                    implicitHeight: 4 * ui.dpMultiplier
+                    implicitHeight: 4 * ScreenValues.dpMultiplier
                 }
                 progress: Rectangle {
                     color: "#0066CC"
@@ -73,7 +73,7 @@ Rectangle {
             MouseArea {
                 anchors {
                     fill: parent
-                    margins: -0.04 * ui.dpi
+                    margins: -0.04 * ScreenValues.dpi
                 }
 
                 onClicked: {
@@ -89,7 +89,7 @@ Rectangle {
             anchors {
                 left: parent.left
                 right: parent.right
-                margins: 1 * ui.dpMultiplier
+                margins: 1 * ScreenValues.dpMultiplier
             }
 
             RowLayout {
@@ -103,19 +103,19 @@ Rectangle {
                     verticalAlignment: "AlignVCenter"
                     text: formatMilliseconds(audioElement.position)
                     renderType: Text.NativeRendering
-                    font.pixelSize: 12 * ui.dpMultiplier
+                    font.pixelSize: 12 * ScreenValues.dpMultiplier
                 }
 
                 RowLayout {
-                    spacing: 8 * ui.dpMultiplier
+                    spacing: 8 * ScreenValues.dpMultiplier
 
                     ImageButton {
                         id: previousBtn
 
-                        height: 48 * ui.dpMultiplier
-                        width: 48 * ui.dpMultiplier
+                        height: 48 * ScreenValues.dpMultiplier
+                        width: 48 * ScreenValues.dpMultiplier
 
-                        source: "qrc:/images/" + ui.getBestIconSize(Math.min(icon.height, icon.width)) + "previous"
+                        source: "qrc:/images/" + Theme.getBestIconSize(Math.min(icon.height, icon.width)) + "previous"
 
                         onClicked: applicationWindow.previous()
                     }
@@ -123,10 +123,10 @@ Rectangle {
                     ImageButton {
                         id: playBtn
 
-                        height: 48 * ui.dpMultiplier
-                        width: 48 * ui.dpMultiplier
+                        height: 48 * ScreenValues.dpMultiplier
+                        width: 48 * ScreenValues.dpMultiplier
 
-                        source: "qrc:/images/" + ui.getBestIconSize(Math.min(icon.height, icon.width)) + (audioElement.playbackState == Audio.PlayingState || (audioElement.status == Audio.Buffering || audioElement.status == Audio.Stalled) && audioElement.playbackState != Audio.PausedState ? "pause" : "play")
+                        source: "qrc:/images/" + Theme.getBestIconSize(Math.min(icon.height, icon.width)) + (audioElement.playbackState == Audio.PlayingState || (audioElement.status == Audio.Buffering || audioElement.status == Audio.Stalled) && audioElement.playbackState != Audio.PausedState ? "pause" : "play")
 
                         onClicked: {
                             if (audioElement.playbackState == Audio.PlayingState)
@@ -139,10 +139,10 @@ Rectangle {
                     ImageButton {
                         id: nextBtn
 
-                        height: 48 * ui.dpMultiplier
-                        width: 48 * ui.dpMultiplier
+                        height: 48 * ScreenValues.dpMultiplier
+                        width: 48 * ScreenValues.dpMultiplier
 
-                        source: "qrc:/images/" + ui.getBestIconSize(Math.min(icon.height, icon.width)) + "next"
+                        source: "qrc:/images/" + Theme.getBestIconSize(Math.min(icon.height, icon.width)) + "next"
 
                         onClicked: applicationWindow.next()
                     }
@@ -155,7 +155,7 @@ Rectangle {
                     text: formatMilliseconds(audioElement.duration)
                     horizontalAlignment: "AlignRight"
                     renderType: Text.NativeRendering
-                    font.pixelSize: 12 * ui.dpMultiplier
+                    font.pixelSize: 12 * ScreenValues.dpMultiplier
                 }
             }
         }
@@ -166,12 +166,12 @@ Rectangle {
             anchors {
                 left: parent.left
                 right: parent.right
-                margins: 1 * ui.dpMultiplier
+                margins: 1 * ScreenValues.dpMultiplier
             }
 
             color: Style.TEXT_COLOR_DARK
             renderType: Text.NativeRendering
-            font.pixelSize: 14 * ui.dpMultiplier
+            font.pixelSize: 14 * ScreenValues.dpMultiplier
         }
     }
 }

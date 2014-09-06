@@ -33,7 +33,7 @@ Item {
             return "#2ecc71"
     }
 
-    height: 84 * ui.dpMultiplier
+    height: 84 * ScreenValues.dpMultiplier
     width: parent.width
 
     RowLayout {
@@ -44,18 +44,18 @@ Item {
 
             anchors {
                 verticalCenter: parent.verticalCenter
-                left: parent.left; leftMargin: 8 * ui.dpMultiplier
+                left: parent.left; leftMargin: 8 * ScreenValues.dpMultiplier
             }
 
             antialiasing: true
-            Layout.preferredHeight: 68 * ui.dpMultiplier
-            Layout.preferredWidth: 68 * ui.dpMultiplier
+            Layout.preferredHeight: 68 * ScreenValues.dpMultiplier
+            Layout.preferredWidth: 68 * ScreenValues.dpMultiplier
             fillMode: Image.PreserveAspectCrop
             source: "http://www.goear.com/band/picture/" + model.picture
         }
 
         Item {
-            Layout.preferredWidth: 8 * ui.dpMultiplier
+            Layout.preferredWidth: 8 * ScreenValues.dpMultiplier
             Layout.fillHeight: true
         }
 
@@ -66,7 +66,7 @@ Item {
             Label {
                 id: songName
 
-                font.pixelSize: 14 * ui.dpMultiplier
+                font.pixelSize: 14 * ScreenValues.dpMultiplier
 
                 Layout.fillWidth: true
                 color: Style.TEXT_COLOR_DARK
@@ -81,7 +81,7 @@ Item {
 
                 Label {
                     Layout.fillWidth: true
-                    font.pixelSize: 12 * ui.dpMultiplier
+                    font.pixelSize: 12 * ScreenValues.dpMultiplier
 
                     elide: Text.ElideRight
                     color: Style.TEXT_SECONDARY_COLOR_DARK
@@ -104,7 +104,7 @@ Item {
 
                         anchors.centerIn: parent
 
-                        font.pixelSize: 12 * ui.dpMultiplier
+                        font.pixelSize: 12 * ScreenValues.dpMultiplier
 
                         color: Style.TEXT_COLOR_LIGHT
                         elide: Text.ElideRight
@@ -117,7 +117,7 @@ Item {
 
             Label {
                 Layout.fillWidth: true
-                font.pixelSize: 12 * ui.dpMultiplier
+                font.pixelSize: 12 * ScreenValues.dpMultiplier
 
                 elide: Text.ElideRight
                 color: Style.TEXT_SECONDARY_COLOR_DARK
@@ -132,17 +132,17 @@ Item {
 
             anchors.right: parent.right
 
-            spacing: 4 * ui.dpMultiplier
-            Layout.preferredWidth: spacing + (48 * ui.dpMultiplier * 2)
+            spacing: 4 * ScreenValues.dpMultiplier
+            Layout.preferredWidth: spacing + (48 * ScreenValues.dpMultiplier * 2)
             Layout.fillHeight: true
 
             Item {
                 Layout.fillHeight: true
-                Layout.preferredWidth: 48 * ui.dpMultiplier
+                Layout.preferredWidth: 48 * ScreenValues.dpMultiplier
 
                 ImageButton {
                     anchors.fill: parent
-                    source: "qrc:/images/" + ui.getBestIconSize(Math.min(icon.height, icon.width)) + "add_to_playlist"
+                    source: "qrc:/images/" + Theme.getBestIconSize(Math.min(icon.height, icon.width)) + "add_to_playlist"
                     visible: model.url === "" ? false : true
 
                     onClicked: root.addToPlaylist()
@@ -151,11 +151,11 @@ Item {
 
             Item {
                 Layout.fillHeight: true
-                Layout.preferredWidth: 48 * ui.dpMultiplier
+                Layout.preferredWidth: 48 * ScreenValues.dpMultiplier
 
                 ImageButton {
                     anchors.fill: parent
-                    source: "qrc:/images/" + ui.getBestIconSize(Math.min(icon.height, icon.width)) + "download"
+                    source: "qrc:/images/" + Theme.getBestIconSize(Math.min(icon.height, icon.width)) + "download"
                     visible: model.url === "" ? false : true
 
                     onClicked: root.download()
@@ -166,7 +166,7 @@ Item {
 
     Rectangle {
         color: "#55bdc3c7"
-        height: 1 * ui.dpMultiplier
+        height: 1 * ScreenValues.dpMultiplier
         width: parent.width
     }
 }

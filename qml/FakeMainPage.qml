@@ -22,7 +22,7 @@ Item {
 
             ImageButton {
                 anchors.right: searchButton.left
-                source: "qrc:/images/" + ui.getBestIconSize(Math.min(icon.height, icon.width)) + "help"
+                source: "qrc:/images/" + Theme.getBestIconSize(Math.min(icon.height, icon.width)) + "help"
                 enabled: false
             }
 
@@ -30,7 +30,7 @@ Item {
                 id: searchButton
 
                 anchors.right: parent.right
-                source: "qrc:/images/" + ui.getBestIconSize(Math.min(icon.height, icon.width)) + "search"
+                source: "qrc:/images/" + Theme.getBestIconSize(Math.min(icon.height, icon.width)) + "search"
                 enabled: false
             }
         }
@@ -71,7 +71,7 @@ Item {
             id: songList
 
             width: parent.width
-            height: (64 * ui.dpMultiplier + 1 * ui.dpMultiplier) * count
+            height: (64 * ScreenValues.dpMultiplier + 1 * ScreenValues.dpMultiplier) * count
 
             model: fakeModel
             clip: true
@@ -95,7 +95,7 @@ Item {
         Rectangle {
             id: messageBackground
 
-            property int margin: ui.dpMultiplier * 8
+            property int margin: ScreenValues.dpMultiplier * 8
 
             width: parent.width
             height: Math.min(margin * 2 + (buttonDone.y + buttonDone.height) - (labelMessage.y + (labelMessage.height - labelMessage.paintedHeight)), columnMessage.height)
@@ -123,7 +123,7 @@ Item {
                 anchors.horizontalCenter: parent.horizontalCenter
                 Layout.fillWidth: true
 
-                font.pixelSize: ui.dpMultiplier * 18
+                font.pixelSize: ScreenValues.dpMultiplier * 18
                 color: Theme.mainTextColor
                 text: qsTr("This is your playlist. The music that you add will appear here. Also when you play music the media controls will appear at the bottom.")
                 renderType: Text.NativeRendering
@@ -141,8 +141,8 @@ Item {
 
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: qsTr("Done")
-                Layout.preferredHeight: 40 * ui.dpMultiplier
-                Layout.preferredWidth: 152 * ui.dpMultiplier
+                Layout.preferredHeight: 40 * ScreenValues.dpMultiplier
+                Layout.preferredWidth: 152 * ScreenValues.dpMultiplier
                 style: FlatButtonStyle { }
 
                 onClicked: {
@@ -179,7 +179,7 @@ Item {
     Rectangle {
         id: messageBackgroundDettached
 
-        property int margin: ui.dpMultiplier * 8
+        property int margin: ScreenValues.dpMultiplier * 8
 
         width: parent.width
         height: Math.min(margin * 2 + (buttonDoneDettached.y + buttonDoneDettached.height) - (labelMessageDettached.y + (labelMessageDettached.height - labelMessageDettached.paintedHeight)), columnMessageDettached.height)
@@ -207,7 +207,7 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             Layout.fillWidth: true
 
-            font.pixelSize: ui.dpMultiplier * 18
+            font.pixelSize: ScreenValues.dpMultiplier * 18
             color: Theme.mainTextColor
             text: qsTr("This is your playlist. The music that you add will appear here. Also when you play music the media controls will appear at the bottom.")
             renderType: Text.NativeRendering
@@ -225,8 +225,8 @@ Item {
 
             anchors.horizontalCenter: parent.horizontalCenter
             text: qsTr("Done")
-            Layout.preferredHeight: 40 * ui.dpMultiplier
-            Layout.preferredWidth: 152 * ui.dpMultiplier
+            Layout.preferredHeight: 40 * ScreenValues.dpMultiplier
+            Layout.preferredWidth: 152 * ScreenValues.dpMultiplier
             style: FlatButtonStyle { }
 
             onClicked: {

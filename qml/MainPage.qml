@@ -19,7 +19,7 @@ Page {
 
         ImageButton {
             anchors.right: searchButton.left
-            source: "qrc:/images/" + ui.getBestIconSize(Math.min(icon.height, icon.width)) + "help"
+            source: "qrc:/images/" + Theme.getBestIconSize(Math.min(icon.height, icon.width)) + "help"
 
             onClicked: stackView.push(aboutPage)
         }
@@ -28,7 +28,7 @@ Page {
             id: searchButton
 
             anchors.right: parent.right
-            source: "qrc:/images/" + ui.getBestIconSize(Math.min(icon.height, icon.width)) + "search"
+            source: "qrc:/images/" + Theme.getBestIconSize(Math.min(icon.height, icon.width)) + "search"
 
             onClicked: stackView.push(searchPage)
         }

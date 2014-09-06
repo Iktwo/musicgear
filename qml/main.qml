@@ -177,16 +177,7 @@ ApplicationWindow {
         audioElement: audio
     }
 
-    Connections {
-        target: ui
-        onDpiChanged: ScreenValues.dpi = ui.dpi
-        onDpMultiplierChanged: ScreenValues.dpMultiplier = ui.dpMultiplier
-    }
-
     Component.onCompleted: {
-        ScreenValues.dpi = ui.dpi
-        ScreenValues.dpMultiplier = ui.dpMultiplier
-
         Theme.titleBarColor = "#0066CC"
     }
 }

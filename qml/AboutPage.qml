@@ -13,7 +13,7 @@ Page {
 
         ImageButton {
             anchors.left: parent.left
-            source: "qrc:/images/" + ui.getBestIconSize(Math.min(icon.height, icon.width)) + "back"
+            source: "qrc:/images/" + Theme.getBestIconSize(Math.min(icon.height, icon.width)) + "back"
 
             onClicked: stackView.pop()
         }
@@ -28,7 +28,7 @@ Page {
 
             anchors {
                 fill: parent
-                margins: 4 * ui.dpMultiplier
+                margins: 4 * ScreenValues.dpMultiplier
             }
 
             flickableItem.interactive: true; focus: true
@@ -45,7 +45,7 @@ Page {
                     anchors.horizontalCenter: parent.horizontalCenter
                     width: parent.width
 
-                    spacing: 4 * ui.dpMultiplier
+                    spacing: 4 * ScreenValues.dpMultiplier
 
                     Label {
                         width: parent.width
@@ -57,7 +57,7 @@ Page {
                     }
 
                     Item {
-                        height: ui.dpMultiplier * 8
+                        height: ScreenValues.dpMultiplier * 8
                         width: 1
                     }
 
@@ -92,7 +92,7 @@ Page {
                     }
 
                     Item {
-                        height: ui.dpMultiplier * 8
+                        height: ScreenValues.dpMultiplier * 8
                         width: 1
                     }
 

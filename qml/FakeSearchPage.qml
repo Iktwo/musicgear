@@ -25,7 +25,7 @@ Page {
 
         ImageButton {
             anchors.left: parent.left
-            source: "qrc:/images/" + ui.getBestIconSize(Math.min(icon.height, icon.width)) + "back"
+            source: "qrc:/images/" + Theme.getBestIconSize(Math.min(icon.height, icon.width)) + "back"
 
             onClicked: stackView.pop()
         }
@@ -48,8 +48,8 @@ Page {
                 placeholderTextColor: "#ccdedede"
                 textColor: "#ddefefef"
                 background: Item {
-                    implicitWidth: ui.dpi * 1.3
-                    implicitHeight: ui.dpi * 0.20
+                    implicitWidth: ScreenValues.dpi * 1.3
+                    implicitHeight: ScreenValues.dpi * 0.20
 
                     Rectangle {
                         id: bottomBorder
@@ -61,7 +61,7 @@ Page {
                         }
 
                         color: "#ddefefef"
-                        height: 1 * ui.dpMultiplier
+                        height: 1 * ScreenValues.dpMultiplier
                     }
 
                     Rectangle {
@@ -71,7 +71,7 @@ Page {
                         }
 
                         color: "#ddefefef"
-                        width: 1 * ui.dpMultiplier
+                        width: 1 * ScreenValues.dpMultiplier
                         height: width * 5
                     }
 
@@ -82,7 +82,7 @@ Page {
                         }
 
                         color: "#ddefefef"
-                        width: 1 * ui.dpMultiplier
+                        width: 1 * ScreenValues.dpMultiplier
                         height: width * 5
                     }
                 }
@@ -91,7 +91,7 @@ Page {
 
         ImageButton {
             anchors.right: parent.right
-            source: "qrc:/images/" + ui.getBestIconSize(Math.min(icon.height, icon.width)) + "search"
+            source: "qrc:/images/" + Theme.getBestIconSize(Math.min(icon.height, icon.width)) + "search"
 
             onClicked: root.search()
         }
@@ -116,13 +116,13 @@ Page {
             Item {
                 id: busyFooterContainer
                 width: resultsList.width
-                height: musicStreamer.searching && resultsList.count > 0 ? 48 * ui.dpMultiplier : 0
+                height: musicStreamer.searching && resultsList.count > 0 ? 48 * ScreenValues.dpMultiplier : 0
 
                 Connections {
                     target: musicStreamer
                     onSearchingChanged: {
                         if (musicStreamer.searching && resultsList.count > 0)
-                            busyFooterContainer.height = 48 * ui.dpMultiplier
+                            busyFooterContainer.height = 48 * ScreenValues.dpMultiplier
                         else
                             busyFooterContainer.height = 0
                     }
@@ -132,7 +132,7 @@ Page {
                     target: resultsList
                     onCountChanged: {
                         if (musicStreamer.searching && resultsList.count > 0)
-                            busyFooterContainer.height = 48 * ui.dpMultiplier
+                            busyFooterContainer.height = 48 * ScreenValues.dpMultiplier
                         else
                             busyFooterContainer.height = 0
                     }
@@ -140,7 +140,7 @@ Page {
 
                 BusyIndicator {
                     anchors.centerIn: parent
-                    height: parent.height - 8 * ui.dpMultiplier
+                    height: parent.height - 8 * ScreenValues.dpMultiplier
                     width: height
                     running: parent.height > 0
                     style: BusyIndicatorStyle {
@@ -149,7 +149,7 @@ Page {
                             visible: control.running
                             height: control.height
                             width: control.width
-                            source: "qrc:/images/" + ui.getBestIconSize(height) + "busy_dark"
+                            source: "qrc:/images/" + Theme.getBestIconSize(height) + "busy_dark"
                             antialiasing: true
                             RotationAnimator {
                                 target: busyIndicator
@@ -237,7 +237,7 @@ Page {
                     indicator: Image {
                         id: busyIndicator
                         visible: control.running
-                        source: "qrc:/images/" + ui.getBestIconSize(height) + "busy"
+                        source: "qrc:/images/" + Theme.getBestIconSize(height) + "busy"
                         antialiasing: true
                         RotationAnimator {
                             target: busyIndicator
