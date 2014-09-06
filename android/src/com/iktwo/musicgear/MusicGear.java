@@ -5,10 +5,7 @@ import android.app.DownloadManager.Request;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Environment;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.Uri;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -18,7 +15,6 @@ public class MusicGear extends org.qtproject.qt5.android.bindings.QtActivity
 {
     private static final String TAG = "MusicGear";
     private static DownloadManager dm;
-    private static ConnectivityManager cm;
     private static MusicGear m_instance;
 
     public MusicGear()
@@ -72,21 +68,8 @@ public class MusicGear extends org.qtproject.qt5.android.bindings.QtActivity
         });
     }
 
-    public static int getDPI()
-    {
-        DisplayMetrics dm = m_instance.getResources().getDisplayMetrics();
-        return dm.densityDpi;
-    }
-
     public static boolean isTablet()
     {
         return m_instance.getResources().getBoolean(R.bool.isTablet);
-    }
-
-    public static String connectionType()
-    {
-        cm = (ConnectivityManager) m_instance.getSystemService(CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        return netInfo.getTypeName();
     }
 }
