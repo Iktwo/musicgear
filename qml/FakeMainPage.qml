@@ -144,6 +144,7 @@ Item {
                 text: qsTr("Done")
                 Layout.preferredHeight: 40 * ScreenValues.dpMultiplier
                 Layout.preferredWidth: 152 * ScreenValues.dpMultiplier
+                height: 40 * ScreenValues.dpMultiplier
                 style: FlatButtonStyle { }
 
                 onClicked: {
@@ -228,6 +229,7 @@ Item {
             text: qsTr("Done")
             Layout.preferredHeight: 40 * ScreenValues.dpMultiplier
             Layout.preferredWidth: 152 * ScreenValues.dpMultiplier
+            height: 40 * ScreenValues.dpMultiplier
             style: FlatButtonStyle { }
 
             onClicked: {
