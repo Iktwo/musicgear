@@ -18,7 +18,7 @@ Item {
         titleBar: TitleBar {
             id: titleBar
 
-            title: "MusicGear"
+            title: "Musicgear"
 
             ImageButton {
                 anchors.right: searchButton.left
