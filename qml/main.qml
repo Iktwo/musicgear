@@ -177,7 +177,14 @@ ApplicationWindow {
         audioElement: audio
     }
 
+    UpdateChecker {
+        id: updateChecker
+        onLatestVersionChanged: console.log("LATEST VERSION:", latestVersion)
+    }
+
     Component.onCompleted: {
         Theme.titleBarColor = "#0066CC"
+
+        updateChecker.checkForUpdateOnGooglePlay()
     }
 }
