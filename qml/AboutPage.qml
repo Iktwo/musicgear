@@ -52,6 +52,8 @@ Page {
                         horizontalAlignment: "AlignHCenter"
                         wrapMode: "Wrap"
                         text: "Musicgear by <a href=\"http://iktwo.com\">Iktwo</a>"
+                        color: Theme.mainTextColor
+                        linkColor: color
 
                         onLinkActivated: Qt.openUrlExternally(link)
                     }
@@ -63,30 +65,33 @@ Page {
 
                     Label {
                         width: parent.width
-                        textFormat: Text.RichText
                         horizontalAlignment: "AlignHCenter"
                         wrapMode: "Wrap"
                         text: qsTr("Stream your favorite music from <a href=\"http://goear.com\">Goear</a>")
+                        color: Theme.mainTextColor
+                        linkColor: color
 
                         onLinkActivated: Qt.openUrlExternally(link)
                     }
 
                     Label {
                         width: parent.width
-                        textFormat: Text.RichText
                         horizontalAlignment: "AlignHCenter"
                         wrapMode: "Wrap"
                         text: qsTr("Icons under <a href=\"http://creativecommons.org/licenses/by/3.0/legalcode\">CC 3.0</a> by <a href=\"http://www.freepik.com/\">Freepik</a>")
+                        color: Theme.mainTextColor
+                        linkColor: color
 
                         onLinkActivated: Qt.openUrlExternally(link)
                     }
 
                     Label {
                         width: parent.width
-                        textFormat: Text.RichText
                         horizontalAlignment: "AlignHCenter"
                         wrapMode: "Wrap"
                         text: qsTr("Built on") + " " + buildDate
+                        color: Theme.mainTextColor
+                        linkColor: color
 
                         onLinkActivated: Qt.openUrlExternally(link)
                     }
@@ -98,10 +103,11 @@ Page {
 
                     Label {
                         width: parent.width
-                        textFormat: Text.RichText
                         horizontalAlignment: "AlignHCenter"
                         wrapMode: "Wrap"
                         text: qsTr("Source code is available at <a href=\"http://github.com/iktwo/musicgear\">Github</a>")
+                        color: Theme.mainTextColor
+                        linkColor: color
 
                         onLinkActivated: Qt.openUrlExternally(link)
                     }
