@@ -65,7 +65,7 @@ Page {
 
             delegate: PlaylistDelegate {
                 onPressAndHold: {
-                    if (Q_OS === "ANDROID") {
+                    if (Qt.platform.os === "android") {
                         root.shareModel = model
                         menu.popup()
                     } else {
