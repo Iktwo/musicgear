@@ -81,6 +81,7 @@ void Downloader::downloadFinished(QNetworkReply *reply)
 
     if (reply->error() != QNetworkReply::NoError) {
         setDownloading(false);
+        emit searchEnded();
 
         qDebug() << Q_FUNC_INFO << " error downloading "
                  << reply->url().toString() << ":" << reply->errorString();
