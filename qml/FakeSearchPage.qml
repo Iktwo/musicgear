@@ -185,38 +185,8 @@ Page {
                             menu.popup()
                         }
                     }
-
-                    onAddToPlaylist: {
-                        for (var i = 0; i < playlist.count; i++) {
-                            if (playlist.get(i).url === model.url) {
-                                ui.showMessage("Song is already in playlist")
-                                return
-                            }
-                        }
-
-                        playlist.append({ "name" : model.name,
-                                            "group" : model.group,
-                                            "length" : model.length,
-                                            "comment" : model.comment,
-                                            "code" : model.code,
-                                            "url": model.url })
-                    }
-
-                    onDownload: {
-                        ui.showMessage("Downloading " + model.name)
-                        musicStreamer.downloadSong(model.name, model.url)
-                    }
                 }
 
-                onContentYChanged: {
-                    Qt.inputMethod.hide()
-                    if (contentHeight != 0) {
-                        // if (!musicStreamer.searching && ((contentY + height) / contentHeight) > 0.85)
-                        if (!musicStreamer.searching && atYEnd)
-                            musicStreamer.fetchMore()
-
-                    }
-                }
             }
         }
 
