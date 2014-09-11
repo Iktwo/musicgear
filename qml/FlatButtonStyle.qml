@@ -6,16 +6,20 @@ import com.iktwo.components 1.0
 ButtonStyle {
     id: buttonStyle
 
+    property color backgroundColor: Theme.titleBarColor
+    property color fontColor: Theme.titleBarTextColor
+
     background: Rectangle {
         height: buttonStyle.control.height
         width: buttonStyle.control.width
-        color: control.pressed ? Qt.darker(Theme.titleBarColor) : Theme.titleBarColor
+        color: control.pressed ? Qt.darker(backgroundColor) : backgroundColor
     }
 
     label: Label {
-        color: control.pressed ? Qt.darker(Theme.titleBarTextColor) : Theme.titleBarTextColor
+        elide: "ElideRight"
+        color: control.pressed ? Qt.darker(fontColor) : fontColor
         text: buttonStyle.control.text
-        font.pixelSize: buttonStyle.control.height * 0.5
+        font.pixelSize: 14 * ScreenValues.dpMultiplier
         renderType: "NativeRendering"
         verticalAlignment: "AlignVCenter"
         horizontalAlignment: "AlignHCenter"
