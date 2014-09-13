@@ -185,6 +185,13 @@ ApplicationWindow {
         onLatestVersionChanged: console.log("LATEST VERSION:", latestVersion)
     }
 
+    UpdateDialog {
+        id: updateDialog
+
+        title: qsTr("Update")
+        updateCheckerElement: updateChecker
+        text: qsTr("There's a new update available, you are running version %1 and you can update to version %2.").arg(updateChecker.version).arg(updateChecker.latestVersion)
+    }
     Component.onCompleted: {
         Theme.titleBarColor = "#0066CC"
 
