@@ -95,6 +95,11 @@ Rectangle {
             RowLayout {
                 anchors.fill: parent
 
+                Item {
+                    height: 1
+                    Layout.preferredWidth: 4 * ScreenValues.dpMultiplier
+                }
+
                 Label {
                     /// TODO: add animation where this flashes if paused
                     Layout.fillWidth: true
@@ -157,18 +162,21 @@ Rectangle {
                     renderType: Text.NativeRendering
                     font.pixelSize: 12 * ScreenValues.dpMultiplier
                 }
+
+                Item {
+                    height: 1
+                    Layout.preferredWidth: 4 * ScreenValues.dpMultiplier
+                }
             }
         }
 
         Label {
             id: songLabel
 
-            anchors {
-                left: parent.left
-                right: parent.right
-                margins: 1 * ScreenValues.dpMultiplier
-            }
+            anchors.horizontalCenter: parent.horizontalCenter
 
+            width: parent.width - (16 * ScreenValues.dpMultiplier)
+            Layout.preferredWidth: parent.width - (16 * ScreenValues.dpMultiplier)
             color: Style.TEXT_COLOR_DARK
             renderType: Text.NativeRendering
             font.pixelSize: 14 * ScreenValues.dpMultiplier
