@@ -16,7 +16,12 @@ Page {
             }
     }
 
-    onActivated: Qt.inputMethod.hide()
+    onActivated: {
+        if (!resultsList.count)
+            textEdit.focus = true
+        else
+            Qt.inputMethod.hide()
+    }
 
     titleBar: TitleBar {
         enabled: parent.enabled
