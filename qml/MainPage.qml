@@ -12,6 +12,8 @@ Page {
 
     focus: true
 
+    onActivated: Qt.inputMethod.hide()
+
     titleBar: TitleBar {
         id: titleBar
 
