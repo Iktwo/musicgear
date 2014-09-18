@@ -247,6 +247,14 @@ void Downloader::downloadFinished(QNetworkReply *reply)
 
             QString comment = songs.mid(termBegins, termEnds - termBegins);
 
+            searchTerm = ">";
+            closingTerm = "</";
+
+            termBegins = comment.indexOf(searchTerm) + searchTerm.length();
+            termEnds = comment.indexOf(closingTerm, termBegins);
+
+            comment = comment.mid(termBegins, termEnds - termBegins);
+
             // qDebug() << "ADDDING SONG:";
             // qDebug() << "TITLE:" << title << "GROUP:" << group << "LENGTH:" << length
             //          << "COMMENT:" << comment << "KBPS:" << kbps << "CODE:" << code
