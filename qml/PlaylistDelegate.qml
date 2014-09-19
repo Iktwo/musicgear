@@ -11,7 +11,7 @@ Item {
     signal requestedRemove()
     signal pressAndHold()
 
-    height: 64 * ScreenValues.dpMultiplier + 1 * ScreenValues.dpMultiplier
+    height: 64 * ScreenValues.dp + 1 * ScreenValues.dp
     width: parent.width
 
     MouseArea {
@@ -43,12 +43,12 @@ Item {
             id: songName
 
             anchors {
-                top: parent.top; topMargin: 12 * ScreenValues.dpMultiplier
-                right: removeButton.left; rightMargin: 8 * ScreenValues.dpMultiplier
-                left: parent.left; leftMargin: 8 * ScreenValues.dpMultiplier
+                top: parent.top; topMargin: 12 * ScreenValues.dp
+                right: removeButton.left; rightMargin: 8 * ScreenValues.dp
+                left: parent.left; leftMargin: 8 * ScreenValues.dp
             }
 
-            font.pixelSize: 18 * ScreenValues.dpMultiplier
+            font.pixelSize: 18 * ScreenValues.dp
 
             color: Style.TEXT_COLOR_DARK
             elide: Text.ElideRight
@@ -60,12 +60,12 @@ Item {
 
         Label {
             anchors {
-                bottom: parent.bottom; bottomMargin:  12 * ScreenValues.dpMultiplier
-                right: removeButton.left; rightMargin: 8 * ScreenValues.dpMultiplier
-                left: parent.left; leftMargin: 8 * ScreenValues.dpMultiplier
+                bottom: parent.bottom; bottomMargin:  12 * ScreenValues.dp
+                right: removeButton.left; rightMargin: 8 * ScreenValues.dp
+                left: parent.left; leftMargin: 8 * ScreenValues.dp
             }
 
-            font.pixelSize: 12 * ScreenValues.dpMultiplier
+            font.pixelSize: 12 * ScreenValues.dp
 
             elide: Text.ElideRight
             color: Style.TEXT_SECONDARY_COLOR_DARK
@@ -77,10 +77,10 @@ Item {
         ImageButton {
             id: removeButton
 
-            anchors { right: parent.right; rightMargin: 8 * ScreenValues.dpMultiplier }
+            anchors { right: parent.right; rightMargin: 8 * ScreenValues.dp }
 
             height: parent.height
-            width: 48 * ScreenValues.dpMultiplier
+            width: 48 * ScreenValues.dp
 
             source: "qrc:/images/" + Theme.getBestIconSize(Math.min(icon.height, icon.width)) + "remove"
 

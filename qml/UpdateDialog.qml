@@ -15,10 +15,10 @@ Dialog {
             }
 
             text: qsTr("Update")
-            height: 40 * ScreenValues.dpMultiplier
-            Layout.preferredHeight: 40 * ScreenValues.dpMultiplier
-            width: Math.min(root.width / 2.5, 220 * ScreenValues.dpMultiplier)
-            Layout.preferredWidth: Math.min(root.width / 2.5, 220 * ScreenValues.dpMultiplier)
+            height: 40 * ScreenValues.dp
+            Layout.preferredHeight: 40 * ScreenValues.dp
+            width: Math.min(root.width / 2.5, 220 * ScreenValues.dp)
+            Layout.preferredWidth: Math.min(root.width / 2.5, 220 * ScreenValues.dp)
             style: FlatButtonStyle { }
             onClicked: updateCheckerElement.openPackageOnGooglePlay()
         },
@@ -28,12 +28,11 @@ Dialog {
             }
 
             text: qsTr("Skip")
-            height: 40 * ScreenValues.dpMultiplier
-            Layout.preferredHeight: 40 * ScreenValues.dpMultiplier
-            width: Math.min(root.width / 2.5, 220 * ScreenValues.dpMultiplier)
-            Layout.preferredWidth: Math.min(root.width / 2.5, 220 * ScreenValues.dpMultiplier)
+            height: 40 * ScreenValues.dp
+            Layout.preferredHeight: 40 * ScreenValues.dp
+            width: Math.min(root.width / 2.5, 220 * ScreenValues.dp)
+            Layout.preferredWidth: Math.min(root.width / 2.5, 220 * ScreenValues.dp)
             style: FlatButtonStyle { backgroundColor: "#cccccc"; fontColor: "#757575" }
-
             onClicked: root.close()
         },
         Button {
@@ -42,10 +41,10 @@ Dialog {
             }
 
             text: qsTr("Skip until next")
-            height: 40 * ScreenValues.dpMultiplier
-            Layout.preferredHeight: 40 * ScreenValues.dpMultiplier
-            width: Math.min(root.width / 2.5, 220 * ScreenValues.dpMultiplier)
-            Layout.preferredWidth: Math.min(root.width / 2.5, 220 * ScreenValues.dpMultiplier)
+            height: 40 * ScreenValues.dp
+            Layout.preferredHeight: 40 * ScreenValues.dp
+            width: Math.min(root.width / 2.5, 220 * ScreenValues.dp)
+            Layout.preferredWidth: Math.min(root.width / 2.5, 220 * ScreenValues.dp)
             style: FlatButtonStyle { backgroundColor: "#cccccc"; fontColor: "#757575" }
 
             onClicked: {

@@ -116,7 +116,7 @@ Page {
                     width: 0.8 * (isScreenPortrait ? parent.width : parent.height)
 
                     color: "#808080"
-                    font.pixelSize: ScreenValues.dpMultiplier * 24
+                    font.pixelSize: ScreenValues.dp * 24
                     text: "Welcome to Musicgear"
                     wrapMode: Text.Wrap
                     horizontalAlignment: "AlignHCenter"
@@ -133,7 +133,7 @@ Page {
                     id: column
 
                     anchors {
-                        top: welcomeLabel.bottom; topMargin: ScreenValues.dpMultiplier * 16
+                        top: welcomeLabel.bottom; topMargin: ScreenValues.dp * 16
                         horizontalCenter: parent.horizontalCenter
                     }
 
@@ -189,13 +189,13 @@ Page {
                     id: swipeLabel
                     anchors {
                         horizontalCenter: imageIcon.horizontalCenter
-                        top: column.bottom; topMargin: ScreenValues.dpMultiplier * 16
+                        top: column.bottom; topMargin: ScreenValues.dp * 16
                     }
 
                     width: 0.8 * (isScreenPortrait ? parent.width : parent.height)
 
                     color: "#808080"
-                    font.pixelSize: ScreenValues.dpMultiplier * 12
+                    font.pixelSize: ScreenValues.dp * 12
                     text: "Swipe up to begin"
                     wrapMode: Text.Wrap
                     horizontalAlignment: "AlignHCenter"

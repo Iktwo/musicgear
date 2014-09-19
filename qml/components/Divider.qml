@@ -5,8 +5,8 @@ import "style.js" as Style
 Rectangle {
     property bool horizontal: true
 
-    width: horizontal ? parent.width : Math.max(1, 1 * ScreenValues.dpMultiplier)
-    height: horizontal ? Math.max(1, 1 * ScreenValues.dpMultiplier) : parent.height
+    width: horizontal ? parent.width : Math.max(1, 1 * ScreenValues.dp)
+    height: horizontal ? Math.max(1, 1 * ScreenValues.dp) : parent.height
 
     color: Style.DIVIDER_DARK
 }

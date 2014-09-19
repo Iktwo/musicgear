@@ -28,7 +28,7 @@ Page {
 
             anchors {
                 fill: parent
-                margins: 4 * ScreenValues.dpMultiplier
+                margins: 4 * ScreenValues.dp
             }
 
             flickableItem.interactive: true; focus: true
@@ -45,7 +45,7 @@ Page {
                     anchors.horizontalCenter: parent.horizontalCenter
                     width: parent.width
 
-                    spacing: 4 * ScreenValues.dpMultiplier
+                    spacing: 4 * ScreenValues.dp
 
                     Label {
                         width: parent.width
@@ -59,7 +59,7 @@ Page {
                     }
 
                     Item {
-                        height: ScreenValues.dpMultiplier * 8
+                        height: ScreenValues.dp * 8
                         width: 1
                     }
 
@@ -97,7 +97,7 @@ Page {
                     }
 
                     Item {
-                        height: ScreenValues.dpMultiplier * 8
+                        height: ScreenValues.dp * 8
                         width: 1
                     }
 

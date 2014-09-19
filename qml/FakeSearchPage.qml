@@ -61,7 +61,7 @@ Page {
                         }
 
                         color: "#ddefefef"
-                        height: 1 * ScreenValues.dpMultiplier
+                        height: 1 * ScreenValues.dp
                     }
 
                     Rectangle {
@@ -71,7 +71,7 @@ Page {
                         }
 
                         color: "#ddefefef"
-                        width: 1 * ScreenValues.dpMultiplier
+                        width: 1 * ScreenValues.dp
                         height: width * 5
                     }
 
@@ -82,7 +82,7 @@ Page {
                         }
 
                         color: "#ddefefef"
-                        width: 1 * ScreenValues.dpMultiplier
+                        width: 1 * ScreenValues.dp
                         height: width * 5
                     }
                 }
@@ -116,13 +116,13 @@ Page {
             Item {
                 id: busyFooterContainer
                 width: resultsList.width
-                height: musicStreamer.searching && resultsList.count > 0 ? 48 * ScreenValues.dpMultiplier : 0
+                height: musicStreamer.searching && resultsList.count > 0 ? 48 * ScreenValues.dp : 0
 
                 Connections {
                     target: musicStreamer
                     onSearchingChanged: {
                         if (musicStreamer.searching && resultsList.count > 0)
-                            busyFooterContainer.height = 48 * ScreenValues.dpMultiplier
+                            busyFooterContainer.height = 48 * ScreenValues.dp
                         else
                             busyFooterContainer.height = 0
                     }
@@ -132,7 +132,7 @@ Page {
                     target: resultsList
                     onCountChanged: {
                         if (musicStreamer.searching && resultsList.count > 0)
-                            busyFooterContainer.height = 48 * ScreenValues.dpMultiplier
+                            busyFooterContainer.height = 48 * ScreenValues.dp
                         else
                             busyFooterContainer.height = 0
                     }
@@ -140,7 +140,7 @@ Page {
 
                 BusyIndicator {
                     anchors.centerIn: parent
-                    height: parent.height - 8 * ScreenValues.dpMultiplier
+                    height: parent.height - 8 * ScreenValues.dp
                     width: height
                     running: parent.height > 0
                     style: BusyIndicatorStyle {

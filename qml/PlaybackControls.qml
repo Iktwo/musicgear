@@ -34,7 +34,7 @@ Rectangle {
     }
 
     color: "#fafafa"
-    height: column.height + 1 * ScreenValues.dpMultiplier
+    height: column.height + 1 * ScreenValues.dp
     width: parent.width
 
     ColumnLayout {
@@ -63,7 +63,7 @@ Rectangle {
                 background: Rectangle {
                     color: Style.PROGRESS_BAR_BACKGROUND_LIGHT
                     implicitWidth: control.width
-                    implicitHeight: 4 * ScreenValues.dpMultiplier
+                    implicitHeight: 4 * ScreenValues.dp
                 }
                 progress: Rectangle {
                     color: "#0066CC"
@@ -89,7 +89,7 @@ Rectangle {
             anchors {
                 left: parent.left
                 right: parent.right
-                margins: 1 * ScreenValues.dpMultiplier
+                margins: 1 * ScreenValues.dp
             }
 
             RowLayout {
@@ -97,7 +97,7 @@ Rectangle {
 
                 Item {
                     height: 1
-                    Layout.preferredWidth: 4 * ScreenValues.dpMultiplier
+                    Layout.preferredWidth: 4 * ScreenValues.dp
                 }
 
                 Label {
@@ -108,17 +108,17 @@ Rectangle {
                     verticalAlignment: "AlignVCenter"
                     text: formatMilliseconds(audioElement.position)
                     renderType: Text.NativeRendering
-                    font.pixelSize: 12 * ScreenValues.dpMultiplier
+                    font.pixelSize: 12 * ScreenValues.dp
                 }
 
                 RowLayout {
-                    spacing: 8 * ScreenValues.dpMultiplier
+                    spacing: 8 * ScreenValues.dp
 
                     ImageButton {
                         id: previousBtn
 
-                        height: 48 * ScreenValues.dpMultiplier
-                        width: 48 * ScreenValues.dpMultiplier
+                        height: 48 * ScreenValues.dp
+                        width: 48 * ScreenValues.dp
 
                         source: "qrc:/images/" + Theme.getBestIconSize(Math.min(icon.height, icon.width)) + "previous"
 
@@ -128,8 +128,8 @@ Rectangle {
                     ImageButton {
                         id: playBtn
 
-                        height: 48 * ScreenValues.dpMultiplier
-                        width: 48 * ScreenValues.dpMultiplier
+                        height: 48 * ScreenValues.dp
+                        width: 48 * ScreenValues.dp
 
                         source: "qrc:/images/" + Theme.getBestIconSize(Math.min(icon.height, icon.width)) + (audioElement.playbackState == Audio.PlayingState || (audioElement.status == Audio.Buffering || audioElement.status == Audio.Stalled) && audioElement.playbackState != Audio.PausedState ? "pause" : "play")
 
@@ -144,8 +144,8 @@ Rectangle {
                     ImageButton {
                         id: nextBtn
 
-                        height: 48 * ScreenValues.dpMultiplier
-                        width: 48 * ScreenValues.dpMultiplier
+                        height: 48 * ScreenValues.dp
+                        width: 48 * ScreenValues.dp
 
                         source: "qrc:/images/" + Theme.getBestIconSize(Math.min(icon.height, icon.width)) + "next"
 
@@ -160,12 +160,12 @@ Rectangle {
                     text: formatMilliseconds(audioElement.duration)
                     horizontalAlignment: "AlignRight"
                     renderType: Text.NativeRendering
-                    font.pixelSize: 12 * ScreenValues.dpMultiplier
+                    font.pixelSize: 12 * ScreenValues.dp
                 }
 
                 Item {
                     height: 1
-                    Layout.preferredWidth: 4 * ScreenValues.dpMultiplier
+                    Layout.preferredWidth: 4 * ScreenValues.dp
                 }
             }
         }
@@ -175,11 +175,11 @@ Rectangle {
 
             anchors.horizontalCenter: parent.horizontalCenter
 
-            width: parent.width - (16 * ScreenValues.dpMultiplier)
-            Layout.preferredWidth: parent.width - (16 * ScreenValues.dpMultiplier)
+            width: parent.width - (16 * ScreenValues.dp)
+            Layout.preferredWidth: parent.width - (16 * ScreenValues.dp)
             color: Style.TEXT_COLOR_DARK
             renderType: Text.NativeRendering
-            font.pixelSize: 14 * ScreenValues.dpMultiplier
+            font.pixelSize: 14 * ScreenValues.dp
         }
     }
 }

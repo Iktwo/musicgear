@@ -72,7 +72,7 @@ Item {
             id: songList
 
             width: parent.width
-            height: (64 * ScreenValues.dpMultiplier + 1 * ScreenValues.dpMultiplier) * count
+            height: (64 * ScreenValues.dp + 1 * ScreenValues.dp) * count
 
             model: fakeModel
             clip: true
@@ -96,7 +96,7 @@ Item {
         Rectangle {
             id: messageBackground
 
-            property int margin: ScreenValues.dpMultiplier * 8
+            property int margin: ScreenValues.dp * 8
 
             width: parent.width
             height: Math.min(margin * 2 + (buttonDone.y + buttonDone.height) - (labelMessage.y + (labelMessage.height - labelMessage.paintedHeight)), columnMessage.height)
@@ -124,7 +124,7 @@ Item {
                 anchors.horizontalCenter: parent.horizontalCenter
                 Layout.fillWidth: true
 
-                font.pixelSize: ScreenValues.dpMultiplier * 18
+                font.pixelSize: ScreenValues.dp * 18
                 color: Theme.mainTextColor
                 text: qsTr("This is your playlist. The music that you add will appear here. Also when you play music the media controls will appear at the bottom.")
                 renderType: Text.NativeRendering
@@ -142,9 +142,9 @@ Item {
 
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: qsTr("Done")
-                Layout.preferredHeight: 40 * ScreenValues.dpMultiplier
-                Layout.preferredWidth: 152 * ScreenValues.dpMultiplier
-                height: 40 * ScreenValues.dpMultiplier
+                Layout.preferredHeight: 40 * ScreenValues.dp
+                Layout.preferredWidth: 152 * ScreenValues.dp
+                height: 40 * ScreenValues.dp
                 style: FlatButtonStyle { }
 
                 onClicked: {
@@ -181,7 +181,7 @@ Item {
     Rectangle {
         id: messageBackgroundDettached
 
-        property int margin: ScreenValues.dpMultiplier * 8
+        property int margin: ScreenValues.dp * 8
 
         width: parent.width
         height: Math.min(margin * 2 + (buttonDoneDettached.y + buttonDoneDettached.height) - (labelMessageDettached.y + (labelMessageDettached.height - labelMessageDettached.paintedHeight)), columnMessageDettached.height)
@@ -209,7 +209,7 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             Layout.fillWidth: true
 
-            font.pixelSize: ScreenValues.dpMultiplier * 18
+            font.pixelSize: ScreenValues.dp * 18
             color: Theme.mainTextColor
             text: qsTr("This is your playlist. The music that you add will appear here. Also when you play music the media controls will appear at the bottom.")
             renderType: Text.NativeRendering
@@ -227,9 +227,9 @@ Item {
 
             anchors.horizontalCenter: parent.horizontalCenter
             text: qsTr("Done")
-            Layout.preferredHeight: 40 * ScreenValues.dpMultiplier
-            Layout.preferredWidth: 152 * ScreenValues.dpMultiplier
-            height: 40 * ScreenValues.dpMultiplier
+            Layout.preferredHeight: 40 * ScreenValues.dp
+            Layout.preferredWidth: 152 * ScreenValues.dp
+            height: 40 * ScreenValues.dp
             style: FlatButtonStyle { }
 
             onClicked: {

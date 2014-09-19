@@ -33,7 +33,7 @@ Item {
             return "#2ecc71"
     }
 
-    height: 84 * ScreenValues.dpMultiplier
+    height: 84 * ScreenValues.dp
     width: parent.width
 
     RowLayout {
@@ -44,18 +44,18 @@ Item {
 
             anchors {
                 verticalCenter: parent.verticalCenter
-                left: parent.left; leftMargin: 8 * ScreenValues.dpMultiplier
+                left: parent.left; leftMargin: 8 * ScreenValues.dp
             }
 
             antialiasing: true
-            Layout.preferredHeight: 68 * ScreenValues.dpMultiplier
-            Layout.preferredWidth: 68 * ScreenValues.dpMultiplier
+            Layout.preferredHeight: 68 * ScreenValues.dp
+            Layout.preferredWidth: 68 * ScreenValues.dp
             fillMode: Image.PreserveAspectCrop
             source: "http://www.goear.com/band/picture/" + model.picture
         }
 
         Item {
-            Layout.preferredWidth: 8 * ScreenValues.dpMultiplier
+            Layout.preferredWidth: 8 * ScreenValues.dp
             Layout.fillHeight: true
         }
 
@@ -66,7 +66,7 @@ Item {
             Label {
                 id: songName
 
-                font.pixelSize: 14 * ScreenValues.dpMultiplier
+                font.pixelSize: 14 * ScreenValues.dp
 
                 Layout.fillWidth: true
                 color: Style.TEXT_COLOR_DARK
@@ -81,7 +81,7 @@ Item {
 
                 Label {
                     Layout.fillWidth: true
-                    font.pixelSize: 12 * ScreenValues.dpMultiplier
+                    font.pixelSize: 12 * ScreenValues.dp
 
                     elide: Text.ElideRight
                     color: Style.TEXT_SECONDARY_COLOR_DARK
@@ -104,7 +104,7 @@ Item {
 
                         anchors.centerIn: parent
 
-                        font.pixelSize: 12 * ScreenValues.dpMultiplier
+                        font.pixelSize: 12 * ScreenValues.dp
 
                         color: Style.TEXT_COLOR_LIGHT
                         elide: Text.ElideRight
@@ -117,7 +117,7 @@ Item {
 
             Label {
                 Layout.fillWidth: true
-                font.pixelSize: 12 * ScreenValues.dpMultiplier
+                font.pixelSize: 12 * ScreenValues.dp
 
                 elide: Text.ElideRight
                 color: Style.TEXT_SECONDARY_COLOR_DARK
@@ -132,13 +132,13 @@ Item {
 
             anchors.right: parent.right
 
-            spacing: 4 * ScreenValues.dpMultiplier
-            Layout.preferredWidth: spacing + (48 * ScreenValues.dpMultiplier * 2)
+            spacing: 4 * ScreenValues.dp
+            Layout.preferredWidth: spacing + (48 * ScreenValues.dp * 2)
             Layout.fillHeight: true
 
             Item {
                 Layout.fillHeight: true
-                Layout.preferredWidth: 48 * ScreenValues.dpMultiplier
+                Layout.preferredWidth: 48 * ScreenValues.dp
 
                 ImageButton {
                     anchors.fill: parent
@@ -151,7 +151,7 @@ Item {
 
             Item {
                 Layout.fillHeight: true
-                Layout.preferredWidth: 48 * ScreenValues.dpMultiplier
+                Layout.preferredWidth: 48 * ScreenValues.dp
 
                 ImageButton {
                     anchors.fill: parent
@@ -166,7 +166,7 @@ Item {
 
     Rectangle {
         color: "#55bdc3c7"
-        height: 1 * ScreenValues.dpMultiplier
+        height: 1 * ScreenValues.dp
         width: parent.width
     }
 }

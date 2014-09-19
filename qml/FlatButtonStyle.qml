@@ -19,7 +19,7 @@ ButtonStyle {
         elide: "ElideRight"
         color: control.pressed ? Qt.darker(fontColor) : fontColor
         text: buttonStyle.control.text
-        font.pixelSize: 14 * ScreenValues.dpMultiplier
+        font.pixelSize: 14 * ScreenValues.dp
         renderType: "NativeRendering"
         verticalAlignment: "AlignVCenter"
         horizontalAlignment: "AlignHCenter"
