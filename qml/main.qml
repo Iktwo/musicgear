@@ -196,6 +196,15 @@ ApplicationWindow {
     Component.onCompleted: {
         Theme.titleBarColor = "#0066CC"
 
+        var now = new Date()
+        now.setHours(0)
+        now.setMinutes(0)
+        now.setSeconds(0)
+        now.setMilliseconds(0)
+
+        if (ApplicationInfo.timesLaunched > 15 && Math.floor((now.getTime() - ApplicationInfo.firstTimeLaunched.getTime()) / 86400000) >= 5 && Qt.platform.os === "android") {
+            /// TODO: ANDROID - Show dialog and ask to review
+        }
         updateChecker.checkForUpdateOnGooglePlay()
     }
 }
