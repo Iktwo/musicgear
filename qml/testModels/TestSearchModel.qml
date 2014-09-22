@@ -4,7 +4,7 @@ ListModel {
     id: testModel
     ListElement {
         name: "Labios Rotos"
-        group: "Zoe"
+        artist: "Zoe"
         picture: "zoe"
         length: "3:40"
         comment: "Bonita canción"
@@ -13,7 +13,7 @@ ListModel {
     }
     ListElement {
         name: "Yesterday"
-        group: "The Beatles"
+        artist: "The Beatles"
         picture: "beatles"
         length: "2:58"
         comment: "The yellow submarine!"
@@ -22,7 +22,7 @@ ListModel {
     }
     ListElement {
         name: "Another one bites the dust"
-        group: "Queen"
+        artist: "Queen"
         picture: "queen"
         length: "3:14"
         comment: "We are the champions my friend!"
@@ -31,7 +31,7 @@ ListModel {
     }
     ListElement {
         name: "hips don't lie"
-        group: "Shakira"
+        artist: "Shakira"
         picture: "shakira"
         length: "3:22"
         comment: "Waka waka!"
@@ -40,7 +40,7 @@ ListModel {
     }
     ListElement {
         name: "Hotel Room Service"
-        group: "Pitbull"
+        artist: "Pitbull"
         picture: "pitbull"
         length: "4:15"
         comment: "Ya tu sabe!"
@@ -49,7 +49,7 @@ ListModel {
     }
     ListElement {
         name: "Song Name"
-        group: "Fake"
+        artist: "Fake"
         picture: "crazystuff"
         length: "3:10"
         comment: "This a long useful comment"

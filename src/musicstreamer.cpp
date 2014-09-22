@@ -52,12 +52,12 @@ void MusicStreamer::search(const QString &term)
     mDownloader->search(searchTerm.replace(" ", "-"));
 }
 
-void MusicStreamer::songFound(const QString &title, const QString &group, const QString &length,
+void MusicStreamer::songFound(const QString &title, const QString &artist, const QString &length,
                               const QString &comment, int kbps, const QString &code,
                               const QString &picture, long long hits)
 {
     beginInsertRows(QModelIndex(), rowCount(), rowCount());
-    mSongs.append(new Song(title, group, length, comment, kbps, code, picture, hits, this));
+    mSongs.append(new Song(title, artist, length, comment, kbps, code, picture, hits, this));
     endInsertRows();
 
     emit songsChanged();
@@ -92,8 +92,8 @@ QVariant MusicStreamer::data(const QModelIndex & index, int role) const
     Song *song = qobject_cast<Song*>(mSongs[index.row()]);
     if (role == NameRole)
         return song->name();
-    else if (role == GroupRole)
-        return song->group();
+    else if (role == ArtistRole)
+        return song->artist();
     else if (role == LengthRole)
         return song->length();
     else if (role == CommentRole)
@@ -121,7 +121,7 @@ QHash<int, QByteArray> MusicStreamer::roleNames() const
 {
     QHash<int, QByteArray> roles;
     roles[NameRole] = "name";
-    roles[GroupRole] = "group";
+    roles[ArtistRole] = "artist";
     roles[LengthRole] = "length";
     roles[CommentRole] = "comment";
     roles[KbpsRole] = "kbps";

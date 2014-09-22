@@ -9,7 +9,7 @@ class Song : public QObject
 
     Q_PROPERTY(QString name READ name NOTIFY nameChanged)
 
-    Q_PROPERTY(QString group READ group NOTIFY groupChanged)
+    Q_PROPERTY(QString artist READ artist NOTIFY artistChanged)
     Q_PROPERTY(QString length READ length NOTIFY lengthChanged)
     Q_PROPERTY(QString comment READ comment NOTIFY commentChanged)
     Q_PROPERTY(QString code READ code NOTIFY codeChanged)
@@ -21,11 +21,11 @@ class Song : public QObject
 public:
     Song(QObject *parent = 0);
 
-    Song(const QString &name, const QString &group, const QString &length, const QString &comment,
+    Song(const QString &name, const QString &artist, const QString &length, const QString &comment,
          int kbps, const QString &code, const QString &picture, long long hits, QObject *parent = 0);
 
     QString name() const;
-    QString group() const;
+    QString artist() const;
     QString length() const;
     QString comment() const;
     int kbps() const;
@@ -33,7 +33,7 @@ public:
     QString url() const;
 
     void setName(const QString &name);
-    void setGroup(const QString &group);
+    void setArtist(const QString &artist);
     void setLength(const QString &length);
     void setComment(const QString &comment);
     void setCode(const QString &code);
@@ -48,7 +48,7 @@ public:
 
 signals:
     void nameChanged();
-    void groupChanged();
+    void artistChanged();
     void lengthChanged();
     void commentChanged();
     void codeChanged();
@@ -59,7 +59,7 @@ signals:
 
 private:
     QString m_name;
-    QString m_group;
+    QString m_artist;
     QString m_length;
     QString m_comment;
     int m_kbps;

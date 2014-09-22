@@ -17,7 +17,7 @@ class MusicStreamer : public QAbstractListModel
 public:
     enum DownloaderRoles {
         NameRole = Qt::UserRole + 1,
-        GroupRole,
+        ArtistRole,
         LengthRole,
         CommentRole,
         KbpsRole,
@@ -68,7 +68,7 @@ private:
     int fetched;
 
 private slots:
-    void songFound(const QString &title, const QString &group, const QString &length,
+    void songFound(const QString &title, const QString &artist, const QString &length,
                    const QString &comment, int kbps, const QString &code,
                    const QString &picture, long long hits);
     void decodedUrl(const QString &code, const QString &url);

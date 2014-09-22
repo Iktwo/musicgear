@@ -71,7 +71,7 @@ Item {
                 Layout.fillWidth: true
                 color: Style.TEXT_COLOR_DARK
                 elide: Text.ElideRight
-                text: model.name + " - <i>" + model.group + "</i>"
+                text: model.name + " - <i>" + model.artist + "</i>"
                 renderType: Text.NativeRendering
                 maximumLineCount: 1
             }

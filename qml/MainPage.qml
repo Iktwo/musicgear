@@ -77,7 +77,7 @@ Page {
 
                 onRequestedPlay: {
                     if (playlist.count >= index) {
-                        playbackControls.song = playlist.get(index).name + " - <i>" + playlist.get(index).group + "</i>"
+                        playbackControls.song = playlist.get(index).name + " - <i>" + playlist.get(index).artist + "</i>"
                         audioElement.source = model.url
                         audioElement.index = index
                         audioElement.play()
@@ -92,12 +92,12 @@ Page {
 
                         if (index < playlist.count - 1) {
                             /// Will copy next item data, no need to change index
-                            playbackControls.song = playlist.get(index + 1).name + " - <i>" + playlist.get(index + 1).group + "</i>"
+                            playbackControls.song = playlist.get(index + 1).name + " - <i>" + playlist.get(index + 1).artist + "</i>"
                             audioElement.source = playlist.get(index + 1).url
                             audioElement.play()
                         } else if (index - 1 >= 0) {
                             /// Will copy previous item data, update index to -1
-                            playbackControls.song = playlist.get(index - 1).name + " - <i>" + playlist.get(index - 1).group + "</i>"
+                            playbackControls.song = playlist.get(index - 1).name + " - <i>" + playlist.get(index - 1).artist + "</i>"
                             audioElement.source = playlist.get(index - 1).url
                             audioElement.index = audioElement.index - 1
                             audioElement.play()
@@ -117,6 +117,6 @@ Page {
     }
 
     //Component.onCompleted: playlist.append({"name" : "First Song",
-    //"group" : "First Group", "length" : "3:31", "comment" : "this is a test",
+    //"artist" : "First Group", "length" : "3:31", "comment" : "this is a test",
     //"code" : "XASDDASD", "url": "invalid", "picture": "crazytest"})
 }

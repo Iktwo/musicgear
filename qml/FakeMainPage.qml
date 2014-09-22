@@ -50,19 +50,19 @@ Item {
             id: fakeModel
 
             ListElement {
-                name: "Arrullo De Estrellas"; group: "Zoé"
+                name: "Arrullo De Estrellas"; artist: "Zoé"
                 length: "4:14"; comment: "Bonita canción que me hace pensar en ti.."
                 code: ""; url: "xxx"
             }
 
             ListElement {
-                name: "Goodbye Lovers and Friends"; group: "Franz Ferdinand"
+                name: "Goodbye Lovers and Friends"; artist: "Franz Ferdinand"
                 length: "4:34"; comment: "I love this song!"
                 code: ""; url: "xxx"
             }
 
             ListElement {
-                name: "Addicted to you"; group: "Avicii"
+                name: "Addicted to you"; artist: "Avicii"
                 length: "3:24"; comment: "I am addicted to you"
                 code: ""; url: "xxx"
             }

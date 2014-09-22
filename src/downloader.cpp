@@ -198,11 +198,11 @@ void Downloader::downloadFinished(QNetworkReply *reply)
             termEnds = songs.indexOf(closingTerm, termBegins);
 
             QString tmp = songs.mid(termBegins, termEnds - termBegins);
-            QString group = tmp.mid(0, tmp.indexOf(" -"));
-            QString title = tmp.mid(tmp.indexOf("- ") + 2);
+            QString artist = tmp.mid(0, tmp.indexOf(" -"));
+            QString title = tmp.mid(tmp.indexOf("- ") + 1);
 
-            if (group == "")
-                group = tmp;
+            if (artist == "")
+                artist = tmp;
 
             if (title == "")
                 title = tmp;
@@ -256,13 +256,13 @@ void Downloader::downloadFinished(QNetworkReply *reply)
             comment = comment.mid(termBegins, termEnds - termBegins);
 
             // qDebug() << "ADDDING SONG:";
-            // qDebug() << "TITLE:" << title << "GROUP:" << group << "LENGTH:" << length
+            // qDebug() << "TITLE:" << title << "ARTIST:" << artist << "LENGTH:" << length
             //          << "COMMENT:" << comment << "KBPS:" << kbps << "CODE:" << code
             //          << "PICTURE:" << picture;
 
             songs = songs.mid(songs.indexOf("<li class=\"group board_item item_pict sound_item\">"));
 
-            emit songFound(title, group, length, comment, kbps.toInt(), code, picture, hits.replace(",", "").toLong());
+            emit songFound(title, artist, length, comment, kbps.toInt(), code, picture, hits.replace(",", "").toLong());
             getDownloadLink(code);
         }
     }  else if (mimeType == "audio/mpeg") {

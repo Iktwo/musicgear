@@ -42,7 +42,7 @@ public slots:
     void downloadFinished(QNetworkReply *reply);
 
 signals:
-    void songFound(const QString &title, const QString &group, const QString &length,
+    void songFound(const QString &title, const QString &artist, const QString &length,
                    const QString &comment, int kbps, const QString &code,
                    const QString &picture, long long hits);
 

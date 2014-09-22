@@ -198,7 +198,7 @@ Page {
                         }
 
                         playlist.append({ "name" : model.name,
-                                            "group" : model.group,
+                                            "artist" : model.artist,
                                             "length" : model.length,
                                             "comment" : model.comment,
                                             "code" : model.code,

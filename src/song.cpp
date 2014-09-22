@@ -6,12 +6,12 @@ Song::Song(QObject *parent)
 {
 }
 
-Song::Song(const QString &name, const QString &group, const QString &length,
+Song::Song(const QString &name, const QString &artist, const QString &length,
            const QString &comment, int kbps, const QString &code, const QString &picture,
            long long hits, QObject *parent)
     : QObject(parent),
       m_name(name),
-      m_group(group),
+      m_artist(artist),
       m_length(length),
       m_comment(comment),
       m_kbps(kbps),
@@ -35,18 +35,18 @@ void Song::setName(const QString &name)
     emit nameChanged();
 }
 
-QString Song::group() const
+QString Song::artist() const
 {
-    return m_group;
+    return m_artist;
 }
 
-void Song::setGroup(const QString &group)
+void Song::setArtist(const QString &artist)
 {
-    if (m_group == group)
+    if (m_artist == artist)
         return;
 
-    m_group = group;
-    emit groupChanged();
+    m_artist = artist;
+    emit artistChanged();
 }
 
 QString Song::length() const
