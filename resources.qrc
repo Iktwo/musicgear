@@ -14,10 +14,8 @@
         <file>qml/Arrow.qml</file>
         <file>qml/FakeMainPage.qml</file>
         <file>qml/FakePlaybackControls.qml</file>
-        <file>qml/FlatButtonStyle.qml</file>
         <file>qml/FakeSearchPage.qml</file>
         <file>qml/testModels/TestSearchModel.qml</file>
-        <file>qml/UpdateDialog.qml</file>
     </qresource>
     <qresource prefix="/images">
         <file alias="search">resources/images/search.svg</file>
