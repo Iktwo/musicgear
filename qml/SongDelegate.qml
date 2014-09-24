@@ -36,6 +36,11 @@ Item {
     height: 84 * ScreenValues.dp
     width: parent.width
 
+    MouseArea {
+        anchors.fill: parent
+        onPressAndHold: root.pressAndHold()
+    }
+
     RowLayout {
         anchors.fill: parent
 
