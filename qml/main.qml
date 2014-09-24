@@ -196,8 +196,10 @@ ApplicationWindow {
     UpdateChecker {
         id: updateChecker
         onLatestVersionChanged: {
-            if (latestVersion > version && updateChecker.skippedVersion !== latestVersion)
+            if (latestVersion > version && updateChecker.skippedVersion !== latestVersion) {
+                Qt.inputMethod.hide()
                 updateDialog.open()
+            }
         }
     }
 
@@ -224,6 +226,7 @@ ApplicationWindow {
 
         if (font.status === FontLoader.Ready)
             Theme.fontFamily = font.name
+
         updateChecker.checkForUpdateOnGooglePlay()
     }
 }
