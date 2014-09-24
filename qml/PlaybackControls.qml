@@ -101,6 +101,8 @@ Rectangle {
                 }
 
                 Label {
+                    id: labelPosition
+
                     /// TODO: add animation where this flashes if paused
                     Layout.fillWidth: true
                     color: Style.TEXT_SECONDARY_COLOR_DARK
@@ -112,6 +114,15 @@ Rectangle {
                     font {
                         pixelSize: 12 * ScreenValues.dp
                         family: Theme.fontFamily
+                        bold: audioElement.playbackState === Audio.PausedState && audioElement.status !== Audio.Stalled
+                    }
+
+                    SequentialAnimation {
+                        running: audioElement.playbackState === Audio.PausedState && audioElement.status !== Audio.Stalled
+                        loops: Animation.Infinite
+                        alwaysRunToEnd: true
+                        ColorAnimation { target: labelPosition; properties: "color"; to: Theme.titleBarColor; duration: 750 }
+                        ColorAnimation { target: labelPosition; properties: "color"; to: Style.TEXT_SECONDARY_COLOR_DARK; duration: 750 }
                     }
                 }
 
@@ -135,6 +146,7 @@ Rectangle {
                         height: 48 * ScreenValues.dp
                         width: 48 * ScreenValues.dp
 
+                        /// TODO: verify this logic
                         source: "qrc:/images/" + Theme.getBestIconSize(Math.min(icon.height, icon.width)) + (audioElement.playbackState == Audio.PlayingState || (audioElement.status == Audio.Buffering || audioElement.status == Audio.Stalled) && audioElement.playbackState != Audio.PausedState ? "pause" : "play")
 
                         onClicked: {
