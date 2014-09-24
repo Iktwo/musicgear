@@ -58,11 +58,7 @@ void MusicStreamer::songFound(const QString &title, const QString &artist, const
                               const QString &comment, int kbps, const QString &code,
                               const QString &picture, long long hits)
 {
-    beginInsertRows(QModelIndex(), rowCount(), rowCount());
-    mSongs.append(new Song(title, artist, length, comment, kbps, code, picture, hits, this));
-    endInsertRows();
-
-    emit songsChanged();
+    mTempSongs.append(new Song(title, artist, length, comment, kbps, code, picture, hits, this));
 }
 
 QObjectList MusicStreamer::songs()
@@ -74,12 +70,15 @@ void MusicStreamer::decodedUrl(const QString &code, const QString &url)
 {
     //    qDebug() << Q_FUNC_INFO << " URL: " << url;
     int i = 0;
-    foreach (QObject *item, mSongs) {
+    foreach (QObject *item, mTempSongs) {
         Song *song = qobject_cast<Song *>(item);
         if (song->code() == code) {
             song->setUrl(url);
-            QModelIndex index = createIndex(i, 0);
-            dataChanged(index, index);
+            beginInsertRows(QModelIndex(), rowCount(), rowCount());
+            mSongs.append(song);
+            endInsertRows();
+            emit songsChanged();
+            mTempSongs.removeAt(i);
             break;
         }
         ++i;

@@ -68,6 +68,7 @@ protected:
 private:
     Downloader *mDownloader;
     QObjectList mSongs;
+    QObjectList mTempSongs;
     bool mSearching;
     bool mServerError;
     QString mLastSearchHasMoreResults;
