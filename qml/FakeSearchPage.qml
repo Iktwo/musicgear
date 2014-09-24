@@ -40,7 +40,10 @@ Page {
 
             inputMethodHints: Qt.ImhNoPredictiveText
             placeholderText: qsTr("Search songs and artists")
-            font.pointSize: 14
+            font {
+                pointSize: 14
+                family: Theme.fontFamily
+            }
 
             onAccepted: root.search()
 

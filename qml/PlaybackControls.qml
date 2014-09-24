@@ -108,7 +108,11 @@ Rectangle {
                     verticalAlignment: "AlignVCenter"
                     text: formatMilliseconds(audioElement.position)
                     renderType: Text.NativeRendering
-                    font.pixelSize: 12 * ScreenValues.dp
+
+                    font {
+                        pixelSize: 12 * ScreenValues.dp
+                        family: Theme.fontFamily
+                    }
                 }
 
                 RowLayout {
@@ -160,7 +164,11 @@ Rectangle {
                     text: formatMilliseconds(audioElement.duration)
                     horizontalAlignment: "AlignRight"
                     renderType: Text.NativeRendering
-                    font.pixelSize: 12 * ScreenValues.dp
+
+                    font {
+                        pixelSize: 12 * ScreenValues.dp
+                        family: Theme.fontFamily
+                    }
                 }
 
                 Item {
@@ -179,7 +187,11 @@ Rectangle {
             Layout.preferredWidth: parent.width - (16 * ScreenValues.dp)
             color: Style.TEXT_COLOR_DARK
             renderType: Text.NativeRendering
-            font.pixelSize: 14 * ScreenValues.dp
+
+            font {
+                pixelSize: 12 * ScreenValues.dp
+                family: Theme.fontFamily
+            }
         }
     }
 }

@@ -43,7 +43,11 @@ Page {
 
             inputMethodHints: Qt.ImhNoPredictiveText
             placeholderText: qsTr("Search songs and artists")
-            font.pixelSize: 14 * ScreenValues.dp
+
+            font {
+                pixelSize: 14 * ScreenValues.dp
+                family: Theme.fontFamily
+            }
 
             onAccepted: root.search()
 
@@ -277,8 +281,12 @@ Page {
             property string name: ""
 
             text: qsTr("Downloading") + "\n" + (name.length > 20 ? name.substring(0, 20) + "..." : name) + "\n" + Math.floor(progress * 100) + "%"
+            color: "white"
 
-            font.pointSize: 22
+            font {
+                pixelSize: 22 * ScreenValues.dp
+                family: Theme.fontFamily
+            }
 
             wrapMode: Text.Wrap
             horizontalAlignment: Text.AlignHCenter

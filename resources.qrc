@@ -129,4 +129,10 @@
         <file alias="settings">resources/images/drawable-xxxhdpi/settings.png</file>
         <file alias="add_to_playlist">resources/images/drawable-xxxhdpi/add_to_playlist.png</file>
     </qresource>
+    <qresource prefix="/fonts">
+        <file alias="Muli-Italic">resources/images/fonts/Muli-Italic.ttf</file>
+        <file alias="Muli-Light">resources/images/fonts/Muli-Light.ttf</file>
+        <file alias="Muli-LightItalic">resources/images/fonts/Muli-LightItalic.ttf</file>
+        <file alias="Muli-Regular">resources/images/fonts/Muli-Regular.ttf</file>
+    </qresource>
 </RCC>

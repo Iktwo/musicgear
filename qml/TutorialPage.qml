@@ -116,7 +116,10 @@ Page {
                     width: 0.8 * (isScreenPortrait ? parent.width : parent.height)
 
                     color: "#808080"
-                    font.pixelSize: ScreenValues.dp * 24
+                    font {
+                        pixelSize: 24 * ScreenValues.dp
+                        family: Theme.fontFamily
+                    }
                     text: "Welcome to Musicgear"
                     wrapMode: Text.Wrap
                     horizontalAlignment: "AlignHCenter"
@@ -195,7 +198,10 @@ Page {
                     width: 0.8 * (isScreenPortrait ? parent.width : parent.height)
 
                     color: "#808080"
-                    font.pixelSize: ScreenValues.dp * 12
+                    font {
+                        pixelSize: 12 * ScreenValues.dp
+                        family: Theme.fontFamily
+                    }
                     text: "Swipe up to begin"
                     wrapMode: Text.Wrap
                     horizontalAlignment: "AlignHCenter"

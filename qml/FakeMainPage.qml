@@ -124,7 +124,11 @@ Item {
                 anchors.horizontalCenter: parent.horizontalCenter
                 Layout.fillWidth: true
 
-                font.pixelSize: ScreenValues.dp * 18
+                font {
+                    pixelSize: 18 * ScreenValues.dp
+                    family: Theme.fontFamily
+                }
+
                 color: Theme.mainTextColor
                 text: qsTr("This is your playlist. The music that you add will appear here. Also when you play music the media controls will appear at the bottom.")
                 renderType: Text.NativeRendering
@@ -209,7 +213,11 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             Layout.fillWidth: true
 
-            font.pixelSize: ScreenValues.dp * 18
+            font {
+                pixelSize: 18 * ScreenValues.dp
+                family: Theme.fontFamily
+            }
+
             color: Theme.mainTextColor
             text: qsTr("This is your playlist. The music that you add will appear here. Also when you play music the media controls will appear at the bottom.")
             renderType: Text.NativeRendering

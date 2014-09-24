@@ -66,7 +66,10 @@ Item {
             Label {
                 id: songName
 
-                font.pixelSize: 14 * ScreenValues.dp
+                font {
+                    pixelSize: 14 * ScreenValues.dp
+                    family: Theme.fontFamily
+                }
 
                 Layout.fillWidth: true
                 color: Style.TEXT_COLOR_DARK
@@ -81,7 +84,11 @@ Item {
 
                 Label {
                     Layout.fillWidth: true
-                    font.pixelSize: 12 * ScreenValues.dp
+
+                    font {
+                        pixelSize: 12 * ScreenValues.dp
+                        family: Theme.fontFamily
+                    }
 
                     elide: Text.ElideRight
                     color: Style.TEXT_SECONDARY_COLOR_DARK
@@ -104,7 +111,10 @@ Item {
 
                         anchors.centerIn: parent
 
-                        font.pixelSize: 12 * ScreenValues.dp
+                        font {
+                            pixelSize: 12 * ScreenValues.dp
+                            family: Theme.fontFamily
+                        }
 
                         color: Style.TEXT_COLOR_LIGHT
                         elide: Text.ElideRight
@@ -117,7 +127,10 @@ Item {
 
             Label {
                 Layout.fillWidth: true
-                font.pixelSize: 12 * ScreenValues.dp
+                font {
+                    pixelSize: 12 * ScreenValues.dp
+                    family: Theme.fontFamily
+                }
 
                 elide: Text.ElideRight
                 color: Style.TEXT_SECONDARY_COLOR_DARK

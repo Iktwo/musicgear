@@ -55,6 +55,11 @@ Page {
                         color: Theme.mainTextColor
                         linkColor: color
 
+                        font {
+                            pixelSize: 16 * ScreenValues.dp
+                            family: Theme.fontFamily
+                        }
+
                         onLinkActivated: Qt.openUrlExternally(link)
                     }
 
@@ -71,6 +76,11 @@ Page {
                         color: Theme.mainTextColor
                         linkColor: color
 
+                        font {
+                            pixelSize: 16 * ScreenValues.dp
+                            family: Theme.fontFamily
+                        }
+
                         onLinkActivated: Qt.openUrlExternally(link)
                     }
 
@@ -82,6 +92,11 @@ Page {
                         color: Theme.mainTextColor
                         linkColor: color
 
+                        font {
+                            pixelSize: 16 * ScreenValues.dp
+                            family: Theme.fontFamily
+                        }
+
                         onLinkActivated: Qt.openUrlExternally(link)
                     }
 
@@ -92,6 +107,11 @@ Page {
                         text: qsTr("Built on") + " " + buildDate
                         color: Theme.mainTextColor
                         linkColor: color
+
+                        font {
+                            pixelSize: 16 * ScreenValues.dp
+                            family: Theme.fontFamily
+                        }
 
                         onLinkActivated: Qt.openUrlExternally(link)
                     }
@@ -108,6 +128,32 @@ Page {
                         text: qsTr("Source code is available at <a href=\"http://github.com/iktwo/musicgear\">Github</a>")
                         color: Theme.mainTextColor
                         linkColor: color
+
+                        font {
+                            pixelSize: 16 * ScreenValues.dp
+                            family: Theme.fontFamily
+                        }
+
+                        onLinkActivated: Qt.openUrlExternally(link)
+                    }
+
+                    Item {
+                        height: ScreenValues.dp * 8
+                        width: 1
+                    }
+
+                    Label {
+                        width: parent.width
+                        horizontalAlignment: "AlignHCenter"
+                        wrapMode: "Wrap"
+                        text: qsTr("Muli font by Vernon Adams <a href=\"http://scripts.sil.org/OFL\">SIL Open Font License, 1.1</a>")
+                        color: Theme.mainTextColor
+                        linkColor: color
+
+                        font {
+                            pixelSize: 16 * ScreenValues.dp
+                            family: Theme.fontFamily
+                        }
 
                         onLinkActivated: Qt.openUrlExternally(link)
                     }
