@@ -195,7 +195,10 @@ ApplicationWindow {
 
     UpdateChecker {
         id: updateChecker
-        onLatestVersionChanged: console.log("LATEST VERSION:", latestVersion)
+        onLatestVersionChanged: {
+            if (latestVersion > version && updateChecker.skippedVersion !== latestVersion)
+                updateDialog.open()
+        }
     }
 
     UpdateDialog {
