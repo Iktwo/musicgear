@@ -29,7 +29,7 @@ ApplicationWindow {
         else
             audio.index = 0
 
-        playbackControls.song = playlist.get(audio.index).name + " - <i>" + playlist.get(audio.index).artist + "</i>"
+        playbackControls.song = playlist.get(audio.index).name + " - <i>" + playlist.get(audio.index).comment + "</i>"
         audio.source = playlist.get(audio.index).url
         audio.play()
     }
@@ -40,7 +40,7 @@ ApplicationWindow {
         else
             audio.index = playlist.count - 1
 
-        playbackControls.song = playlist.get(audio.index).name + " - <i>" + playlist.get(audio.index).artist + "</i>"
+        playbackControls.song = playlist.get(audio.index).name + " - <i>" + playlist.get(audio.index).comment + "</i>"
         audio.source = playlist.get(audio.index).url
         audio.play()
     }
@@ -120,7 +120,7 @@ ApplicationWindow {
         onRowsInserted: {
             // If new item is first on list, play it
             if (count === 1) {
-                playbackControls.song = playlist.get(audio.index).name + " - <i>" + playlist.get(audio.index).artist + "</i>"
+                playbackControls.song = playlist.get(audio.index).name + " - <i>" + playlist.get(audio.index).comment + "</i>"
                 audio.source = playlist.get(audio.index).url
                 audio.play()
             } else if (audio.status == Audio.EndOfMedia) {

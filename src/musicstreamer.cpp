@@ -27,6 +27,8 @@ MusicStreamer::MusicStreamer(QObject *parent) :
     connect(mDownloader, SIGNAL(downloadingChanged()), SLOT(emitDownloadingChanged()));
     connect(mDownloader, SIGNAL(progressChanged(float, QString)), SIGNAL(progressChanged(float, QString)));
     connect(mDownloader, SIGNAL(serverError()), SIGNAL(serverError()));
+    connect(mDownloader, SIGNAL(activeConnectionsChanged()), SIGNAL(activeConnectionsChanged()));
+    connect(mDownloader, SIGNAL(noResults()), SIGNAL(noResults()));
 }
 
 void MusicStreamer::downloadSong(const QString &name, const QString &url)
@@ -132,6 +134,16 @@ QHash<int, QByteArray> MusicStreamer::roleNames() const
     return roles;
 }
 
+int MusicStreamer::activeConnections() const
+{
+    return mDownloader->activeConnections();
+}
+
+void MusicStreamer::setActiveConnections(int activeConnections)
+{
+    mDownloader->setActiveConnections(activeConnections);
+}
+
 void MusicStreamer::searchEnded()
 {
     setSearching(false);
@@ -172,7 +184,7 @@ void MusicStreamer::setSearching(bool searching)
 
 void MusicStreamer::lastSearchHasMoreResults(const QString &url)
 {
-    qDebug() << "more results: " << url;
+    // qDebug() << "more results: " << url;
     mLastSearchHasMoreResults = url;
 }
 
@@ -181,14 +193,12 @@ void MusicStreamer::lastSearchHasNoMoreResults()
     mLastSearchHasMoreResults.clear();
 }
 
-void MusicStreamer::fetchMore()
+void MusicStreamer::fetchMoreResulst()
 {
-    //    if (fetched < 3)
     if (!mLastSearchHasMoreResults.isEmpty() && !mSearching) {
         setSearching(true);
         mDownloader->download(mLastSearchHasMoreResults);
     }
-    //    fetched++;
 }
 
 void MusicStreamer::share(const QString &name, const QString &url)

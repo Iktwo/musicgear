@@ -9,15 +9,17 @@ Page {
     property var shareModel
 
     function search() {
-        if (!musicStreamer.searching)
+        if (!musicStreamer.searching) {
             if (textEdit.text.length > 0) {
+                labelNoResults.opacity = 0
                 musicStreamer.search(textEdit.text)
                 Qt.inputMethod.hide()
             }
+        }
     }
 
     onActivated: {
-        if (!resultsList.count)
+        if (!listResults.count)
             textEdit.focus = true
         else
             Qt.inputMethod.hide()
@@ -33,6 +35,7 @@ Page {
             onClicked: stackView.pop()
         }
 
+        /// TODO: add X button to clear this
         TextField {
             id: textEdit
 
@@ -122,28 +125,8 @@ Page {
             id: busyFooter
             Item {
                 id: busyFooterContainer
-                width: resultsList.width
-                height: musicStreamer.searching && resultsList.count > 0 ? 48 * ScreenValues.dp : 0
-
-                Connections {
-                    target: musicStreamer
-                    onSearchingChanged: {
-                        if (musicStreamer.searching && resultsList.count > 0)
-                            busyFooterContainer.height = 48 * ScreenValues.dp
-                        else
-                            busyFooterContainer.height = 0
-                    }
-                }
-
-                Connections {
-                    target: resultsList
-                    onCountChanged: {
-                        if (musicStreamer.searching && resultsList.count > 0)
-                            busyFooterContainer.height = 48 * ScreenValues.dp
-                        else
-                            busyFooterContainer.height = 0
-                    }
-                }
+                width: listResults.width
+                height: musicStreamer.activeConnections > 0 && listResults.count > 0 ? 48 * ScreenValues.dp : 0
 
                 BusyIndicator {
                     anchors.centerIn: parent
@@ -176,7 +159,7 @@ Page {
             flickableItem.interactive: true; focus: true
 
             ListView {
-                id: resultsList
+                id: listResults
 
                 anchors.fill: parent
 
@@ -216,13 +199,14 @@ Page {
                     }
                 }
 
+                /// TODO: consider adding a button on the bottom to fetch more if list doesn't cover whole page
+
                 onContentYChanged: {
                     Qt.inputMethod.hide()
                     if (contentHeight != 0) {
                         // if (!musicStreamer.searching && ((contentY + height) / contentHeight) > 0.85)
-                        if (!musicStreamer.searching && atYEnd)
-                            musicStreamer.fetchMore()
-
+                        if (musicStreamer.activeConnections === 0 && atYEnd)
+                            musicStreamer.fetchMoreResulst()
                     }
                 }
             }
@@ -237,7 +221,7 @@ Page {
             BusyIndicator {
                 id: busyIndicatorComponent
                 anchors.centerIn: parent
-                running: musicStreamer.searching && resultsList.count == 0
+                running: (musicStreamer.searching || musicStreamer.activeConnections > 0) && listResults.count == 0
                 height: (applicationWindow.height > applicationWindow.width ? applicationWindow.width : applicationWindow.height) * 0.4
                 width: height
 
@@ -327,6 +311,42 @@ Page {
                 progressLabel.progress = progress
                 progressLabel.name = name
             }
+
+            onNoResults: {
+                if (listResults.count === 0)
+                    labelNoResults.opacity = 1
+            }
         }
+    }
+
+    Label {
+        id: labelNoResults
+
+        anchors {
+            top: parent.top
+            left: parent.left
+            right: parent.right
+            bottom: parent.bottom
+            margins: 8 * ScreenValues.dp
+        }
+
+        color: Theme.mainTextColor
+
+        elide: "ElideRight"
+        wrapMode: "Wrap"
+
+        font {
+            pixelSize: 28 * ScreenValues.dp
+            family: Theme.fontFamily
+        }
+
+        horizontalAlignment: "AlignHCenter"
+        verticalAlignment: "AlignVCenter"
+
+        text: qsTr("No results")
+
+        opacity: 0
+
+        Behavior on opacity { NumberAnimation { } }
     }
 }

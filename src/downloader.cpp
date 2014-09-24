@@ -15,7 +15,8 @@ QString Downloader::DownloadUrl("http://www.goear.com/action/sound/get/");
 
 Downloader::Downloader(QObject *parent) :
     QObject(parent),
-    m_downloading(false)
+    m_downloading(false),
+    m_activeConnections(0)
 {
     m_netAccess = new QNetworkAccessManager(this);
     connect(m_netAccess, SIGNAL(finished(QNetworkReply*)), SLOT(downloadFinished(QNetworkReply*)));
@@ -60,6 +61,7 @@ void Downloader::download(const QString &urlString)
 
     request.setRawHeader("User-Agent", " Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:29.0) Gecko/20100101 Firefox/29.0");
     m_nreply = m_netAccess->get(request);
+    setActiveConnections(m_activeConnections + 1);
     connect(m_nreply, SIGNAL(downloadProgress(qint64, qint64)), this, SLOT(downloadProgressChanged(qint64, qint64)));
 }
 
@@ -71,6 +73,7 @@ void Downloader::search(const QString &term)
 
 void Downloader::downloadFinished(QNetworkReply *reply)
 {
+    setActiveConnections(m_activeConnections - 1);
     if (reply->url().toString().startsWith(COOKIE_CREATOR_URL)) {
         mCookies = m_netAccess->cookieJar()->cookiesForUrl(reply->url());
 
@@ -125,7 +128,10 @@ void Downloader::downloadFinished(QNetworkReply *reply)
     if (mimeType.contains("text/html")) {
         QString songs(reply->readAll());
 
-        int count = qMin(songs.count("listen/") / 2, 10);
+        int count = songs.count("listen/") / 3;
+
+        if (count == 0)
+            emit noResults();
 
         QString hasMore = "";
         QString searchTerm = "<ol class=\"pagination group\">";
@@ -171,6 +177,8 @@ void Downloader::downloadFinished(QNetworkReply *reply)
                           termEnds - termBegins);
 
         songs = decodeHtml(songs);
+
+        int addedSongs = 0;
 
         for (int i = 0; i < count; ++i) {
             searchTerm = "listen/";
@@ -260,11 +268,18 @@ void Downloader::downloadFinished(QNetworkReply *reply)
             //          << "COMMENT:" << comment << "KBPS:" << kbps << "CODE:" << code
             //          << "PICTURE:" << picture;
 
-            songs = songs.mid(songs.indexOf("<li class=\"group board_item item_pict sound_item\">"));
+            songs = songs.mid(songs.indexOf("<li class=\"total_comments hide\""));
 
-            emit songFound(title, artist, length, comment, kbps.toInt(), code, picture, hits.replace(",", "").toLong());
-            getDownloadLink(code);
+            if (kbps.toInt() > 1) {
+                emit songFound(title, artist, length, comment, kbps.toInt(), code, picture, hits.replace(",", "").toLong());
+                getDownloadLink(code);
+                addedSongs++;
+            }
         }
+
+        if (addedSongs == 0)
+            emit noResults();
+
     }  else if (mimeType == "audio/mpeg") {
         qDebug() << "Writing file";
         QString name(m_songsToDownload.value(reply->url().toString()).toString());
@@ -306,6 +321,20 @@ void Downloader::downloadFinished(QNetworkReply *reply)
         emit searchEnded();
 
     reply->deleteLater();
+}
+
+int Downloader::activeConnections() const
+{
+    return m_activeConnections;
+}
+
+void Downloader::setActiveConnections(int activeConnections)
+{
+    if (m_activeConnections == activeConnections)
+        return;
+
+    m_activeConnections = activeConnections;
+    emit activeConnectionsChanged();
 }
 
 QString Downloader::decodeHtml(const QString &html)

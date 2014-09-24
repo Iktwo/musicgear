@@ -24,6 +24,7 @@ class Downloader : public QObject
     Q_OBJECT
 
     Q_PROPERTY(bool downloading READ isDownloading NOTIFY downloadingChanged)
+    Q_PROPERTY(int activeConnections READ activeConnections NOTIFY activeConnectionsChanged)
 
 public:
     explicit Downloader(QObject *parent = 0);
@@ -33,6 +34,9 @@ public:
     static QString TargetDir;
 
     bool isDownloading() const;
+
+    int activeConnections() const;
+    void setActiveConnections(int activeConnections);
 
 public slots:
     void downloadSong(const QString &name, const QString &url);
@@ -54,6 +58,8 @@ signals:
     void searchHasNoMoreResults();
     void downloadingChanged();
     void progressChanged(float progress, const QString &name);
+    void activeConnectionsChanged();
+    void noResults();
 
 private:
     QNetworkAccessManager *m_netAccess;
@@ -62,6 +68,7 @@ private:
     QNetworkReply *m_nreply;
     bool m_downloading;
     QList<QNetworkCookie> mCookies;
+    int m_activeConnections;
 
     void setDownloading(bool downloading);
 

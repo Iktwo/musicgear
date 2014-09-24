@@ -48,10 +48,10 @@ Item {
             }
 
             antialiasing: true
-            Layout.preferredHeight: 68 * ScreenValues.dp
-            Layout.preferredWidth: 68 * ScreenValues.dp
+            Layout.preferredHeight: 0
+            Layout.preferredWidth: 0
             fillMode: Image.PreserveAspectCrop
-            source: "http://www.goear.com/band/picture/" + model.picture
+            source: ""
         }
 
         Item {
@@ -74,7 +74,7 @@ Item {
                 Layout.fillWidth: true
                 color: Style.TEXT_COLOR_DARK
                 elide: Text.ElideRight
-                text: model.name + " - <i>" + model.artist + "</i>"
+                text: model.name
                 renderType: Text.NativeRendering
                 maximumLineCount: 1
             }
@@ -96,6 +96,7 @@ Item {
                     width: parent.width
                     renderType: Text.NativeRendering
                     maximumLineCount: 1
+                    linkColor: Style.TEXT_SECONDARY_COLOR_DARK
                 }
 
                 Rectangle {

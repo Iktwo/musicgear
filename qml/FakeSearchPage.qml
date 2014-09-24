@@ -118,13 +118,13 @@ Page {
             id: busyFooter
             Item {
                 id: busyFooterContainer
-                width: resultsList.width
-                height: musicStreamer.searching && resultsList.count > 0 ? 48 * ScreenValues.dp : 0
+                width: listResults.width
+                height: musicStreamer.searching && listResults.count > 0 ? 48 * ScreenValues.dp : 0
 
                 Connections {
                     target: musicStreamer
                     onSearchingChanged: {
-                        if (musicStreamer.searching && resultsList.count > 0)
+                        if (musicStreamer.searching && listResults.count > 0)
                             busyFooterContainer.height = 48 * ScreenValues.dp
                         else
                             busyFooterContainer.height = 0
@@ -132,9 +132,9 @@ Page {
                 }
 
                 Connections {
-                    target: resultsList
+                    target: listResults
                     onCountChanged: {
-                        if (musicStreamer.searching && resultsList.count > 0)
+                        if (musicStreamer.searching && listResults.count > 0)
                             busyFooterContainer.height = 48 * ScreenValues.dp
                         else
                             busyFooterContainer.height = 0
@@ -172,7 +172,7 @@ Page {
             flickableItem.interactive: true; focus: true
 
             ListView {
-                id: resultsList
+                id: listResults
 
                 anchors.fill: parent
 
@@ -202,7 +202,7 @@ Page {
             BusyIndicator {
                 id: busyIndicatorComponent
                 anchors.centerIn: parent
-                running: musicStreamer.searching && resultsList.count == 0
+                running: musicStreamer.searching && listResults.count == 0
                 height: (applicationWindow.height > applicationWindow.width ? applicationWindow.width : applicationWindow.height) * 0.4
                 width: height
 

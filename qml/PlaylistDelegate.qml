@@ -48,11 +48,14 @@ Item {
                 left: parent.left; leftMargin: 8 * ScreenValues.dp
             }
 
-            font.pixelSize: 18 * ScreenValues.dp
+            font {
+                pixelSize: 18 * ScreenValues.dp
+                family: Theme.fontFamily
+            }
 
             color: Style.TEXT_COLOR_DARK
             elide: Text.ElideRight
-            text: model.name + " - <i>" + model.group + "</i>"
+            text: model.name
             width: parent.width
             renderType: Text.NativeRendering
             // TODO: add a dialog to show full name in case it's too long ???
@@ -65,7 +68,10 @@ Item {
                 left: parent.left; leftMargin: 8 * ScreenValues.dp
             }
 
-            font.pixelSize: 12 * ScreenValues.dp
+            font {
+                pixelSize: 12 * ScreenValues.dp
+                family: Theme.fontFamily
+            }
 
             elide: Text.ElideRight
             color: Style.TEXT_SECONDARY_COLOR_DARK

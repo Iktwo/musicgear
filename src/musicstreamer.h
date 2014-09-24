@@ -13,6 +13,7 @@ class MusicStreamer : public QAbstractListModel
     Q_PROPERTY(bool searching READ searching NOTIFY searchingChanged)
     //Q_PROPERTY(bool serverError READ serverError NOTIFY serverErrorChanged)
     Q_PROPERTY(bool downloading READ isDownloading NOTIFY downloadingChanged)
+    Q_PROPERTY(int activeConnections READ activeConnections NOTIFY activeConnectionsChanged)
 
 public:
     enum DownloaderRoles {
@@ -31,7 +32,7 @@ public:
 
     Q_INVOKABLE void downloadSong(const QString &name, const QString &url);
     Q_INVOKABLE void search(const QString &term);
-    Q_INVOKABLE void fetchMore();
+    Q_INVOKABLE void fetchMoreResulst();
     Q_INVOKABLE void share(const QString &name, const QString &url);
 
     QObjectList songs();
@@ -48,6 +49,9 @@ public:
 
     bool isDownloading() const;
 
+    int activeConnections() const;
+    void setActiveConnections(int activeConnections);
+
 signals:
     void songsChanged();
     void searchingChanged();
@@ -55,6 +59,8 @@ signals:
     void serverError();
     void downloadingChanged();
     void progressChanged(float progress, const QString &name);
+    void activeConnectionsChanged();
+    void noResults();
 
 protected:
     QHash<int, QByteArray> roleNames() const;
