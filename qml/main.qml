@@ -220,9 +220,9 @@ ApplicationWindow {
         now.setSeconds(0)
         now.setMilliseconds(0)
 
-        if (ApplicationInfo.timesLaunched > 15 && Math.floor((now.getTime() - ApplicationInfo.firstTimeLaunched.getTime()) / 86400000) >= 5 && Qt.platform.os === "android") {
+        // if (ApplicationInfo.timesLaunched > 15 && Math.floor((now.getTime() - ApplicationInfo.firstTimeLaunched.getTime()) / 86400000) >= 5 && Qt.platform.os === "android") {
             /// TODO: ANDROID - Show dialog and ask to review
-        }
+        // }
 
         if (font.status === FontLoader.Ready)
             Theme.fontFamily = font.name
