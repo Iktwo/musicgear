@@ -211,6 +211,12 @@ ApplicationWindow {
         text: qsTr("There's a new update available, you are running version %1 and you can update to version %2.").arg(updateChecker.version).arg(updateChecker.latestVersion)
     }
 
+    ReviewDialog {
+        id: reviewDialog
+
+        title: qsTr("Review")
+    }
+
     Component.onCompleted: {
         Theme.titleBarColor = "#0066CC"
 
