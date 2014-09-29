@@ -14,6 +14,7 @@ class MusicStreamer : public QAbstractListModel
     //Q_PROPERTY(bool serverError READ serverError NOTIFY serverErrorChanged)
     Q_PROPERTY(bool downloading READ isDownloading NOTIFY downloadingChanged)
     Q_PROPERTY(int activeConnections READ activeConnections NOTIFY activeConnectionsChanged)
+    Q_PROPERTY(bool skipImages READ skipImages WRITE setSkipImages NOTIFY skipImagesChanged)
 
 public:
     enum DownloaderRoles {
@@ -52,6 +53,9 @@ public:
     int activeConnections() const;
     void setActiveConnections(int activeConnections);
 
+    bool skipImages() const;
+    void setSkipImages(bool skipImages);
+
 signals:
     void songsChanged();
     void searchingChanged();
@@ -61,6 +65,7 @@ signals:
     void progressChanged(float progress, const QString &name);
     void activeConnectionsChanged();
     void noResults();
+    void skipImagesChanged();
 
 protected:
     QHash<int, QByteArray> roleNames() const;
@@ -73,6 +78,7 @@ private:
     bool mServerError;
     QString mLastSearchHasMoreResults;
     int fetched;
+    bool m_skipImages;
 
 private slots:
     void songFound(const QString &title, const QString &artist, const QString &length,

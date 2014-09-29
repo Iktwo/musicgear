@@ -29,6 +29,10 @@ MusicStreamer::MusicStreamer(QObject *parent) :
     connect(mDownloader, SIGNAL(serverError()), SIGNAL(serverError()));
     connect(mDownloader, SIGNAL(activeConnectionsChanged()), SIGNAL(activeConnectionsChanged()));
     connect(mDownloader, SIGNAL(noResults()), SIGNAL(noResults()));
+
+
+    QSettings settings;
+    m_skipImages = settings.value("skipImages", true).toBool();
 }
 
 void MusicStreamer::downloadSong(const QString &name, const QString &url)
@@ -131,6 +135,24 @@ QHash<int, QByteArray> MusicStreamer::roleNames() const
     roles[PictureRole] = "picture";
     roles[HitsRole] = "hits";
     return roles;
+}
+
+bool MusicStreamer::skipImages() const
+{
+    return m_skipImages;
+}
+
+void MusicStreamer::setSkipImages(bool skipImages)
+{
+    if (m_skipImages == skipImages)
+        return;
+
+    m_skipImages = skipImages;
+
+    QSettings settings;
+    settings.setValue("skipImages", m_skipImages);
+
+    emit skipImagesChanged();
 }
 
 int MusicStreamer::activeConnections() const
