@@ -85,6 +85,8 @@ ApplicationWindow {
         Keys.onBackPressed: {
             if (stackView.depth > 1)
                 stackView.pop()
+            else
+                event.accepted = false
         }
     }
 
