@@ -1,8 +1,8 @@
-import QtQuick 2.3
-import QtQuick.Controls 1.2
-import QtQuick.Controls.Styles 1.1
+import QtQuick 2.4
+import QtQuick.Controls 1.3
+import QtQuick.Controls.Styles 1.3
 import QtQuick.Layouts 1.1
-import QtMultimedia 5.1
+import QtMultimedia 5.2
 import com.iktwo.components 1.0
 import "components/style.js" as Style
 

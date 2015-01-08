@@ -1,6 +1,6 @@
-import QtQuick 2.3
-import QtQuick.Controls 1.2
-import QtQuick.Controls.Styles 1.1
+import QtQuick 2.4
+import QtQuick.Controls 1.3
+import QtQuick.Controls.Styles 1.3
 import QtQuick.Layouts 1.1
 import com.iktwo.components 1.0
 import "components" as ThisComponents
@@ -97,7 +97,7 @@ Item {
 
                     elide: Text.ElideRight
                     color: Style.TEXT_SECONDARY_COLOR_DARK
-                    text: model.length + (model.comment !== "" && model.length !== "" ? " - "  : "") + model.comment
+                    text: model.artist
                     width: parent.width
                     renderType: Text.NativeRendering
                     maximumLineCount: 1
@@ -124,9 +124,9 @@ Item {
 
                         color: Style.TEXT_COLOR_LIGHT
                         elide: Text.ElideRight
-                        text: model.kbps + "kbps " //+ model.hits
                         renderType: Text.NativeRendering
                         maximumLineCount: 1
+                        text: model.kbps + "kbps"
                     }
                 }
             }
@@ -140,9 +140,9 @@ Item {
 
                 elide: Text.ElideRight
                 color: Style.TEXT_SECONDARY_COLOR_DARK
-                text: "▶ " + model.hits
                 width: parent.width
                 renderType: Text.NativeRendering
+                text: model.length
             }
         }
 

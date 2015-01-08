@@ -97,7 +97,7 @@ void Downloader::downloadFinished(QNetworkReply *reply)
 
 
     // if (!reply->url().toString().startsWith("http://www.goear.com/action/sound/get/"))
-       // qDebug() << reply->url().toString() << "Downloaded";
+    // qDebug() << reply->url().toString() << "Downloaded";
 
     QVariant redir = reply->attribute(QNetworkRequest::RedirectionTargetAttribute);
 
@@ -199,31 +199,37 @@ void Downloader::downloadFinished(QNetworkReply *reply)
 
             songs = songs.mid(termEnds);
 
-            searchTerm = "\">";
-            closingTerm = "</a></h4>";
+            searchTerm = "<li class=\"title\"><h4><a title=";
+            closingTerm = "</a></h4></li>";
 
             termBegins = songs.indexOf(searchTerm) + searchTerm.length();
             termEnds = songs.indexOf(closingTerm, termBegins);
 
-            QString tmp = songs.mid(termBegins, termEnds - termBegins);
-            QString artist = tmp.mid(0, tmp.indexOf(" -"));
-            QString title = tmp.mid(tmp.indexOf("- ") + 1);
+            QString title = songs.mid(termBegins, termEnds - termBegins);
+            title = title.mid(title.indexOf(">") + 1).simplified();
 
-            if (artist == "")
-                artist = tmp;
+            songs = songs.mid(termEnds + closingTerm.length());
 
-            if (title == "")
-                title = tmp;
+            searchTerm = "<li class=\"band\"><";
+            closingTerm = "</a></li>";
 
+            termBegins = songs.indexOf(searchTerm) + searchTerm.length();
+            termEnds = songs.indexOf(closingTerm, termBegins);
 
-            searchTerm = "<li class=\"length\"";
+            QString artist = songs.mid(termBegins, termEnds - termBegins);
+            artist = artist.mid(artist.indexOf(">") + 1).simplified();
+
+            songs = songs.mid(termEnds + closingTerm.length());
+
+            searchTerm = ">";
             closingTerm = "</li>";
 
             termBegins = songs.indexOf(searchTerm) + searchTerm.length();
             termEnds = songs.indexOf(closingTerm, termBegins);
 
-            tmp = songs.mid(termBegins, termEnds - termBegins);
-            QString length = tmp.mid(tmp.indexOf(">") + 1);
+            QString length = songs.mid(termBegins, termEnds - termBegins);
+
+            songs = songs.mid(termEnds + closingTerm.length());
 
             searchTerm = "title=\"Kbps\">";
             closingTerm = "<abbr";
@@ -236,42 +242,17 @@ void Downloader::downloadFinished(QNetworkReply *reply)
 
             QString kbps = songs.mid(termBegins, termEnds - termBegins).remove("<abbr title=\"Kilobit por segundo\">").remove("kbps");
 
-            searchTerm = "title=\"Plays\">";
-            closingTerm = "</li>";
-
-            if (songs.indexOf(searchTerm) == -1)
-                searchTerm = "class=\"total_hits\" >";
-
-            termBegins = songs.indexOf(searchTerm) + searchTerm.length();
-            termEnds = songs.indexOf(closingTerm, termBegins);
-
-            QString hits = songs.mid(termBegins, termEnds - termBegins);
-
-            searchTerm = "<li class=\"description\">";
-            closingTerm = "</li>";
-
-            termBegins = songs.indexOf(searchTerm) + searchTerm.length();
-            termEnds = songs.indexOf(closingTerm, termBegins);
-
-            QString comment = songs.mid(termBegins, termEnds - termBegins);
-
             searchTerm = ">";
             closingTerm = "</";
 
-            termBegins = comment.indexOf(searchTerm) + searchTerm.length();
-            termEnds = comment.indexOf(closingTerm, termBegins);
-
-            comment = comment.mid(termBegins, termEnds - termBegins);
-
-            // qDebug() << "ADDDING SONG:";
-            // qDebug() << "TITLE:" << title << "ARTIST:" << artist << "LENGTH:" << length
-            //          << "COMMENT:" << comment << "KBPS:" << kbps << "CODE:" << code
-            //          << "PICTURE:" << picture;
+//            qDebug() << "ADDDING SONG:";
+//            qDebug() << "TITLE:" << title << "ARTIST:" << artist << "LENGTH:" << length
+//                     << "KBPS:" << kbps << "CODE:" << code << "PICTURE:" << picture;
 
             songs = songs.mid(songs.indexOf("<li class=\"total_comments hide\""));
 
             if (kbps.toInt() > 1) {
-                emit songFound(title, artist, length, comment, kbps.toInt(), code, picture, hits.replace(",", "").toLong());
+                emit songFound(title, artist, length, kbps.toInt(), code, picture);
                 getDownloadLink(code);
                 addedSongs++;
             }

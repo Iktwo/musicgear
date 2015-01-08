@@ -7,17 +7,14 @@ Song::Song(QObject *parent)
 }
 
 Song::Song(const QString &name, const QString &artist, const QString &length,
-           const QString &comment, int kbps, const QString &code, const QString &picture,
-           long long hits, QObject *parent)
+           int kbps, const QString &code, const QString &picture, QObject *parent)
     : QObject(parent),
       m_name(name),
       m_artist(artist),
       m_length(length),
-      m_comment(comment),
       m_kbps(kbps),
       m_code(code),
-      m_picture(picture),
-      m_hits(hits)
+      m_picture(picture)
 {
 }
 
@@ -61,20 +58,6 @@ void Song::setLength(const QString &length)
 
     m_length = length;
     emit lengthChanged();
-}
-
-QString Song::comment() const
-{
-    return m_comment;
-}
-
-void Song::setComment(const QString &comment)
-{
-    if (m_comment == comment)
-        return;
-
-    m_comment = comment;
-    emit commentChanged();
 }
 
 QString Song::code() const
@@ -131,18 +114,4 @@ void Song::setPicture(const QString &picture)
 
     m_picture = picture;
     emit pictureChanged();
-}
-
-long long Song::hits() const
-{
-    return m_hits;
-}
-
-void Song::setHits(long long hits)
-{
-    if (m_hits == hits)
-        return;
-
-    m_hits = hits;
-    emit hitsChanged();
 }

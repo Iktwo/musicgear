@@ -21,12 +21,10 @@ public:
         NameRole = Qt::UserRole + 1,
         ArtistRole,
         LengthRole,
-        CommentRole,
         KbpsRole,
         CodeRole,
         UrlRole,
-        PictureRole,
-        HitsRole
+        PictureRole
     };
 
     explicit MusicStreamer(QObject *parent = 0);
@@ -82,8 +80,8 @@ private:
 
 private slots:
     void songFound(const QString &title, const QString &artist, const QString &length,
-                   const QString &comment, int kbps, const QString &code,
-                   const QString &picture, long long hits);
+                   int kbps, const QString &code,
+                   const QString &picture);
     void decodedUrl(const QString &code, const QString &url);
     void searchEnded();
     void lastSearchHasMoreResults(const QString &url);

@@ -18,8 +18,8 @@ MusicStreamer::MusicStreamer(QObject *parent) :
 {
     mDownloader = new Downloader(this);
 
-    connect(mDownloader, SIGNAL(songFound(QString, QString, QString, QString, int, QString, QString, long long)),
-            SLOT(songFound(QString, QString, QString, QString, int, QString, QString, long long)));
+    connect(mDownloader, SIGNAL(songFound(QString, QString, QString, int, QString, QString)),
+            SLOT(songFound(QString, QString, QString, int, QString, QString)));
     connect(mDownloader, SIGNAL(searchEnded()), SLOT(searchEnded()));
     connect(mDownloader, SIGNAL(decodedUrl(QString,QString)), SLOT(decodedUrl(QString,QString)));
     connect(mDownloader, SIGNAL(searchHasMoreResults(QString)), SLOT(lastSearchHasMoreResults(QString)));
@@ -59,10 +59,9 @@ void MusicStreamer::search(const QString &term)
 }
 
 void MusicStreamer::songFound(const QString &title, const QString &artist, const QString &length,
-                              const QString &comment, int kbps, const QString &code,
-                              const QString &picture, long long hits)
+                              int kbps, const QString &code, const QString &picture)
 {
-    mTempSongs.append(new Song(title, artist, length, comment, kbps, code, picture, hits, this));
+    mTempSongs.append(new Song(title, artist, length, kbps, code, picture, this));
 }
 
 QObjectList MusicStreamer::songs()
@@ -101,8 +100,6 @@ QVariant MusicStreamer::data(const QModelIndex & index, int role) const
         return song->artist();
     else if (role == LengthRole)
         return song->length();
-    else if (role == CommentRole)
-        return song->comment();
     else if (role == KbpsRole)
         return song->kbps();
     else if (role == CodeRole)
@@ -111,8 +108,6 @@ QVariant MusicStreamer::data(const QModelIndex & index, int role) const
         return song->url();
     else if (role == PictureRole)
         return song->picture();
-    else if (role == HitsRole)
-        return song->hits();
     return QVariant();
 }
 
@@ -128,12 +123,10 @@ QHash<int, QByteArray> MusicStreamer::roleNames() const
     roles[NameRole] = "name";
     roles[ArtistRole] = "artist";
     roles[LengthRole] = "length";
-    roles[CommentRole] = "comment";
     roles[KbpsRole] = "kbps";
     roles[CodeRole] = "code";
     roles[UrlRole] = "url";
     roles[PictureRole] = "picture";
-    roles[HitsRole] = "hits";
     return roles;
 }
 

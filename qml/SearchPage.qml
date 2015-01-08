@@ -1,6 +1,6 @@
-import QtQuick 2.3
-import QtQuick.Controls 1.2
-import QtQuick.Controls.Styles 1.2
+import QtQuick 2.4
+import QtQuick.Controls 1.3
+import QtQuick.Controls.Styles 1.3
 import com.iktwo.components 1.0
 
 Page {
@@ -187,7 +187,6 @@ Page {
                         playlist.append({ "name" : model.name,
                                             "artist" : model.artist,
                                             "length" : model.length,
-                                            "comment" : model.comment,
                                             "code" : model.code,
                                             "url": model.url,
                                             "picture": model.picture })

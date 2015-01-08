@@ -1,6 +1,5 @@
-import QtQuick 2.3
-import com.iktwo.components 1.0
-import QtQuick.Controls 1.2
+import QtQuick 2.4
+import QtQuick.Controls 1.3
 import QtQuick.Layouts 1.1
 import com.iktwo.components 1.0
 
@@ -51,20 +50,17 @@ Item {
 
             ListElement {
                 name: "Arrullo De Estrellas"; artist: "Zoé"
-                length: "4:14"; comment: "Bonita canción que me hace pensar en ti.."
-                code: ""; url: "xxx"
+                length: "4:14"; code: ""; url: "xxx"
             }
 
             ListElement {
                 name: "Goodbye Lovers and Friends"; artist: "Franz Ferdinand"
-                length: "4:34"; comment: "I love this song!"
-                code: ""; url: "xxx"
+                length: "4:34"; code: ""; url: "xxx"
             }
 
             ListElement {
                 name: "Addicted to you"; artist: "Avicii"
-                length: "3:24"; comment: "I am addicted to you"
-                code: ""; url: "xxx"
+                length: "3:24"; code: ""; url: "xxx"
             }
         }
 

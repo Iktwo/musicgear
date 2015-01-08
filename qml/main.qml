@@ -1,7 +1,7 @@
-import QtQuick 2.3
-import QtQuick.Controls 1.2
+import QtQuick 2.4
+import QtQuick.Controls 1.3
 import QtQuick.Window 2.1
-import QtMultimedia 5.1
+import QtMultimedia 5.2
 import com.iktwo.components 1.0
 import "."
 
@@ -29,7 +29,7 @@ ApplicationWindow {
         else
             audio.index = 0
 
-        playbackControls.song = playlist.get(audio.index).name + " - <i>" + playlist.get(audio.index).comment + "</i>"
+        playbackControls.song = playlist.get(audio.index).name + " - <i>" + playlist.get(audio.index).artist + "</i>"
         audio.source = playlist.get(audio.index).url
         audio.play()
     }
@@ -40,7 +40,7 @@ ApplicationWindow {
         else
             audio.index = playlist.count - 1
 
-        playbackControls.song = playlist.get(audio.index).name + " - <i>" + playlist.get(audio.index).comment + "</i>"
+        playbackControls.song = playlist.get(audio.index).name + " - <i>" + playlist.get(audio.index).artist + "</i>"
         audio.source = playlist.get(audio.index).url
         audio.play()
     }
@@ -122,7 +122,7 @@ ApplicationWindow {
         onRowsInserted: {
             // If new item is first on list, play it
             if (count === 1) {
-                playbackControls.song = playlist.get(audio.index).name + " - <i>" + playlist.get(audio.index).comment + "</i>"
+                playbackControls.song = playlist.get(audio.index).name + " - <i>" + playlist.get(audio.index).artist + "</i>"
                 audio.source = playlist.get(audio.index).url
                 audio.play()
             } else if (audio.status == Audio.EndOfMedia) {

@@ -1,5 +1,5 @@
-import QtQuick 2.3
-import QtQuick.Controls 1.2
+import QtQuick 2.4
+import QtQuick.Controls 1.3
 import com.iktwo.components 1.0
 import "components" as ThisComponents
 import "components/style.js" as Style
@@ -75,7 +75,7 @@ Item {
 
             elide: Text.ElideRight
             color: Style.TEXT_SECONDARY_COLOR_DARK
-            text: model.length + " - <i>" + model.comment + "</i>"
+            text: model.length
             width: parent.width
             renderType: Text.NativeRendering
         }
