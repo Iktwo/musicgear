@@ -75,7 +75,7 @@ Item {
 
             elide: Text.ElideRight
             color: Style.TEXT_SECONDARY_COLOR_DARK
-            text: model.length
+            text: model.artist + " - " + model.length
             width: parent.width
             renderType: Text.NativeRendering
         }

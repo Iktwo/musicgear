@@ -9,15 +9,15 @@ ApplicationWindow {
     id: applicationWindow
 
     property var resolutions: [
-        {"height": 480, "width": 320, "name": "HVGA", "ratio": "3:2"},
-        {"height": 640, "width": 360, "name": "nHD", "ratio": "16:9"},
-        {"height": 640, "width": 480, "name": "VGA", "ratio": "4:3"},
-        {"height": 800, "width": 480, "name": "WVGA", "ratio": "5:3"},
-        {"height": 800, "width": 600, "name": "SVGA", "ratio": "4:3"},
-        {"height": 960, "width": 540, "name": "qHD", "ratio": "16:9"},
-        {"height": 1280, "width": 720, "name": "720p", "ratio": "16:9"},
-        {"height": 1280, "width": 800, "name": "WXGA", "ratio": "16:10"},
-        {"height": 1920, "width": 1080, "name": "1080p", "ratio": "16:9"}
+        {"height": 480, "width": 320, "name": "HVGA", "ratio": "3:2" },
+        {"height": 640, "width": 360, "name": "nHD", "ratio": "16:9" },
+        {"height": 640, "width": 480, "name": "VGA", "ratio": "4:3" },
+        {"height": 800, "width": 480, "name": "WVGA", "ratio": "5:3" },
+        {"height": 800, "width": 600, "name": "SVGA", "ratio": "4:3" },
+        {"height": 960, "width": 540, "name": "qHD", "ratio": "16:9" },
+        {"height": 1280, "width": 720, "name": "720p", "ratio": "16:9" },
+        {"height": 1280, "width": 800, "name": "WXGA", "ratio": "16:10" },
+        {"height": 1920, "width": 1080, "name": "1080p", "ratio": "16:9" }
     ]
 
     property int currentResolution: 3
@@ -49,13 +49,30 @@ ApplicationWindow {
     width: resolutions[currentResolution]["width"]
     height: resolutions[currentResolution]["height"]
 
-    FontLoader { source: "qrc:/fonts/Muli-Italic" }
-    FontLoader { source: "qrc:/fonts/Muli-Light" }
-    FontLoader { source: "qrc:/fonts/Muli-Light" }
+
+
+    FontLoader { source: "qrc:/fonts/Roboto-Black" }
+    FontLoader { source: "qrc:/fonts/Roboto-BlackItalic" }
+    FontLoader { source: "qrc:/fonts/Roboto-Bold" }
+    FontLoader { source: "qrc:/fonts/Roboto-BoldItalic" }
+    FontLoader { source: "qrc:/fonts/RobotoCondensed-Bold" }
+    FontLoader { source: "qrc:/fonts/RobotoCondensed-BoldItalic" }
+    FontLoader { source: "qrc:/fonts/RobotoCondensed-Italic" }
+    FontLoader { source: "qrc:/fonts/RobotoCondensed-Light" }
+    FontLoader { source: "qrc:/fonts/RobotoCondensed-LightItalic" }
+    FontLoader { source: "qrc:/fonts/RobotoCondensed-Regular" }
+    FontLoader { source: "qrc:/fonts/Roboto-Italic" }
+    FontLoader { source: "qrc:/fonts/Roboto-Light" }
+    FontLoader { source: "qrc:/fonts/Roboto-LightItalic" }
+    FontLoader { source: "qrc:/fonts/Roboto-Medium" }
+    FontLoader { source: "qrc:/fonts/Roboto-MediumItalic" }
+    FontLoader { source: "qrc:/fonts/Roboto-Thin" }
+    FontLoader { source: "qrc:/fonts/Roboto-ThinItalic" }
+
     FontLoader {
         id: font
 
-        source: "qrc:/fonts/Muli-Regular"
+        source: "qrc:/fonts/Roboto-Regular"
         onStatusChanged: {
             if (status === FontLoader.Ready)
                 Theme.fontFamily = font.name

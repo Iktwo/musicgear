@@ -50,3 +50,8 @@ TRANSLATIONS += translations/translation_es.ts
 lupdate_only{
     SOURCES = qml/*.qml
 }
+
+DISTFILES += \
+    android/res/values-v21/styles.xml \
+    android/res/values/screen_data.xml \
+    android/src/org/qtproject/qt5/android/bindings/QtActivity.java

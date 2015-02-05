@@ -113,6 +113,12 @@ void Downloader::downloadFinished(QNetworkReply *reply)
             return;
         }
 
+        if (url.toString() == ("http://www.goear.com/billboard/maintenance")) {
+            setDownloading(false);
+            emit searchEnded();
+        }
+
+
         qDebug() << reply->url().toString() << " was redirected to:" << url.toString();
 
         if (url.isRelative())
