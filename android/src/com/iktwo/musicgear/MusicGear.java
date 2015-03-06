@@ -8,6 +8,9 @@ import android.os.Environment;
 import android.net.Uri;
 import android.util.Log;
 import android.widget.Toast;
+import android.os.Bundle;
+import android.telephony.PhoneStateListener;
+import android.telephony.TelephonyManager;
 
 import com.iktwo.musicgear.R;
 
@@ -16,6 +19,10 @@ public class MusicGear extends org.qtproject.qt5.android.bindings.QtActivity
     private static final String TAG = "MusicGear";
     private static DownloadManager dm;
     private static MusicGear m_instance;
+    private boolean isPausedByCall = false;
+
+    private PhoneStateListener phoneStateListener;
+    private TelephonyManager telephonyManager;
 
     public MusicGear()
     {
@@ -27,7 +34,49 @@ public class MusicGear extends org.qtproject.qt5.android.bindings.QtActivity
     {
         super.onStart();
         m_instance = this;
+
+        /*
+        telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+                phoneStateListener = new PhoneStateListener() {
+                    @Override
+                    public void onCallStateChanged(int state, String incomingNumber) {
+                        // String stateString = "N/A";
+                        Log.v(TAG, "Starting CallStateChange");
+                        switch (state) {
+                            case TelephonyManager.CALL_STATE_OFFHOOK:
+                            case TelephonyManager.CALL_STATE_RINGING:
+                                if (m_mediaPlayer != null) {
+                                    pauseMedia();
+                                    isPausedByCall = true;
+                                }
+
+                                break;
+                            case TelephonyManager.CALL_STATE_IDLE:
+                                // Phone idle. Start playing.
+                                if (m_mediaPlayer != null) {
+                                    if (isPausedByCall) {
+                                        isPausedByCall = false;
+                                        playMedia();
+                                    }
+
+                                }
+                                break;
+                        }
+
+                    }
+                };
+
+                telephonyManager.listen(phoneStateListener, PhoneStateListener.LISTEN_CALL_STATE);
+        */
     }
+
+    @Override
+    public void onDestroy() {
+        if (phoneStateListener != null) {
+            telephonyManager.listen(phoneStateListener, PhoneStateListener.LISTEN_NONE);
+        }
+    }
+
 
     public static void download(String url, String name)
     {
