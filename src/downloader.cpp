@@ -205,7 +205,7 @@ void Downloader::downloadFinished(QNetworkReply *reply)
 
             songs = songs.mid(termEnds);
 
-            searchTerm = "<li class=\"title\"><h4><a title=";
+            searchTerm = "<li class=\"title\"><h4><a class=\"\" title=";
             closingTerm = "</a></h4></li>";
 
             termBegins = songs.indexOf(searchTerm) + searchTerm.length();

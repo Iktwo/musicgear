@@ -2,6 +2,7 @@ import QtQuick 2.4
 import QtQuick.Controls 1.3
 import QtQuick.Window 2.1
 import QtMultimedia 5.2
+import QtQuick.Window 2.2
 import com.iktwo.components 1.0
 import "."
 
@@ -48,8 +49,6 @@ ApplicationWindow {
     visible: true
     width: resolutions[currentResolution]["width"]
     height: resolutions[currentResolution]["height"]
-
-
 
     FontLoader { source: "qrc:/fonts/Roboto-Black" }
     FontLoader { source: "qrc:/fonts/Roboto-BlackItalic" }
@@ -238,6 +237,7 @@ ApplicationWindow {
 
     Component.onCompleted: {
         Theme.titleBarColor = "#0066CC"
+        Screen.orientationUpdateMask = 1
 
         var now = new Date()
         now.setHours(0)
@@ -245,8 +245,9 @@ ApplicationWindow {
         now.setSeconds(0)
         now.setMilliseconds(0)
 
+        console.log("ApplicationInfo.timesLaunched:", ApplicationInfo.timesLaunched)
         // if (ApplicationInfo.timesLaunched > 15 && Math.floor((now.getTime() - ApplicationInfo.firstTimeLaunched.getTime()) / 86400000) >= 5 && Qt.platform.os === "android") {
-            /// TODO: ANDROID - Show dialog and ask to review
+        /// TODO: ANDROID - Show dialog and ask to review
         // }
 
         if (font.status === FontLoader.Ready)

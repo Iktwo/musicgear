@@ -19,10 +19,12 @@ Page {
     }
 
     onActivated: {
-        if (!listResults.count)
+        if (!listResults.count) {
             textEdit.focus = true
-        else
+        } else {
             Qt.inputMethod.hide()
+            listResults.forceActiveFocus()
+        }
     }
 
     titleBar: TitleBar {
@@ -97,6 +99,11 @@ Page {
                     }
                 }
             }
+
+            Keys.onDownPressed: {
+                if (listResults.count)
+                    listResults.forceActiveFocus()
+            }
         }
 
         ImageButton {
@@ -166,8 +173,16 @@ Page {
                 model: musicStreamer
                 clip: true
 
+                highlight: Rectangle {
+                    height: 100
+                    width: 100
+                    color: "#343498db"
+                }
+
                 footer: busyFooter
                 delegate: SongDelegate {
+                    Keys.onEnterPressed: addToPlaylist()
+                    Keys.onReturnPressed: addToPlaylist()
 
                     onPressAndHold: {
                         if (Qt.platform.os === "android") {
