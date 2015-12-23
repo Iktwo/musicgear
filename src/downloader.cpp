@@ -53,6 +53,10 @@ void Downloader::download(const QString &urlString)
     QUrl url(urlString);
     QNetworkRequest request(url);
 
+    if (urlString.startsWith(DownloadUrl)) {
+        request.setRawHeader(QByteArray("referer"), QString(urlString).replace(Downloader::DownloadUrl, COOKIE_CREATOR_URL).toUtf8());
+    }
+
     if (!mCookies.isEmpty()) {
         QVariant var;
         var.setValue(mCookies);
@@ -74,6 +78,7 @@ void Downloader::search(const QString &term)
 void Downloader::downloadFinished(QNetworkReply *reply)
 {
     setActiveConnections(m_activeConnections - 1);
+
     if (reply->url().toString().startsWith(COOKIE_CREATOR_URL)) {
         mCookies = m_netAccess->cookieJar()->cookiesForUrl(reply->url());
 

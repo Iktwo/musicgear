@@ -54,12 +54,6 @@ ApplicationWindow {
     FontLoader { source: "qrc:/fonts/Roboto-BlackItalic" }
     FontLoader { source: "qrc:/fonts/Roboto-Bold" }
     FontLoader { source: "qrc:/fonts/Roboto-BoldItalic" }
-    FontLoader { source: "qrc:/fonts/RobotoCondensed-Bold" }
-    FontLoader { source: "qrc:/fonts/RobotoCondensed-BoldItalic" }
-    FontLoader { source: "qrc:/fonts/RobotoCondensed-Italic" }
-    FontLoader { source: "qrc:/fonts/RobotoCondensed-Light" }
-    FontLoader { source: "qrc:/fonts/RobotoCondensed-LightItalic" }
-    FontLoader { source: "qrc:/fonts/RobotoCondensed-Regular" }
     FontLoader { source: "qrc:/fonts/Roboto-Italic" }
     FontLoader { source: "qrc:/fonts/Roboto-Light" }
     FontLoader { source: "qrc:/fonts/Roboto-LightItalic" }

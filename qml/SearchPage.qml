@@ -143,11 +143,14 @@ Page {
                     style: BusyIndicatorStyle {
                         indicator: Image {
                             id: busyIndicator
+
                             visible: control.running
                             height: control.height
                             width: control.width
+
                             source: "qrc:/images/" + Theme.getBestIconSize(height) + "busy_dark"
                             antialiasing: true
+
                             RotationAnimator {
                                 target: busyIndicator
                                 running: control.running
@@ -172,12 +175,6 @@ Page {
 
                 model: musicStreamer
                 clip: true
-
-                highlight: Rectangle {
-                    height: 100
-                    width: 100
-                    color: "#343498db"
-                }
 
                 footer: busyFooter
                 delegate: SongDelegate {
